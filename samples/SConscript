@@ -1,0 +1,32 @@
+import os
+
+Import('env')
+
+samples_env = env.Clone()
+
+progs = []
+
+samples_env.Append(CPPDEFINES = {
+    'AJ_MAIN': None,
+    'AJ_NUM_REPLY_CONTEXTS': '8',
+    'AJ_MAX_OBJECT_LISTS': '9',
+    'ANNOUNCE_BASED_DISCOVERY': '1'
+})
+samples_env.Append(CPPPATH = './inc')
+
+samples_env.Append(LIBPATH = ['#dist/../../../../core/ajtcl/dist/lib', '#dist/../../../base_tcl/dist/lib', '#dist/lib'])
+samples_env.Prepend(LIBS = ['ajtcl', 'ajtcl_services', 'ajtcl_hae'])
+
+common_objs = samples_env.Object(samples_env.Glob('common/*.c'))
+
+vendor_objs = samples_env.Object(samples_env.Glob('VendorDefinedInterfaces/*.c'))
+
+build_samples = [
+    'Test'
+]
+
+for sample in build_samples:
+    objs = samples_env.Object(samples_env.Glob(sample + '/*.c'))
+    progs.append(samples_env.Program(sample + 'Sample', common_objs + vendor_objs + objs))
+
+samples_env.Install('#dist/bin', progs)
