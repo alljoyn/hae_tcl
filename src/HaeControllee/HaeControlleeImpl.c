@@ -20,6 +20,8 @@
 #include "HaeControlleeImpl.h"
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
+#include "../interfaces/operation/ClosedStatusImpl.h"
+#include "../interfaces/operation/RemoteControllabilityImpl.h"
 
 #define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
@@ -55,15 +57,23 @@ AJ_Status Hae_Init()
 {
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
+    intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
+    intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
-
+    intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
+    intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
+ 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
+    intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
+    intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
+    onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
+    onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
 
     onSetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnSetProperty;
     onSetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnSetProperty;
