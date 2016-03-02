@@ -20,6 +20,7 @@
 #include "HaeControlleeImpl.h"
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
+#include "../interfaces/operation/ClosedStatusImpl.h"
 
 #define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
@@ -55,21 +56,27 @@ AJ_Status Hae_Init()
 {
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
+    intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
-
+    intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
+ 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
+    intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
+    onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
 
     onSetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnSetProperty;
     onSetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnSetProperty;
+//    onSetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnSetProperty;
 
     emitPropertiesChanged[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[CHANNEL_INTERFACE] = ChannelInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceEmitPropertiesChanged;
 
     onMethodHandler[CHANNEL_INTERFACE] = ChannelInterfaceOnMethodHandler;
 
