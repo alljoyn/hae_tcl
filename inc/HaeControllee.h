@@ -70,7 +70,7 @@ typedef enum {
     REMOTE_CONTROLLABILITY_INTERFACE,
     REPEAT_MODE_INTERFACE,
     RESOURCE_SAVING_INTERFACE,
-    ROBOT_CLEANING_CYCLE_INTERFACE,
+    ROBOT_CLEANING_CYCLE_PHASE_INTERFACE,
     SOIL_LEVEL_INTERFACE,
     SPIN_SPEED_LEVEL_INTERFACE,
     TIMER_INTERFACE,
@@ -192,7 +192,7 @@ AJ_Status Hae_Start();
  * @param[in] authListenerCallback the auth listener callback function
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, size_t numOfSuites,
+AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, const size_t numOfSuites,
                              AJ_AuthListenerFunc authListenerCallback);
 
 /**

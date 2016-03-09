@@ -69,7 +69,7 @@ typedef struct {
      * @param[out] numReturnedRecords the number of returned channel info records
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetChannelList) (const char* objPath, uint16_t startingRecord, uint16_t numRecords,
+    AJ_Status (*OnGetChannelList) (const char* objPath, const uint16_t startingRecord, const uint16_t numRecords,
                                    ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords);
 } ChannelListener;
 
@@ -105,7 +105,7 @@ AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint
  * @param[in] totalNumberOfChannels total number of channels
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t* totalNumberOfChannels);
+AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t totalNumberOfChannels);
 
 /**
  * Emit ChannelListChanged signal of Channel interface
@@ -114,6 +114,6 @@ AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAtta
  * @param[in] sessionId session id
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, uint32_t sessionId);
+AJ_Status Hae_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
 
 #endif /* CHANNEL_H_ */

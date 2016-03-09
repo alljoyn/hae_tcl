@@ -548,7 +548,7 @@ AJ_Status AJSVC_PropertyStore_ReadAll(AJ_Message* msg, AJSVC_PropertyStoreCatego
 
                     count = sizeof(*deviceTypeDescription) / sizeof(DeviceTypeDescription);
 
-                    for( i=0 ; i < count ; i++ )
+                    for (i = 0; i < count; i++)
                     {
                         status = AJ_MarshalContainer(msg, &structure, AJ_ARG_STRUCT);
                         if (status != AJ_OK) {

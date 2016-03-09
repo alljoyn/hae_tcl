@@ -8,6 +8,8 @@ src_env['srcs'] = []
 
 src_env['srcs'] += Glob('HaeControllee/*.c')
 src_env['srcs'] += Glob('interfaces/operation/*.c')
+src_env['srcs'] += Glob('interfaces/environment/*.c')
+src_env['srcs'] += Glob('interfaces/input/*.c')
 
 # Compile sources and create libraries
 objs = src_env.StaticObject(src_env['srcs'])

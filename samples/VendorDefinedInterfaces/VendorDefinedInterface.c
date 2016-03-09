@@ -42,7 +42,7 @@ void VendorDefinedInterfaceRegistered(HaeInterfaceTypes intfType)
 AJ_Status CreateVendorDefinedInterface(void** properties)
 {
     *properties = malloc(sizeof(VendorDefinedProperties));
-    if(!(*properties)) {
+    if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
 
