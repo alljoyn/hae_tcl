@@ -36,10 +36,28 @@ typedef struct {
     bool mute;
 } AudioVolumeProperties;
 
+AJ_Status VolumeValidationCheck(const char* objPath, uint8_t volume)
+{
+    AJ_Status status = AJ_OK;
+    AudioVolumeProperties* props = NULL;
+
+
+    props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
+    if (props) {
+        if (volume > props->maxVolume) {
+            status = AJ_ERR_RANGE;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
 AJ_Status CreateAudioVolumeInterface(void** properties)
 {
     *properties = malloc(sizeof(AudioVolumeProperties));
-    if(!(*properties)) {
+    if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
 
@@ -205,7 +223,13 @@ AJ_Status AudioVolumeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* ob
             status = AJ_UnmarshalArgs(replyMsg, "y", &volume);
 
             if (status == AJ_OK) {
-                status = lt->OnSetVolume(objPath, &volume);
+                status = VolumeValidationCheck(objPath, volume);
+
+                if (status != AJ_OK) {
+                    return status;
+                }
+
+                status = lt->OnSetVolume(objPath, volume);
 
                 if (status == AJ_OK) {
                     if (props->volume != volume) {
@@ -227,7 +251,7 @@ AJ_Status AudioVolumeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* ob
             status = AJ_UnmarshalArgs(replyMsg, "b", &mute);
 
             if (status == AJ_OK) {
-                status = lt->OnSetMute(objPath, &mute);
+                status = lt->OnSetMute(objPath, mute);
 
                 if (status == AJ_OK) {
                     if (props->mute != mute) {
@@ -264,7 +288,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t* volume)
+AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t volume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -273,14 +297,16 @@ AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, con
         return AJ_ERR_INVALID;
     }
 
-    if (!volume) {
-        return AJ_ERR_INVALID;
+    status = VolumeValidationCheck(objPath, volume);
+
+    if (status != AJ_OK) {
+        return status;
     }
 
     props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
     if (props) {
-        if (props->volume != *volume) {
-            props->volume = *volume;
+        if (props->volume != volume) {
+            props->volume = volume;
 
             status = EmitPropChanged(busAttachment, objPath, "Volume", "y", &(props->volume));
         }
@@ -310,7 +336,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* max
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t* maxVolume)
+AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t maxVolume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -319,13 +345,9 @@ AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, 
         return AJ_ERR_INVALID;
     }
 
-    if (!maxVolume) {
-        return AJ_ERR_INVALID;
-    }
-
     props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
     if (props) {
-        props->maxVolume = *maxVolume;
+        props->maxVolume = maxVolume;
 
         status = EmitPropChanged(busAttachment, objPath, "MaxVolume", "y", &(props->maxVolume));
     } else {
@@ -354,7 +376,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute)
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, bool* mute)
+AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, bool mute)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -363,13 +385,9 @@ AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const
         return AJ_ERR_INVALID;
     }
 
-    if (!mute) {
-        return AJ_ERR_INVALID;
-    }
-
     props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
     if (props) {
-        props->mute = *mute;
+        props->mute = mute;
 
         status = EmitPropChanged(busAttachment, objPath, "Mute", "b", &(props->mute));
     } else {

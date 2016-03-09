@@ -40,7 +40,7 @@ typedef struct {
 AJ_Status CreateChannelInterface(void** properties)
 {
     *properties = malloc(sizeof(ChannelProperties));
-    if(!(*properties)) {
+    if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
 
@@ -98,7 +98,7 @@ static AJ_Status EmitPropChanged(AJ_BusAttachment* busAttachment, const char* ob
 AJ_Status ChannelInterfaceEmitPropertiesChanged(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex)
 {
     AJ_Status status = AJ_OK;
-	ChannelProperties* props = NULL;
+    ChannelProperties* props = NULL;
 
     if (!properties) {
         return AJ_ERR_INVALID;
@@ -361,7 +361,7 @@ AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t* totalNumberOfChannels)
+AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t totalNumberOfChannels)
 {
     AJ_Status status = AJ_OK;
     ChannelProperties* props = NULL;
@@ -370,13 +370,9 @@ AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAtta
         return AJ_ERR_INVALID;
     }
 
-    if (!totalNumberOfChannels) {
-        return AJ_ERR_INVALID;
-    }
-
     props = (ChannelProperties*)GetProperties(objPath, CHANNEL_INTERFACE);
     if (props) {
-        props->totalNumberOfChannels = *totalNumberOfChannels;
+        props->totalNumberOfChannels = totalNumberOfChannels;
 
         status = EmitPropChanged(busAttachment, objPath, "TotalNumberOfChannels", "q", &(props->totalNumberOfChannels));
     } else {
