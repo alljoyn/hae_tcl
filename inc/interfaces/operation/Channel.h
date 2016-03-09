@@ -105,7 +105,7 @@ AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint
  * @param[in] totalNumberOfChannels total number of channels
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t* totalNumberOfChannels);
+AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t totalNumberOfChannels);
 
 /**
  * Emit ChannelListChanged signal of Channel interface

@@ -17,106 +17,91 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef AUDIOVOLUME_H_
-#define AUDIOVOLUME_H_
+#ifndef CURRENTTEMPERATURE_H_
+#define CURRENTTEMPERATURE_H_
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
 
 /**
- * AudioVolume interface listener
+ * CurrentTemperature interface listener
  */
 typedef struct {
     /**
-     * Handler for getting Volume property
+     * Handler for getting CurrentValue property
      * @param[in] objPath object path
-     * @param[out] volume volume
+     * @param[out] currentValue the current value
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetVolume) (const char* objPath, uint8_t* volume);
+    AJ_Status (*OnGetCurrentValue) (const char* objPath, double* currentValue);
 
     /**
-     * Handler for setting Volume property
+     * Handler for getting Precision property
      * @param[in] objPath object path
-     * @param[in] volume volume
+     * @param[out] precision the precision
      * @return AJ_OK on success
      */
-    AJ_Status (*OnSetVolume) (const char* objPath, uint8_t volume);
+    AJ_Status (*OnGetPrecision) (const char* objPath, double* precision);
 
     /**
-     * Handler for getting MaxVolume property
+     * Handler for getting UpdateMinTime property
      * @param[in] objPath object path
-     * @param[out] maxVolume the maximum volume
+     * @param[out] updateMinTime the update minimum time
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetMaxVolume) (const char* objPath, uint8_t* maxVolume);
+    AJ_Status (*OnGetUpdateMinTime) (const char* objPath, uint16_t* updateMinTime);
 
-    /**
-     * Handler for getting Mute property
-     * @param[in] objPath object path
-     * @param[out] mute mute
-     * @return AJ_OK on success
-     */
-    AJ_Status (*OnGetMute) (const char* objPath, bool* mute);
-
-    /**
-     * Handler for setting Mute property
-     * @param[in] objPath object path
-     * @param[in] mute mute
-     * @return AJ_OK on success
-     */
-    AJ_Status (*OnSetMute) (const char* objPath, bool mute);
-} AudioVolumeListener;
+} CurrentTemperatureListener;
 
 /**
- * Get volume of AudioVolume interface
+ * Get the current value of CurrentTemperature interface
  * @param[in] objPath the object path including the interface
- * @param[out] volume volume
+ * @param[out] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume);
+AJ_Status Hae_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, double* currentValue);
 
 /**
- * Set volume of AudioVolume interface
+ * Set the current value of CurrentTemperature interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] volume volume
+ * @param[in] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t volume);
+AJ_Status Hae_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, double currentValue);
 
 /**
- * Get the maximum volume of AudioVolume interface
+ * Get the precision of CurrentTemperature interface
  * @param[in] objPath the object path including the interface
- * @param[out] maxVolume the maximum volume
+ * @param[out] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume);
+AJ_Status Hae_CurrentTemperatureInterfaceGetPrecision(const char* objPath, double* precision);
 
 /**
- * Set the maximum volume of AudioVolume interface
+ * Set the precision of CurrentTemperature interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] maxVolume the maximum volume
+ * @param[in] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t maxVolume);
+AJ_Status Hae_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, double precision);
 
 /**
- * Get mute of AudioVolume interface
+ * Get the update minimum time of CurrentTemperature interface
  * @param[in] objPath the object path including the interface
- * @param[out] mute mute
+ * @param[out] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute);
+AJ_Status Hae_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
 
 /**
- * Set mute of AudioVolume interface
+ * Set the update minimum time of CurrentTemperature interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] mute mute
+ * @param[in] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, bool mute);
+AJ_Status Hae_CurrentTemperatureInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t updateMinTime);
 
-#endif /* AUDIOVOLUME_H_ */
+#endif /* CURRENTTEMPERATURE_H_ */

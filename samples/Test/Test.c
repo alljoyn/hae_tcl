@@ -406,9 +406,9 @@ ChannelInfoRecord channels[5] = {
     {"1-5", "5", "eee"}
 };
 
-AJ_Status OnSetVolume(const char* objPath, uint8_t* volume)
+AJ_Status OnSetVolume(const char* objPath, uint8_t volume)
 {
-    printf("OnSetVolume : %s %u\n", objPath, *volume);
+    printf("OnSetVolume : %s %u\n", objPath, volume);
 
     return AJ_OK;
 }
@@ -422,9 +422,9 @@ AJ_Status OnGetMaxVolume(const char* objPath, uint8_t* maxVolume)
     return AJ_OK;
 }
 
-AJ_Status OnSetMute(const char* objPath, bool* mute)
+AJ_Status OnSetMute(const char* objPath, bool mute)
 {
-    printf("OnSetMute : %s %d\n", objPath, *mute);
+    printf("OnSetMute : %s %d\n", objPath, mute);
 
     return AJ_OK;
 }
@@ -476,14 +476,14 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     int32_t testProperty = 3;
     int32_t testPropertyRead = 0;
 
-    status = Hae_AudioVolumeInterfaceSetVolume(busAttachment, HAE_OBJECT_PATH_TV, &vol);
+    status = Hae_AudioVolumeInterfaceSetVolume(busAttachment, HAE_OBJECT_PATH_TV, vol);
     status = Hae_AudioVolumeInterfaceGetVolume(HAE_OBJECT_PATH_TV, &volRead);
     printf("volume : %u\n", volRead);
 
     status = Hae_ChannelInterfaceSetChannelId(busAttachment, HAE_OBJECT_PATH_TV, channelId);
     status = Hae_ChannelInterfaceGetChannelId(HAE_OBJECT_PATH_TV, channelIdBuf);
     printf("channelId : %s\n", channelIdBuf);
-    status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_TV, &numOfChannels);
+    status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_TV, numOfChannels);
 
     status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_TV, &testProperty);
     status = Hae_VendorDefinedInterfaceGetTestProperty(HAE_OBJECT_PATH_TV, &testPropertyRead);

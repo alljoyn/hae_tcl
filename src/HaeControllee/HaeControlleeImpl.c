@@ -19,7 +19,25 @@
 #include <ajtcl/hae/HaeControllee.h>
 #include "HaeControlleeImpl.h"
 #include "../interfaces/operation/AudioVolumeImpl.h"
+#include "../interfaces/operation/AudioVideoInputImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
+#include "../interfaces/operation/CurrentPowerImpl.h"
+#include "../interfaces/operation/OnControlImpl.h"
+#include "../interfaces/operation/OffControlImpl.h"
+#include "../interfaces/operation/OnOffStatusImpl.h"
+#include "../interfaces/operation/FanSpeedLevelImpl.h"
+#include "../interfaces/operation/BatteryStatusImpl.h"
+#include "../interfaces/operation/ClimateControlModeImpl.h"
+#include "../interfaces/operation/EnergyUsageImpl.h"
+#include "../interfaces/operation/RepeatModeImpl.h"
+#include "../interfaces/operation/ResourceSavingImpl.h"
+#include "../interfaces/operation/AirRecirculationModeImpl.h"
+#include "../interfaces/operation/RobotCleaningCyclePhaseImpl.h"
+#include "../interfaces/environment/CurrentTemperatureImpl.h"
+#include "../interfaces/environment/TargetTemperatureImpl.h"
+#include "../interfaces/environment/WindDirectionImpl.h"
+#include "../interfaces/input/HidImpl.h"
+
 
 #define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
@@ -54,24 +72,111 @@ static VendorDefinedInterfaceInfo* GetVendorDefinedInterfaceInfo(HaeInterfaceTyp
 AJ_Status Hae_Init()
 {
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
+    intfDescs[AUDIO_VIDEO_INPUT_INTERFACE] = intfDescOperationAudioVideoInput;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
+    intfDescs[CURRENT_POWER_INTERFACE] = intfDescOperationCurrentPower;
+    intfDescs[ON_CONTROL_INTERFACE] = intfDescOperationOnControl;
+    intfDescs[OFF_CONTROL_INTERFACE] = intfDescOperationOffControl;
+    intfDescs[ON_OFF_STATUS_INTERFACE] = intfDescOperationOnOffStatus;
+    intfDescs[FAN_SPEED_LEVEL_INTERFACE] = intfDescOperationFanSpeedLevel;
+    intfDescs[BATTERY_STATUS_INTERFACE] = intfDescOperationBatteryStatus;
+    intfDescs[CLIMATE_CONTROL_MODE_INTERFACE] = intfDescOperationClimateControlMode;
+    intfDescs[ENERGY_USAGE_INTERFACE] = intfDescOperationEnergyUsage;
+    intfDescs[REPEAT_MODE_INTERFACE] = intfDescOperationRepeatMode;
+    intfDescs[RESOURCE_SAVING_INTERFACE] = intfDescOperationResourceSaving;
+    intfDescs[AIR_RECIRCULATION_MODE_INTERFACE] = intfDescOperationAirRecirculationMode;
+    intfDescs[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = intfDescOperationRobotCleaningCyclePhase;
+    intfDescs[CURRENT_TEMPERATURE_INTERFACE] = intfDescEnvironmentCurrentTemperature;
+    intfDescs[TARGET_TEMPERATURE_INTERFACE] = intfDescEnvironmentTargetTemperature;
+    intfDescs[WIND_DIRECTION_INTERFACE] = intfDescEnvironmentWindDirection;
+    intfDescs[HID_INTERFACE] = intfDescInputHid;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
+    intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
+    intfCreator[CURRENT_POWER_INTERFACE] = CreateCurrentPowerInterface;
+    intfCreator[ON_CONTROL_INTERFACE] = CreateOnControlInterface;
+    intfCreator[OFF_CONTROL_INTERFACE] = CreateOffControlInterface;
+    intfCreator[ON_OFF_STATUS_INTERFACE] = CreateOnOffStatusInterface;
+    intfCreator[FAN_SPEED_LEVEL_INTERFACE] = CreateFanSpeedLevelInterface;
+    intfCreator[BATTERY_STATUS_INTERFACE] = CreateBatteryStatusInterface;
+    intfCreator[CLIMATE_CONTROL_MODE_INTERFACE] = CreateClimateControlModeInterface;
+    intfCreator[ENERGY_USAGE_INTERFACE] = CreateEnergyUsageInterface;
+    intfCreator[REPEAT_MODE_INTERFACE] = CreateRepeatModeInterface;
+    intfCreator[RESOURCE_SAVING_INTERFACE] = CreateResourceSavingInterface;
+    intfCreator[AIR_RECIRCULATION_MODE_INTERFACE] = CreateAirRecirculationModeInterface;
+    intfCreator[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = CreateRobotCleaningCyclePhaseInterface;
+    intfCreator[CURRENT_TEMPERATURE_INTERFACE] = CreateCurrentTemperatureInterface;
+    intfCreator[TARGET_TEMPERATURE_INTERFACE] = CreateTargetTemperatureInterface;
+    intfCreator[WIND_DIRECTION_INTERFACE] = CreateWindDirectionInterface;
+    intfCreator[HID_INTERFACE] = CreateHidInterface;
 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
+    intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
+    intfDestructor[CURRENT_POWER_INTERFACE] = DestroyCurrentPowerInterface;
+    intfDestructor[ON_CONTROL_INTERFACE] = DestroyOnControlInterface;
+    intfDestructor[OFF_CONTROL_INTERFACE] = DestroyOffControlInterface;
+    intfDestructor[ON_OFF_STATUS_INTERFACE] = DestroyOnOffStatusInterface;
+    intfDestructor[FAN_SPEED_LEVEL_INTERFACE] = DestroyFanSpeedLevelInterface;
+    intfDestructor[BATTERY_STATUS_INTERFACE] = DestroyBatteryStatusInterface;
+    intfDestructor[CLIMATE_CONTROL_MODE_INTERFACE] = DestroyClimateControlModeInterface;
+    intfDestructor[ENERGY_USAGE_INTERFACE] = DestroyEnergyUsageInterface;
+    intfDestructor[REPEAT_MODE_INTERFACE] = DestroyRepeatModeInterface;
+    intfDestructor[RESOURCE_SAVING_INTERFACE] = DestroyResourceSavingInterface;
+    intfDestructor[AIR_RECIRCULATION_MODE_INTERFACE] = DestroyAirRecirculationModeInterface;
+    intfDestructor[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = DestroyRobotCleaningCyclePhaseInterface;
+    intfDestructor[CURRENT_TEMPERATURE_INTERFACE] = DestroyCurrentTemperatureInterface;
+    intfDestructor[TARGET_TEMPERATURE_INTERFACE] = DestroyTargetTemperatureInterface;
+    intfDestructor[WIND_DIRECTION_INTERFACE] = DestroyWindDirectionInterface;
+    intfDestructor[HID_INTERFACE] = DestroyHidInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
+    onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
+    onGetProperty[CURRENT_POWER_INTERFACE] = CurrentPowerInterfaceOnGetProperty;
+    onGetProperty[ON_OFF_STATUS_INTERFACE] = OnOffStatusInterfaceOnGetProperty;
+    onGetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnGetProperty;
+    onGetProperty[BATTERY_STATUS_INTERFACE] = BatteryStatusInterfaceOnGetProperty;
+    onGetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnGetProperty;
+    onGetProperty[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnGetProperty;
+    onGetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnGetProperty;
+    onGetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnGetProperty;
+    onGetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnGetProperty;
+    onGetProperty[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnGetProperty;
+    onGetProperty[CURRENT_TEMPERATURE_INTERFACE] = CurrentTemperatureInterfaceOnGetProperty;
+    onGetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnGetProperty;
+    onGetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnGetProperty;
+    onGetProperty[HID_INTERFACE] = HidInterfaceOnGetProperty;
 
     onSetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnSetProperty;
+    onSetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnSetProperty;
     onSetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnSetProperty;
+    onSetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnSetProperty;
+    onSetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnSetProperty;
+    onSetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnSetProperty;
+    onSetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnSetProperty;
+    onSetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnSetProperty;
+    onSetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnSetProperty;
+    onSetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnSetProperty;
 
     emitPropertiesChanged[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[CHANNEL_INTERFACE] = ChannelInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceEmitPropertiesChanged;
 
     onMethodHandler[CHANNEL_INTERFACE] = ChannelInterfaceOnMethodHandler;
+    onMethodHandler[ON_CONTROL_INTERFACE] = OnControlInterfaceOnMethodHandler;
+    onMethodHandler[OFF_CONTROL_INTERFACE] = OffControlInterfaceOnMethodHandler;
+    onMethodHandler[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnMethodHandler;
+    onMethodHandler[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[HID_INTERFACE] = HidInterfaceOnMethodHandler;
 
     objInfoFirst = NULL;
     objInfoLast = NULL;
@@ -94,7 +199,7 @@ void Hae_Deinit()
     while (objInfo) {
         intfInfo = objInfo->intfFirst;
 
-        while(intfInfo) {
+        while (intfInfo) {
             if (intfInfo->intfType > UNDEFINED_INTERFACE && intfInfo->intfType < VENDOR_DEFINED_INTERFACE) {
                 if (intfDestructor[intfInfo->intfType]) {
                     intfDestructor[intfInfo->intfType](intfInfo->properties);
@@ -221,7 +326,6 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
         objInfo->intfLast->intfNext = intfInfo;
         objInfo->intfLast = intfInfo;
     }
-
     return AJ_OK;
 }
 
@@ -375,7 +479,7 @@ static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_
 
     HaeInterfaceInfo* intfInfo = objInfo->intfFirst;
 
-    for(i=1; i<intfIndex; i++) {
+    for (i=1; i<intfIndex; i++) {
         intfInfo = intfInfo->intfNext;
         if (!intfInfo) {
             break;
@@ -674,7 +778,7 @@ static bool CheckAlreadyRegistered(const char* intfName)
 
     intfInfo = vendorDefinedIntfInfoFirst;
     while (intfInfo) {
-        if(!strcmp(intfName, intfInfo->intfName)) {
+        if (!strcmp(intfName, intfInfo->intfName)) {
             break;
         }
         intfInfo = intfInfo->intfNext;
@@ -715,7 +819,7 @@ AJ_Status Hae_RegisterVendorDefinedInterface(const char* intfName, const char* c
         return AJ_ERR_INVALID;
     }
 
-    if(CheckAlreadyRegistered(intfName)) {
+    if (CheckAlreadyRegistered(intfName)) {
         return AJ_ERR_DISALLOWED;
     }
 

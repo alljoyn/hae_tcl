@@ -17,106 +17,99 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef AUDIOVOLUME_H_
-#define AUDIOVOLUME_H_
+#ifndef CLIMATECONTROLMODE_H_
+#define CLIMATECONTROLMODE_H_
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
 
 /**
- * AudioVolume interface listener
+ * ClimateControlMode interface listener
  */
 typedef struct {
     /**
-     * Handler for getting Volume property
+     * Handler for getting Mode property
      * @param[in] objPath object path
-     * @param[out] volume volume
+     * @param[out] mode mode of device
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetVolume) (const char* objPath, uint8_t* volume);
+    AJ_Status (*OnGetMode) (const char* objPath, uint16_t* mode);
 
     /**
-     * Handler for setting Volume property
+     * Handler for setting Mode property
      * @param[in] objPath object path
-     * @param[in] volume volume
+     * @param[in] mode mode of device
      * @return AJ_OK on success
      */
-    AJ_Status (*OnSetVolume) (const char* objPath, uint8_t volume);
+    AJ_Status (*OnSetMode) (const char* objPath, uint16_t mode);
 
     /**
-     * Handler for getting MaxVolume property
+     * Handler for getting SupportedModes property
      * @param[in] objPath object path
-     * @param[out] maxVolume the maximum volume
+     * @param[out] supportedModes supported modes
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetMaxVolume) (const char* objPath, uint8_t* maxVolume);
+    AJ_Status (*OnGetSupportedModes) (const char* objPath, uint16_t* supportedModes);
 
     /**
-     * Handler for getting Mute property
+     * Handler for getting OperationalState property
      * @param[in] objPath object path
-     * @param[out] mute mute
+     * @param[out] operationalState status of device
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetMute) (const char* objPath, bool* mute);
+    AJ_Status (*OnGetOperationalState) (const char* objPath, uint16_t* operationalState);
 
-    /**
-     * Handler for setting Mute property
-     * @param[in] objPath object path
-     * @param[in] mute mute
-     * @return AJ_OK on success
-     */
-    AJ_Status (*OnSetMute) (const char* objPath, bool mute);
-} AudioVolumeListener;
+} ClimateControlModeListener;
 
 /**
- * Get volume of AudioVolume interface
+ * Get mode of ClimateControlMode interface
  * @param[in] objPath the object path including the interface
- * @param[out] volume volume
+ * @param[out] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume);
+AJ_Status Hae_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* mode);
 
 /**
- * Set volume of AudioVolume interface
+ * Set mode of ClimateControlMode interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] volume volume
+ * @param[in] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t volume);
+AJ_Status Hae_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t mode);
 
 /**
- * Get the maximum volume of AudioVolume interface
+ * Get supportedModes of ClimateControlMode interface
  * @param[in] objPath the object path including the interface
- * @param[out] maxVolume the maximum volume
+ * @param[out] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume);
+AJ_Status Hae_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes);
 
 /**
- * Set the maximum volume of AudioVolume interface
+ * Set supportedModes of ClimateControlMode interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] maxVolume the maximum volume
+ * @param[in] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, uint8_t maxVolume);
+AJ_Status Hae_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, size_t supportedModeSize);
 
 /**
- * Get mute of AudioVolume interface
+ * Get operationalState of ClimateControlMode interface
  * @param[in] objPath the object path including the interface
- * @param[out] mute mute
+ * @param[out] operationalState status of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute);
+AJ_Status Hae_ClimateControlModeInterfaceGetOperationalState(const char* objPath, uint16_t* operationalState);
 
 /**
- * Set mute of AudioVolume interface
+ * Set operationalState of ClimateControlMode interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] mute mute
+ * @param[in] operationalState status of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, bool mute);
+AJ_Status Hae_ClimateControlModeInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, uint16_t operationalState);
 
-#endif /* AUDIOVOLUME_H_ */
+#endif /* CLIMATECONTROLMODE_H_ */
