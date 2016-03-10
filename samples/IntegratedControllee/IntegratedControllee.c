@@ -44,12 +44,15 @@
 #include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
 #include <ajtcl/hae/interfaces/operation/Channel.h>
 #include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
+#include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
 #include <ajtcl/hae/interfaces/operation/CurrentPower.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
+#include <ajtcl/hae/interfaces/operation/RapidMode.h>
+#include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
 #include <ajtcl/hae/interfaces/operation/RepeatMode.h>
 #include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
 #include <ajtcl/hae/interfaces/operation/RobotCleaningCyclePhase.h>
@@ -890,6 +893,23 @@ AJ_Status OnGetOnOff(const char* objPath, bool* onOff)
     return AJ_OK;
 }
 
+//RapidMode
+AJ_Status OnGetRapidMode(const char* objPath, bool* rapidMode)
+{
+    printf("OnGetRapidMode : %s\n", objPath);
+
+    *rapidMode = true;
+
+    return AJ_OK;
+}
+AJ_Status OnSetRapidMode(const char* objPath, const bool rapidMode)
+{
+    printf("OnSetRapidMode : %s, rapidMode : %d\n", objPath, rapidMode);
+
+    return AJ_OK;
+}
+
+
 //RepeatMode
 AJ_Status OnGetRepeatMode(const char* objPath, bool* repeatMode)
 {
@@ -1021,6 +1041,10 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t supportedCyclePhasesRead[4];
     uint8_t cyclePhase = 1;
     uint8_t cyclePhaseRead = 0;
+
+    bool isClosedRead = false;
+    bool isControllableRead = false;
+
 
     status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
     status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
@@ -1181,6 +1205,10 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_OnOffStatusInterfaceGetOnOff(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
 
+    status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
+    status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    printf("RapidMode Read : %d\n", boolRead);
+
     status = Hae_RepeatModeInterfaceSetRepeatMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
     status = Hae_RepeatModeInterfaceGetRepeatMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("RepeatMode Read : %d\n", boolRead);
@@ -1200,6 +1228,12 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
     status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
+
+    status = Hae_ClosedStatusInterfaceGetIsClosed(HAE_OBJECT_PATH_CONTROLLEE, &isClosedRead);
+    printf("isClosed : %u\n", isClosedRead);
+
+    status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_CONTROLLEE, &isControllableRead);
+    printf("isControllable : %u\n", isControllableRead);
 
     return status;
 }
@@ -1227,12 +1261,15 @@ int AJ_Main(void)
     BatteryStatusListener batteryStatusListener;
     ChannelListener channelListener;
     ClimateControlModeListener climateControlModeListener;
+    ClosedStatusListener closedStatusListener;
     CurrentPowerListener currentPowerListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
+    RapidModeListener rapidModeListener;
+    RemoteControllabilityListener remoteControllabilityListener;
     RepeatModeListener repeatModeListener;
     ResourceSavingListener resourceSavingListener;
     RobotCleaningCyclePhaseListener robotCleaningCyclePhaseListener;
@@ -1335,6 +1372,9 @@ int AJ_Main(void)
     //climateControlModeListener.OnGetOperationalState = OnGetOperationalState;
     status = Hae_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
 
+    closedStatusListener.OnGetIsClosed = NULL;
+    status = Hae_CreateInterface(CLOSED_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &closedStatusListener);
+
     currentPowerListener.OnGetCurrentPower = NULL;
     //currentPowerListener.OnGetCurrentPower = OnGetCurrentPower;
     currentPowerListener.OnGetPrecision = NULL;
@@ -1372,6 +1412,14 @@ int AJ_Main(void)
     //onOffStatusListener.OnGetOnOff = OnGetOnOff;
     status = Hae_CreateInterface(ON_OFF_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 
+    rapidModeListener.OnGetRapidMode = NULL;
+    //rapidModeListener.OnGetRapidMode = OnGetRapidMode;
+    rapidModeListener.OnSetRapidMode = OnSetRapidMode;
+    status = Hae_CreateInterface(RAPID_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &repeatModeListener);
+
+    remoteControllabilityListener.OnGetIsControllable = NULL;
+    status = Hae_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
+
     repeatModeListener.OnGetRepeatMode = NULL;
     //repeatModeListener.OnGetRepeatMode = OnGetRepeatMode;
     repeatModeListener.OnSetRepeatMode = OnSetRepeatMode;
@@ -1387,6 +1435,7 @@ int AJ_Main(void)
     robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     //robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = OnGetSupportedCyclePhases;
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = OnGetVendorPhasesDescription;
+
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 
     status = Hae_Start();

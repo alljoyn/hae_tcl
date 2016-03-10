@@ -21,6 +21,7 @@
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/AudioVideoInputImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
+#include "../interfaces/operation/ClosedStatusImpl.h"
 #include "../interfaces/operation/CurrentPowerImpl.h"
 #include "../interfaces/operation/OnControlImpl.h"
 #include "../interfaces/operation/OffControlImpl.h"
@@ -29,6 +30,8 @@
 #include "../interfaces/operation/BatteryStatusImpl.h"
 #include "../interfaces/operation/ClimateControlModeImpl.h"
 #include "../interfaces/operation/EnergyUsageImpl.h"
+#include "../interfaces/operation/RapidModeImpl.h"
+#include "../interfaces/operation/RemoteControllabilityImpl.h"
 #include "../interfaces/operation/RepeatModeImpl.h"
 #include "../interfaces/operation/ResourceSavingImpl.h"
 #include "../interfaces/operation/AirRecirculationModeImpl.h"
@@ -74,6 +77,7 @@ AJ_Status Hae_Init()
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
     intfDescs[AUDIO_VIDEO_INPUT_INTERFACE] = intfDescOperationAudioVideoInput;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
+    intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
     intfDescs[CURRENT_POWER_INTERFACE] = intfDescOperationCurrentPower;
     intfDescs[ON_CONTROL_INTERFACE] = intfDescOperationOnControl;
     intfDescs[OFF_CONTROL_INTERFACE] = intfDescOperationOffControl;
@@ -82,6 +86,8 @@ AJ_Status Hae_Init()
     intfDescs[BATTERY_STATUS_INTERFACE] = intfDescOperationBatteryStatus;
     intfDescs[CLIMATE_CONTROL_MODE_INTERFACE] = intfDescOperationClimateControlMode;
     intfDescs[ENERGY_USAGE_INTERFACE] = intfDescOperationEnergyUsage;
+    intfDescs[RAPID_MODE_INTERFACE] = intfDescOperationRapidMode;
+    intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
     intfDescs[REPEAT_MODE_INTERFACE] = intfDescOperationRepeatMode;
     intfDescs[RESOURCE_SAVING_INTERFACE] = intfDescOperationResourceSaving;
     intfDescs[AIR_RECIRCULATION_MODE_INTERFACE] = intfDescOperationAirRecirculationMode;
@@ -94,6 +100,7 @@ AJ_Status Hae_Init()
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
+    intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
     intfCreator[CURRENT_POWER_INTERFACE] = CreateCurrentPowerInterface;
     intfCreator[ON_CONTROL_INTERFACE] = CreateOnControlInterface;
     intfCreator[OFF_CONTROL_INTERFACE] = CreateOffControlInterface;
@@ -102,6 +109,8 @@ AJ_Status Hae_Init()
     intfCreator[BATTERY_STATUS_INTERFACE] = CreateBatteryStatusInterface;
     intfCreator[CLIMATE_CONTROL_MODE_INTERFACE] = CreateClimateControlModeInterface;
     intfCreator[ENERGY_USAGE_INTERFACE] = CreateEnergyUsageInterface;
+    intfCreator[RAPID_MODE_INTERFACE] = CreateRapidModeInterface;
+    intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
     intfCreator[REPEAT_MODE_INTERFACE] = CreateRepeatModeInterface;
     intfCreator[RESOURCE_SAVING_INTERFACE] = CreateResourceSavingInterface;
     intfCreator[AIR_RECIRCULATION_MODE_INTERFACE] = CreateAirRecirculationModeInterface;
@@ -114,6 +123,7 @@ AJ_Status Hae_Init()
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
+    intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
     intfDestructor[CURRENT_POWER_INTERFACE] = DestroyCurrentPowerInterface;
     intfDestructor[ON_CONTROL_INTERFACE] = DestroyOnControlInterface;
     intfDestructor[OFF_CONTROL_INTERFACE] = DestroyOffControlInterface;
@@ -122,6 +132,8 @@ AJ_Status Hae_Init()
     intfDestructor[BATTERY_STATUS_INTERFACE] = DestroyBatteryStatusInterface;
     intfDestructor[CLIMATE_CONTROL_MODE_INTERFACE] = DestroyClimateControlModeInterface;
     intfDestructor[ENERGY_USAGE_INTERFACE] = DestroyEnergyUsageInterface;
+    intfDestructor[RAPID_MODE_INTERFACE] = DestroyRapidModeInterface;
+    intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
     intfDestructor[REPEAT_MODE_INTERFACE] = DestroyRepeatModeInterface;
     intfDestructor[RESOURCE_SAVING_INTERFACE] = DestroyResourceSavingInterface;
     intfDestructor[AIR_RECIRCULATION_MODE_INTERFACE] = DestroyAirRecirculationModeInterface;
@@ -134,12 +146,15 @@ AJ_Status Hae_Init()
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
+    onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
     onGetProperty[CURRENT_POWER_INTERFACE] = CurrentPowerInterfaceOnGetProperty;
     onGetProperty[ON_OFF_STATUS_INTERFACE] = OnOffStatusInterfaceOnGetProperty;
     onGetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnGetProperty;
     onGetProperty[BATTERY_STATUS_INTERFACE] = BatteryStatusInterfaceOnGetProperty;
     onGetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnGetProperty;
     onGetProperty[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnGetProperty;
+    onGetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnGetProperty;
+    onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
     onGetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnGetProperty;
     onGetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnGetProperty;
     onGetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnGetProperty;
@@ -154,6 +169,7 @@ AJ_Status Hae_Init()
     onSetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnSetProperty;
     onSetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnSetProperty;
     onSetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnSetProperty;
+    onSetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnSetProperty;
     onSetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnSetProperty;
     onSetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnSetProperty;
     onSetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnSetProperty;
@@ -165,6 +181,7 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[CHANNEL_INTERFACE] = ChannelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[RAPID_MODE_INTERFACE] = RapidModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceEmitPropertiesChanged;
