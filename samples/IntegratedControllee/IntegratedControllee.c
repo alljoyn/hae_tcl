@@ -36,6 +36,7 @@
 #include <ajtcl/hae/HaeControllee.h>
 #include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
 #include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
+#include <ajtcl/hae/interfaces/environment/WaterLevel.h>
 #include <ajtcl/hae/interfaces/environment/WindDirection.h>
 #include <ajtcl/hae/interfaces/input/Hid.h>
 #include <ajtcl/hae/interfaces/operation/AirRecirculationMode.h>
@@ -44,15 +45,19 @@
 #include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
 #include <ajtcl/hae/interfaces/operation/Channel.h>
 #include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
+#include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
 #include <ajtcl/hae/interfaces/operation/CurrentPower.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
+#include <ajtcl/hae/interfaces/operation/RapidMode.h>
+#include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
 #include <ajtcl/hae/interfaces/operation/RepeatMode.h>
 #include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
 #include <ajtcl/hae/interfaces/operation/RobotCleaningCyclePhase.h>
+#include <ajtcl/hae/interfaces/operation/SoilLevel.h>
 
 /*
  * Logger definition
@@ -890,6 +895,23 @@ AJ_Status OnGetOnOff(const char* objPath, bool* onOff)
     return AJ_OK;
 }
 
+//RapidMode
+AJ_Status OnGetRapidMode(const char* objPath, bool* rapidMode)
+{
+    printf("OnGetRapidMode : %s\n", objPath);
+
+    *rapidMode = true;
+
+    return AJ_OK;
+}
+AJ_Status OnSetRapidMode(const char* objPath, const bool rapidMode)
+{
+    printf("OnSetRapidMode : %s, rapidMode : %d\n", objPath, rapidMode);
+
+    return AJ_OK;
+}
+
+
 //RepeatMode
 AJ_Status OnGetRepeatMode(const char* objPath, bool* repeatMode)
 {
@@ -945,6 +967,14 @@ AJ_Status OnGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCycle
     supportedCyclePhases[1] = 0x01;
     supportedCyclePhases[2] = 0x80;
     supportedCyclePhases[3] = 0x81;
+
+    return AJ_OK;
+}
+
+/* SoilLevel */
+AJ_Status OnSetTargetLevel(const char* objPath, const uint8_t targetLevel)
+{
+    printf("OnSetTargetLevel : %s, targetLevel : %u\n", objPath, targetLevel);
 
     return AJ_OK;
 }
@@ -1021,6 +1051,23 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t supportedCyclePhasesRead[4];
     uint8_t cyclePhase = 1;
     uint8_t cyclePhaseRead = 0;
+
+    bool isClosedRead = false;
+    bool isControllableRead = false;
+
+    /* WaterLevel IF */
+    uint8_t supplySourceRead  = 0;
+    uint8_t currentLevelRead  = 5;
+    uint8_t maxLevelRead = 10;
+
+    /* SoilLevel IF */
+    uint8_t maxSoilLevelRead = 5;
+    uint8_t targetLevel = 0;
+    uint8_t targetLevelRead = 0;
+    const uint8_t selectableLevels[3] = { 0, 1, 2 };
+    uint8_t selectableLevelsRead[3];
+
+
 
     status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
     status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
@@ -1181,6 +1228,10 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_OnOffStatusInterfaceGetOnOff(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
 
+    status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
+    status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    printf("RapidMode Read : %d\n", boolRead);
+
     status = Hae_RepeatModeInterfaceSetRepeatMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
     status = Hae_RepeatModeInterfaceGetRepeatMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("RepeatMode Read : %d\n", boolRead);
@@ -1200,6 +1251,36 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
     status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
+
+    status = Hae_ClosedStatusInterfaceGetIsClosed(HAE_OBJECT_PATH_CONTROLLEE, &isClosedRead);
+    printf("isClosed : %u\n", isClosedRead);
+
+    status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_CONTROLLEE, &isControllableRead);
+    printf("isControllable : %u\n", isControllableRead);
+
+    status = Hae_WaterLevelInterfaceGetSupplySource(HAE_OBJECT_PATH_CONTROLLEE, &supplySourceRead);
+    printf("Water Supply Source: %u\n", supplySourceRead);
+
+    status = Hae_WaterLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &currentLevelRead);
+    printf("Water Current Level: %u\n", currentLevelRead);
+
+    status = Hae_WaterLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevelRead);
+    printf("Water Max Level : %u\n", maxLevelRead);
+
+    status = Hae_SoilLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
+    printf("SoilLevel MaxLevel: %u\n", maxSoilLevelRead);
+
+    status = Hae_SoilLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
+    status = Hae_SoilLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
+    printf("SoilLevel TargetLevel : %u\n", targetLevelRead);
+
+    status = Hae_SoilLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
+    status = Hae_SoilLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
+    printf("SoilLevel SelectableLevels : \n");
+    for (i = 0; i < 3; i++) {
+        printf("%u\t", selectableLevelsRead[i]);
+    }
+    printf("\n");
 
     return status;
 }
@@ -1227,15 +1308,20 @@ int AJ_Main(void)
     BatteryStatusListener batteryStatusListener;
     ChannelListener channelListener;
     ClimateControlModeListener climateControlModeListener;
+    ClosedStatusListener closedStatusListener;
     CurrentPowerListener currentPowerListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
+    RapidModeListener rapidModeListener;
+    RemoteControllabilityListener remoteControllabilityListener;
     RepeatModeListener repeatModeListener;
     ResourceSavingListener resourceSavingListener;
     RobotCleaningCyclePhaseListener robotCleaningCyclePhaseListener;
+    WaterLevelListener waterLevelListener;
+    SoilLevelListener soilLevelListener;
 
     AJ_Initialize();
 
@@ -1335,6 +1421,9 @@ int AJ_Main(void)
     //climateControlModeListener.OnGetOperationalState = OnGetOperationalState;
     status = Hae_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
 
+    closedStatusListener.OnGetIsClosed = NULL;
+    status = Hae_CreateInterface(CLOSED_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &closedStatusListener);
+
     currentPowerListener.OnGetCurrentPower = NULL;
     //currentPowerListener.OnGetCurrentPower = OnGetCurrentPower;
     currentPowerListener.OnGetPrecision = NULL;
@@ -1372,6 +1461,14 @@ int AJ_Main(void)
     //onOffStatusListener.OnGetOnOff = OnGetOnOff;
     status = Hae_CreateInterface(ON_OFF_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 
+    rapidModeListener.OnGetRapidMode = NULL;
+    //rapidModeListener.OnGetRapidMode = OnGetRapidMode;
+    rapidModeListener.OnSetRapidMode = OnSetRapidMode;
+    status = Hae_CreateInterface(RAPID_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeListener);
+
+    remoteControllabilityListener.OnGetIsControllable = NULL;
+    status = Hae_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
+
     repeatModeListener.OnGetRepeatMode = NULL;
     //repeatModeListener.OnGetRepeatMode = OnGetRepeatMode;
     repeatModeListener.OnSetRepeatMode = OnSetRepeatMode;
@@ -1387,7 +1484,20 @@ int AJ_Main(void)
     robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     //robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = OnGetSupportedCyclePhases;
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = OnGetVendorPhasesDescription;
+
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
+
+    waterLevelListener.OnGetSupplySource = NULL;
+    waterLevelListener.OnGetCurrentLevel = NULL;
+    waterLevelListener.OnGetMaxLevel = NULL;
+    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
+
+    soilLevelListener.OnGetMaxLevel = NULL;
+    soilLevelListener.OnGetTargetLevel = NULL;
+    soilLevelListener.OnSetTargetLevel = OnSetTargetLevel;
+    soilLevelListener.OnGetSelectableLevels = NULL;
+    status = Hae_CreateInterface(SOIL_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &soilLevelListener);
+
 
     status = Hae_Start();
 
