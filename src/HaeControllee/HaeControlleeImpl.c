@@ -37,7 +37,8 @@
 #include "../interfaces/environment/TargetTemperatureImpl.h"
 #include "../interfaces/environment/WindDirectionImpl.h"
 #include "../interfaces/input/HidImpl.h"
-
+#include "../interfaces/operation/ClosedStatusImpl.h"
+#include "../interfaces/operation/RemoteControllabilityImpl.h"
 
 #define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
@@ -90,6 +91,8 @@ AJ_Status Hae_Init()
     intfDescs[TARGET_TEMPERATURE_INTERFACE] = intfDescEnvironmentTargetTemperature;
     intfDescs[WIND_DIRECTION_INTERFACE] = intfDescEnvironmentWindDirection;
     intfDescs[HID_INTERFACE] = intfDescInputHid;
+    intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
+    intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
@@ -111,6 +114,9 @@ AJ_Status Hae_Init()
     intfCreator[WIND_DIRECTION_INTERFACE] = CreateWindDirectionInterface;
     intfCreator[HID_INTERFACE] = CreateHidInterface;
 
+    intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
+    intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
+ 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
@@ -130,6 +136,8 @@ AJ_Status Hae_Init()
     intfDestructor[TARGET_TEMPERATURE_INTERFACE] = DestroyTargetTemperatureInterface;
     intfDestructor[WIND_DIRECTION_INTERFACE] = DestroyWindDirectionInterface;
     intfDestructor[HID_INTERFACE] = DestroyHidInterface;
+    intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
+    intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
@@ -148,6 +156,8 @@ AJ_Status Hae_Init()
     onGetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnGetProperty;
     onGetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnGetProperty;
     onGetProperty[HID_INTERFACE] = HidInterfaceOnGetProperty;
+    onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
+    onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
 
     onSetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnSetProperty;
     onSetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnSetProperty;
