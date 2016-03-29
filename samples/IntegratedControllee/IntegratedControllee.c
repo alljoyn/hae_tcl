@@ -47,11 +47,16 @@
 #include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
 #include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
 #include <ajtcl/hae/interfaces/operation/CurrentPower.h>
+#include <ajtcl/hae/interfaces/operation/CycleControl.h>
+#include <ajtcl/hae/interfaces/operation/DishWashingCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
+#include <ajtcl/hae/interfaces/operation/HeatingZone.h>
+#include <ajtcl/hae/interfaces/operation/LaundryCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
+#include <ajtcl/hae/interfaces/operation/OvenCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/RapidMode.h>
 #include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
 #include <ajtcl/hae/interfaces/operation/RepeatMode.h>
@@ -59,6 +64,7 @@
 #include <ajtcl/hae/interfaces/operation/RobotCleaningCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/SoilLevel.h>
 #include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
+#include <ajtcl/hae/interfaces/operation/Timer.h>
 
 /*
  * Logger definition
@@ -1000,6 +1006,15 @@ AJ_Status OnGetVendorPhasesDescription(const char* objPath, const char* language
 }
 
 
+AJ_Status OnExecuteOperationalCommand(const char* objPath, const uint8_t command)
+{
+    printf("CycleControl OnExecuteOperationalCommand - command: %u\n", command);
+
+    return AJ_OK;
+}
+
+
+
 AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
@@ -1008,14 +1023,239 @@ AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
     
     bool isClosedRead;
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_ClosedStatusInterfaceSetIsClosed(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isClosed);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_ClosedStatusInterfaceGetIsClosed(HAE_OBJECT_PATH_CONTROLLEE, &isClosedRead);
         printf("ClosedStatus IsClosed : %d\n", isClosedRead);
     }
+
+    return status;
+}
+
+AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
+{
+    #define SUPPORTED_OPER_STATES_NUM   6
+    #define SUPPORTED_OPER_COMMANDS_NUM 4
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t operationalState = 0;
+    const uint8_t supportedOperationalStates[SUPPORTED_OPER_STATES_NUM] = {0, 1, 2, 3, 4, 5};
+    const uint8_t supportedOperationalCommands[SUPPORTED_OPER_COMMANDS_NUM] = {0, 1, 2, 3};
+
+    uint8_t operationalStateRead;
+    uint8_t supportedOperationalStatesRead[SUPPORTED_OPER_STATES_NUM];
+    uint8_t supportedOperationalCommandsRead[SUPPORTED_OPER_COMMANDS_NUM];
+
+    /* write in this order (operational state as last) to pass the validation */
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceSetOperationalState(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, operationalState);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceSetSupportedOperationalStates(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalStates, SUPPORTED_OPER_STATES_NUM);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceSetSupportedOperationalCommands(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalCommands, SUPPORTED_OPER_COMMANDS_NUM);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceGetOperationalState(HAE_OBJECT_PATH_CONTROLLEE, &operationalStateRead);
+        printf("CycleControl OperationalState: %u\n", operationalStateRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceGetSupportedOperationalStates(HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalStatesRead);
+        printf("CycleControl SupportedOperationalStates : \n");
+        for (i = 0; i < SUPPORTED_OPER_STATES_NUM; i++) {
+            printf("%u\t", supportedOperationalStatesRead[i]);
+        }
+        printf("\n");
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_CycleControlInterfaceGetSupportedOperationalCommands(HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalCommandsRead);
+        printf("CycleControl SupportedOperationalCommands : \n");
+        for (i = 0; i < SUPPORTED_OPER_COMMANDS_NUM; i++) {
+            printf("%u\t", supportedOperationalCommandsRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef SUPPORTED_OPER_STATES_NUM
+    #undef SUPPORTED_OPER_COMMANDS_NUM
+
+    return status;
+}
+
+AJ_Status InitHaeDishWashingCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+{
+    #define DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM   5
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t cyclePhase = 0;
+    const uint8_t supportedCyclePhases[DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM] = {0x00, 0x01, 0x02, 0x03, 0x04};
+
+    uint8_t cyclePhaseRead;
+    uint8_t supportedCyclePhasesRead[DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM];
+
+    /* write in this order (cycle phase as last) to pass the validation */
+    /*if (status == AJ_OK)*/ {
+        status = Hae_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_DishWashingCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        printf("DishWashingCyclePhase CyclePhase: %u\n", cyclePhaseRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        printf("DishWashingCyclePhase SupportedCyclePhases : \n");
+        for (i = 0; i < DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM; i++) {
+            printf("%u\t", supportedCyclePhasesRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM
+
+    return status;
+}
+
+AJ_Status InitHaeLaundryCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+{
+    #define LAUNDRY_SUPPORTED_CYCLEPHASE_NUM   9
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t cyclePhase = 0;
+    const uint8_t supportedCyclePhases[LAUNDRY_SUPPORTED_CYCLEPHASE_NUM] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
+
+    uint8_t cyclePhaseRead;
+    uint8_t supportedCyclePhasesRead[LAUNDRY_SUPPORTED_CYCLEPHASE_NUM];
+
+    /* write in this order (cycle phase as last) to pass the validation */
+    /*if (status == AJ_OK)*/ {
+        status = Hae_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, LAUNDRY_SUPPORTED_CYCLEPHASE_NUM);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_LaundryCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_LaundryCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        printf("LaundryCyclePhase CyclePhase: %u\n", cyclePhaseRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        printf("LaundryCyclePhase SupportedCyclePhases : \n");
+        for (i = 0; i < LAUNDRY_SUPPORTED_CYCLEPHASE_NUM; i++) {
+            printf("%u\t", supportedCyclePhasesRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef LAUNDRY_SUPPORTED_CYCLEPHASE_NUM
+
+    return status;
+}
+
+AJ_Status InitHaeOvenCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+{
+    #define OVEN_SUPPORTED_CYCLEPHASE_NUM   4
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t cyclePhase = 0;
+    const uint8_t supportedCyclePhases[OVEN_SUPPORTED_CYCLEPHASE_NUM] = {0x00, 0x01, 0x02, 0x03};
+
+    uint8_t cyclePhaseRead;
+    uint8_t supportedCyclePhasesRead[OVEN_SUPPORTED_CYCLEPHASE_NUM];
+
+    /* write in this order (cycle phase as last) to pass the validation */
+    /*if (status == AJ_OK)*/ {
+        status = Hae_OvenCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, OVEN_SUPPORTED_CYCLEPHASE_NUM);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_OvenCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_OvenCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        printf("OvenCyclePhase CyclePhase: %u\n", cyclePhaseRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        printf("OvenCyclePhase SupportedCyclePhases : \n");
+        for (i = 0; i < OVEN_SUPPORTED_CYCLEPHASE_NUM; i++) {
+            printf("%u\t", supportedCyclePhasesRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef OVEN_SUPPORTED_CYCLEPHASE_NUM
+
+    return status;
+}
+
+AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
+{
+    #define HEATING_ZONES_NUM 5
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t numberOfHeatingZones = HEATING_ZONES_NUM;
+    const uint8_t maxHeatingLevels[HEATING_ZONES_NUM] = {10, 10, 10, 10, 10};
+    const uint8_t heatingLevels[HEATING_ZONES_NUM] = {0, 1, 2, 3, 4};
+
+    uint8_t numberOfHeatingZonesRead;
+    uint8_t maxHeatingLevelsRead[HEATING_ZONES_NUM];
+    uint8_t heatingLevelsRead[HEATING_ZONES_NUM];
+
+
+    /* write in this order (heating levels as last) to pass the validation */
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, numberOfHeatingZones);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceSetMaxHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevels, HEATING_ZONES_NUM);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceSetHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, heatingLevels, HEATING_ZONES_NUM);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(HAE_OBJECT_PATH_CONTROLLEE, &numberOfHeatingZonesRead);
+        printf("HeatingZone NumberOfHeatingZonesRead: %u\n", numberOfHeatingZonesRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceGetMaxHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevelsRead);
+        printf("HeatingZone MaxHeatingLevels : \n");
+        for (i = 0; i < HEATING_ZONES_NUM; i++) {
+            printf("%u\t", maxHeatingLevelsRead[i]);
+        }
+        printf("\n");
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_HeatingZoneInterfaceGetHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, heatingLevelsRead);
+        printf("HeatingZone HeatingLevels : \n");
+        for (i = 0; i < HEATING_ZONES_NUM; i++) {
+            printf("%u\t", heatingLevelsRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef HEATING_ZONES_NUM
 
     return status;
 }
@@ -1028,11 +1268,11 @@ AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
     
     bool rapidModeRead;
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, rapidMode);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, &rapidModeRead);
         printf("RapidMode : %d\n", rapidModeRead);
     }
@@ -1048,11 +1288,11 @@ AJ_Status InitHaeRemoteControllabilityProperties(AJ_BusAttachment* busAttachment
     
     bool isControllableRead;
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_RemoteControllabilityInterfaceSetIsControllable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isControllable);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_CONTROLLEE, &isControllableRead);
         printf("RemoteControllability IsClosed : %d\n", isControllableRead);
     }
@@ -1074,25 +1314,25 @@ AJ_Status InitHaeSoilLevelProperties(AJ_BusAttachment* busAttachment)
     uint8_t selectableLevelsRead[3];
 
     /* write in this order (target level as last) to pass the validation */
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("SoilLevel MaxLevel: %u\n", maxLevelRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
         printf("SoilLevel TargetLevel : %u\n", targetLevelRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SoilLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
         printf("SoilLevel SelectableLevels : \n");
         for (i = 0; i < 3; i++) {
@@ -1118,25 +1358,25 @@ AJ_Status InitHaeSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
     uint8_t selectableLevelsRead[3];
 
     /* write in this order (target level as last) to pass the validation */
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("SpinSpeedLevel MaxLevel: %u\n", maxLevelRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
         printf("SpinSpeedLevel TargetLevel : %u\n", targetLevelRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_SpinSpeedLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
         printf("SpinSpeedLevel SelectableLevels : \n");
         for (i = 0; i < 3; i++) {
@@ -1161,27 +1401,92 @@ AJ_Status InitHaeWaterLevelProperties(AJ_BusAttachment* busAttachment)
     uint8_t maxLevelRead;
 
     /* write in this order (current level as last) to pass the validation */
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceSetSupplySource(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supplySource);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, currentLevel);
     }
 
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceGetSupplySource(HAE_OBJECT_PATH_CONTROLLEE, &supplySourceRead);
         printf("Water Supply Source: %u\n", supplySourceRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &currentLevelRead);
         printf("Water Current Level: %u\n", currentLevelRead);
     }
-    if (status == AJ_OK) {
+    /*if (status == AJ_OK)*/ {
         status = Hae_WaterLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("Water Max Level : %u\n", maxLevelRead);
+    }
+
+    return status;
+}
+
+AJ_Status InitHaeTimerProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+
+    int32_t referenceTimer = 0;
+    int32_t targetTimeToStart = 0;
+    int32_t targetTimeToStop = 0;
+    int32_t estimatedTimeToEnd = 0;
+    int32_t runningTime = 0;
+    int32_t targetDuration = 0;
+
+    int32_t referenceTimerRead;
+    int32_t targetTimeToStartRead;
+    int32_t targetTimeToStopRead;
+    int32_t estimatedTimeToEndRead;
+    int32_t runningTimeRead;
+    int32_t targetDurationRead;
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetReferenceTimer(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, referenceTimer);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetTargetTimeToStart(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetTimeToStart);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetTargetTimeToStop(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetTimeToStop);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetEstimatedTimeToEnd(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, estimatedTimeToEnd);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetRunningTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, runningTime);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceSetTargetDuration(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetDuration);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetReferenceTimer(HAE_OBJECT_PATH_CONTROLLEE, &referenceTimerRead);
+        printf("Timer ReferenceTimer : %i\n", referenceTimerRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetTargetTimeToStart(HAE_OBJECT_PATH_CONTROLLEE, &targetTimeToStartRead);
+        printf("Timer TargetTimeToStart : %i\n", targetTimeToStartRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetTargetTimeToStop(HAE_OBJECT_PATH_CONTROLLEE, &targetTimeToStopRead);
+        printf("Timer TargetTimeToStop : %i\n", targetTimeToStopRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetEstimatedTimeToEnd(HAE_OBJECT_PATH_CONTROLLEE, &estimatedTimeToEndRead);
+        printf("Timer EstimatedTimeToEnd : %i\n", estimatedTimeToEndRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetRunningTime(HAE_OBJECT_PATH_CONTROLLEE, &runningTimeRead);
+        printf("Timer RunningTime : %i\n", runningTimeRead);
+    }
+    /*if (status == AJ_OK)*/ {
+        status = Hae_TimerInterfaceGetTargetDuration(HAE_OBJECT_PATH_CONTROLLEE, &targetDurationRead);
+        printf("Timer TargetDuration : %i\n", targetDurationRead);
     }
 
     return status;
@@ -1430,28 +1735,52 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
         status = InitHaeClosedStatusProperties(busAttachment);
     }
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
+        status = InitHaeCycleControlProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
+        status = InitHaeDishWashingCyclePhaseProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
+        status = InitHaeLaundryCyclePhaseProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
+        status = InitHaeOvenCyclePhaseProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
+        status = InitHaeHeatingZoneProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
         status = InitHaeRapidModeProperties(busAttachment);
     }
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
         status = InitHaeRemoteControllabilityProperties(busAttachment);
     }
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
         status = InitHaeSoilLevelProperties(busAttachment);
     }
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
         status = InitHaeSpinSpeedLevelProperties(busAttachment);
     }
 
-    if (status == AJ_OK) {
+    /* if (status == AJ_OK) */ {
         status = InitHaeWaterLevelProperties(busAttachment);
+    }
+
+    /* if (status == AJ_OK) */ {
+        status = InitHaeTimerProperties(busAttachment);
     }
 
     return status;
@@ -1482,11 +1811,16 @@ int AJ_Main(void)
     ClimateControlModeListener climateControlModeListener;
     ClosedStatusListener closedStatusListener;
     CurrentPowerListener currentPowerListener;
+    CycleControlListener cycleControlListener;
+    DishWashingCyclePhaseListener dishWashingCyclePhaseListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
+    HeatingZoneListener heatingZoneListener;
+    LaundryCyclePhaseListener laundryCyclePhaseListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
+    OvenCyclePhaseListener ovenCyclePhaseListener;
     RapidModeListener rapidModeListener;
     RemoteControllabilityListener remoteControllabilityListener;
     RepeatModeListener repeatModeListener;
@@ -1495,6 +1829,7 @@ int AJ_Main(void)
     SoilLevelListener soilLevelListener;
     SpinSpeedLevelListener spinSpeedLevelListener;
     WaterLevelListener waterLevelListener;
+    TimerListener timerListener;
 
     AJ_Initialize();
 
@@ -1605,6 +1940,28 @@ int AJ_Main(void)
     //currentPowerListener.OnGetUpdateMinTime = OnGetUpdateMinTime2;
     status = Hae_CreateInterface(CURRENT_POWER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentPowerListener);
 
+    cycleControlListener.OnGetOperationalState = NULL;
+    cycleControlListener.OnGetSupportedOperationalStates = NULL;
+    cycleControlListener.OnGetSupportedOperationalCommands = NULL;
+    //cycleControlListener.OnExecuteOperationalCommand = NULL;
+    cycleControlListener.OnExecuteOperationalCommand = OnExecuteOperationalCommand;
+    status = Hae_CreateInterface(CYCLE_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &cycleControlListener);
+
+    dishWashingCyclePhaseListener.OnGetCyclePhase = NULL;
+    dishWashingCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
+    dishWashingCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
+    status = Hae_CreateInterface(DISH_WASHING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &dishWashingCyclePhaseListener);
+
+    laundryCyclePhaseListener.OnGetCyclePhase = NULL;
+    laundryCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
+    laundryCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
+    status = Hae_CreateInterface(LAUNDRY_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &laundryCyclePhaseListener);
+
+    ovenCyclePhaseListener.OnGetCyclePhase = NULL;
+    ovenCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
+    ovenCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
+    status = Hae_CreateInterface(OVEN_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &ovenCyclePhaseListener);
+
     energyUsageListener.OnGetCumulativeEnergy = NULL;
     //energyUsageListener.OnGetCumulativeEnergy = OnGetCumulativeEnergy;
     energyUsageListener.OnGetPrecision = NULL;
@@ -1660,10 +2017,10 @@ int AJ_Main(void)
 
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 
-    waterLevelListener.OnGetSupplySource = NULL;
-    waterLevelListener.OnGetCurrentLevel = NULL;
-    waterLevelListener.OnGetMaxLevel = NULL;
-    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
+    heatingZoneListener.OnGetNumberOfHeatingZones = NULL;
+    heatingZoneListener.OnGetMaxHeatingLevels = NULL;
+    heatingZoneListener.OnGetHeatingLevels = NULL;
+    status = Hae_CreateInterface(HEATING_ZONE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &heatingZoneListener);
 
     soilLevelListener.OnGetMaxLevel = NULL;
     soilLevelListener.OnGetTargetLevel = NULL;
@@ -1677,6 +2034,21 @@ int AJ_Main(void)
     spinSpeedLevelListener.OnGetSelectableLevels = NULL;
     status = Hae_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
 
+    waterLevelListener.OnGetCurrentLevel = NULL;
+    waterLevelListener.OnGetSupplySource = NULL;
+    waterLevelListener.OnGetMaxLevel = NULL;
+    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
+
+    timerListener.OnGetReferenceTimer = NULL;
+    timerListener.OnGetTargetTimeToStart = NULL;
+    timerListener.OnGetTargetTimeToStop = NULL;
+    timerListener.OnGetEstimatedTimeToEnd = NULL;
+    timerListener.OnGetRunningTime = NULL;
+    timerListener.OnGetTargetDuration = NULL;
+    timerListener.OnSetTargetTimeToStart = NULL;
+    timerListener.OnSetTargetTimeToStop = NULL;
+    status = Hae_CreateInterface(TIMER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &timerListener);
+    
     status = Hae_Start();
 
     while (TRUE) {
