@@ -30,6 +30,7 @@
 #include "../interfaces/operation/BatteryStatusImpl.h"
 #include "../interfaces/operation/ClimateControlModeImpl.h"
 #include "../interfaces/operation/EnergyUsageImpl.h"
+#include "../interfaces/operation/HeatingZoneImpl.h"
 #include "../interfaces/operation/RapidModeImpl.h"
 #include "../interfaces/operation/RemoteControllabilityImpl.h"
 #include "../interfaces/operation/RepeatModeImpl.h"
@@ -89,6 +90,7 @@ AJ_Status Hae_Init()
     intfDescs[BATTERY_STATUS_INTERFACE] = intfDescOperationBatteryStatus;
     intfDescs[CLIMATE_CONTROL_MODE_INTERFACE] = intfDescOperationClimateControlMode;
     intfDescs[ENERGY_USAGE_INTERFACE] = intfDescOperationEnergyUsage;
+    intfDescs[HEATING_ZONE_INTERFACE] = intfDescOperationHeatingZone;
     intfDescs[RAPID_MODE_INTERFACE] = intfDescOperationRapidMode;
     intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
     intfDescs[REPEAT_MODE_INTERFACE] = intfDescOperationRepeatMode;
@@ -115,6 +117,7 @@ AJ_Status Hae_Init()
     intfCreator[BATTERY_STATUS_INTERFACE] = CreateBatteryStatusInterface;
     intfCreator[CLIMATE_CONTROL_MODE_INTERFACE] = CreateClimateControlModeInterface;
     intfCreator[ENERGY_USAGE_INTERFACE] = CreateEnergyUsageInterface;
+    intfCreator[HEATING_ZONE_INTERFACE] = CreateHeatingZoneInterface;
     intfCreator[RAPID_MODE_INTERFACE] = CreateRapidModeInterface;
     intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
     intfCreator[REPEAT_MODE_INTERFACE] = CreateRepeatModeInterface;
@@ -141,6 +144,7 @@ AJ_Status Hae_Init()
     intfDestructor[BATTERY_STATUS_INTERFACE] = DestroyBatteryStatusInterface;
     intfDestructor[CLIMATE_CONTROL_MODE_INTERFACE] = DestroyClimateControlModeInterface;
     intfDestructor[ENERGY_USAGE_INTERFACE] = DestroyEnergyUsageInterface;
+    intfDestructor[HEATING_ZONE_INTERFACE] = DestroyHeatingZoneInterface;
     intfDestructor[RAPID_MODE_INTERFACE] = DestroyRapidModeInterface;
     intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
     intfDestructor[REPEAT_MODE_INTERFACE] = DestroyRepeatModeInterface;
@@ -165,6 +169,7 @@ AJ_Status Hae_Init()
     onGetProperty[BATTERY_STATUS_INTERFACE] = BatteryStatusInterfaceOnGetProperty;
     onGetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnGetProperty;
     onGetProperty[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnGetProperty;
+    onGetProperty[HEATING_ZONE_INTERFACE] = HeatingZoneInterfaceOnGetProperty;
     onGetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnGetProperty;
     onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
     onGetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnGetProperty;

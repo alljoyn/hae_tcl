@@ -49,6 +49,7 @@
 #include <ajtcl/hae/interfaces/operation/CurrentPower.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
+#include <ajtcl/hae/interfaces/operation/HeatingZone.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
@@ -1020,6 +1021,61 @@ AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
+AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
+{
+    #define HEATING_ZONES_NUM 5
+
+    AJ_Status status = AJ_OK;
+    int i = 0;
+
+    uint8_t numberOfHeatingZones = 5;
+    const uint8_t maxHeatingLevels[HEATING_ZONES_NUM] = {10, 10, 10, 10, 10};
+    const uint8_t heatingLevels[HEATING_ZONES_NUM] = {0, 1, 2, 3, 4};
+
+    uint8_t numberOfHeatingZonesRead;
+    uint8_t maxHeatingLevelsRead[HEATING_ZONES_NUM];
+    uint8_t heatingLevelsRead[HEATING_ZONES_NUM];
+
+
+    /* write in this order (heating levels as last) to pass the validation */
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, numberOfHeatingZones);
+    }
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceSetMaxHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevels, HEATING_ZONES_NUM);
+    }
+
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceSetHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, heatingLevels, HEATING_ZONES_NUM);
+    }
+
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(HAE_OBJECT_PATH_CONTROLLEE, &numberOfHeatingZonesRead);
+        printf("HeatingZone NumberOfHeatingZonesRead: %u\n", numberOfHeatingZonesRead);
+    }
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceGetMaxHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevelsRead);
+        printf("HeatingZone MaxHeatingLevels : \n");
+        for (i = 0; i < HEATING_ZONES_NUM; i++) {
+            printf("%u\t", maxHeatingLevelsRead[i]);
+        }
+        printf("\n");
+    }
+    if (status == AJ_OK) {
+        status = Hae_HeatingZoneInterfaceGetHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, heatingLevelsRead);
+        printf("HeatingZone HeatingLevels : \n");
+        for (i = 0; i < HEATING_ZONES_NUM; i++) {
+            printf("%u\t", heatingLevelsRead[i]);
+        }
+        printf("\n");
+    }
+
+    #undef HEATING_ZONES_NUM
+
+    return status;
+}
+
+
 AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
@@ -1435,6 +1491,10 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     }
 
     if (status == AJ_OK) {
+        status = InitHaeHeatingZoneProperties(busAttachment);
+    }
+
+    if (status == AJ_OK) {
         status = InitHaeRapidModeProperties(busAttachment);
     }
 
@@ -1484,6 +1544,7 @@ int AJ_Main(void)
     CurrentPowerListener currentPowerListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
+    HeatingZoneListener heatingZoneListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
@@ -1660,10 +1721,10 @@ int AJ_Main(void)
 
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 
-    waterLevelListener.OnGetSupplySource = NULL;
-    waterLevelListener.OnGetCurrentLevel = NULL;
-    waterLevelListener.OnGetMaxLevel = NULL;
-    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
+    heatingZoneListener.OnGetNumberOfHeatingZones = NULL;
+    heatingZoneListener.OnGetMaxHeatingLevels = NULL;
+    heatingZoneListener.OnGetHeatingLevels = NULL;
+    status = Hae_CreateInterface(HEATING_ZONE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &heatingZoneListener);
 
     soilLevelListener.OnGetMaxLevel = NULL;
     soilLevelListener.OnGetTargetLevel = NULL;
@@ -1676,6 +1737,11 @@ int AJ_Main(void)
     spinSpeedLevelListener.OnSetTargetLevel = OnSetSpinSpeedLevelTargetLevel;
     spinSpeedLevelListener.OnGetSelectableLevels = NULL;
     status = Hae_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
+
+    waterLevelListener.OnGetCurrentLevel = NULL;
+    waterLevelListener.OnGetSupplySource = NULL;
+    waterLevelListener.OnGetMaxLevel = NULL;
+    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
 
     status = Hae_Start();
 
