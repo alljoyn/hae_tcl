@@ -23,13 +23,18 @@
 #include "../interfaces/operation/ChannelImpl.h"
 #include "../interfaces/operation/ClosedStatusImpl.h"
 #include "../interfaces/operation/CurrentPowerImpl.h"
+#include "../interfaces/operation/CycleControlImpl.h"
+#include "../interfaces/operation/DishWashingCyclePhaseImpl.h"
+#include "../interfaces/operation/LaundryCyclePhaseImpl.h"
 #include "../interfaces/operation/OnControlImpl.h"
 #include "../interfaces/operation/OffControlImpl.h"
 #include "../interfaces/operation/OnOffStatusImpl.h"
+#include "../interfaces/operation/OvenCyclePhaseImpl.h"
 #include "../interfaces/operation/FanSpeedLevelImpl.h"
 #include "../interfaces/operation/BatteryStatusImpl.h"
 #include "../interfaces/operation/ClimateControlModeImpl.h"
 #include "../interfaces/operation/EnergyUsageImpl.h"
+#include "../interfaces/operation/HeatingZoneImpl.h"
 #include "../interfaces/operation/RapidModeImpl.h"
 #include "../interfaces/operation/RemoteControllabilityImpl.h"
 #include "../interfaces/operation/RepeatModeImpl.h"
@@ -38,6 +43,7 @@
 #include "../interfaces/operation/RobotCleaningCyclePhaseImpl.h"
 #include "../interfaces/operation/SoilLevelImpl.h"
 #include "../interfaces/operation/SpinSpeedLevelImpl.h"
+#include "../interfaces/operation/TimerImpl.h"
 #include "../interfaces/environment/CurrentTemperatureImpl.h"
 #include "../interfaces/environment/TargetTemperatureImpl.h"
 #include "../interfaces/environment/WaterLevelImpl.h"
@@ -82,13 +88,18 @@ AJ_Status Hae_Init()
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
     intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
     intfDescs[CURRENT_POWER_INTERFACE] = intfDescOperationCurrentPower;
+    intfDescs[CYCLE_CONTROL_INTERFACE] = intfDescOperationCycleControl;
+    intfDescs[DISH_WASHING_CYCLE_PHASE_INTERFACE] = intfDescOperationDishWashingCyclePhase;
+    intfDescs[LAUNDRY_CYCLE_PHASE_INTERFACE] = intfDescOperationLaundryCyclePhase;
     intfDescs[ON_CONTROL_INTERFACE] = intfDescOperationOnControl;
     intfDescs[OFF_CONTROL_INTERFACE] = intfDescOperationOffControl;
     intfDescs[ON_OFF_STATUS_INTERFACE] = intfDescOperationOnOffStatus;
+    intfDescs[OVEN_CYCLE_PHASE_INTERFACE] = intfDescOperationOvenCyclePhase;
     intfDescs[FAN_SPEED_LEVEL_INTERFACE] = intfDescOperationFanSpeedLevel;
     intfDescs[BATTERY_STATUS_INTERFACE] = intfDescOperationBatteryStatus;
     intfDescs[CLIMATE_CONTROL_MODE_INTERFACE] = intfDescOperationClimateControlMode;
     intfDescs[ENERGY_USAGE_INTERFACE] = intfDescOperationEnergyUsage;
+    intfDescs[HEATING_ZONE_INTERFACE] = intfDescOperationHeatingZone;
     intfDescs[RAPID_MODE_INTERFACE] = intfDescOperationRapidMode;
     intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
     intfDescs[REPEAT_MODE_INTERFACE] = intfDescOperationRepeatMode;
@@ -97,6 +108,7 @@ AJ_Status Hae_Init()
     intfDescs[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = intfDescOperationRobotCleaningCyclePhase;
     intfDescs[SOIL_LEVEL_INTERFACE] = intfDescOperationSoilLevel;
     intfDescs[SPIN_SPEED_LEVEL_INTERFACE] = intfDescOperationSpinSpeedLevel;
+    intfDescs[TIMER_INTERFACE] = intfDescOperationTimer;
     intfDescs[CURRENT_TEMPERATURE_INTERFACE] = intfDescEnvironmentCurrentTemperature;
     intfDescs[TARGET_TEMPERATURE_INTERFACE] = intfDescEnvironmentTargetTemperature;
     intfDescs[WATER_LEVEL_INTERFACE] = intfDescEnvironmentWaterLevel;
@@ -108,13 +120,18 @@ AJ_Status Hae_Init()
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
     intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
     intfCreator[CURRENT_POWER_INTERFACE] = CreateCurrentPowerInterface;
+    intfCreator[CYCLE_CONTROL_INTERFACE] = CreateCycleControlInterface;
+    intfCreator[DISH_WASHING_CYCLE_PHASE_INTERFACE] = CreateLaundryCyclePhaseInterface;
+    intfCreator[LAUNDRY_CYCLE_PHASE_INTERFACE] = CreateDishWashingCyclePhaseInterface;
     intfCreator[ON_CONTROL_INTERFACE] = CreateOnControlInterface;
     intfCreator[OFF_CONTROL_INTERFACE] = CreateOffControlInterface;
     intfCreator[ON_OFF_STATUS_INTERFACE] = CreateOnOffStatusInterface;
+    intfCreator[OVEN_CYCLE_PHASE_INTERFACE] = CreateOvenCyclePhaseInterface;
     intfCreator[FAN_SPEED_LEVEL_INTERFACE] = CreateFanSpeedLevelInterface;
     intfCreator[BATTERY_STATUS_INTERFACE] = CreateBatteryStatusInterface;
     intfCreator[CLIMATE_CONTROL_MODE_INTERFACE] = CreateClimateControlModeInterface;
     intfCreator[ENERGY_USAGE_INTERFACE] = CreateEnergyUsageInterface;
+    intfCreator[HEATING_ZONE_INTERFACE] = CreateHeatingZoneInterface;
     intfCreator[RAPID_MODE_INTERFACE] = CreateRapidModeInterface;
     intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
     intfCreator[REPEAT_MODE_INTERFACE] = CreateRepeatModeInterface;
@@ -123,6 +140,7 @@ AJ_Status Hae_Init()
     intfCreator[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = CreateRobotCleaningCyclePhaseInterface;
     intfCreator[SOIL_LEVEL_INTERFACE] = CreateSoilLevelInterface;
     intfCreator[SPIN_SPEED_LEVEL_INTERFACE] = CreateSpinSpeedLevelInterface;
+    intfCreator[TIMER_INTERFACE] = CreateTimerInterface;
     intfCreator[CURRENT_TEMPERATURE_INTERFACE] = CreateCurrentTemperatureInterface;
     intfCreator[TARGET_TEMPERATURE_INTERFACE] = CreateTargetTemperatureInterface;
     intfCreator[WATER_LEVEL_INTERFACE] = CreateWaterLevelInterface;
@@ -134,13 +152,18 @@ AJ_Status Hae_Init()
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
     intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
     intfDestructor[CURRENT_POWER_INTERFACE] = DestroyCurrentPowerInterface;
+    intfDestructor[CYCLE_CONTROL_INTERFACE] = DestroyCycleControlInterface;
+    intfDestructor[DISH_WASHING_CYCLE_PHASE_INTERFACE] = DestroyDishWashingCyclePhaseInterface;
+    intfDestructor[LAUNDRY_CYCLE_PHASE_INTERFACE] = DestroyLaundryCyclePhaseInterface;
     intfDestructor[ON_CONTROL_INTERFACE] = DestroyOnControlInterface;
     intfDestructor[OFF_CONTROL_INTERFACE] = DestroyOffControlInterface;
     intfDestructor[ON_OFF_STATUS_INTERFACE] = DestroyOnOffStatusInterface;
+    intfDestructor[OVEN_CYCLE_PHASE_INTERFACE] = DestroyOvenCyclePhaseInterface;
     intfDestructor[FAN_SPEED_LEVEL_INTERFACE] = DestroyFanSpeedLevelInterface;
     intfDestructor[BATTERY_STATUS_INTERFACE] = DestroyBatteryStatusInterface;
     intfDestructor[CLIMATE_CONTROL_MODE_INTERFACE] = DestroyClimateControlModeInterface;
     intfDestructor[ENERGY_USAGE_INTERFACE] = DestroyEnergyUsageInterface;
+    intfDestructor[HEATING_ZONE_INTERFACE] = DestroyHeatingZoneInterface;
     intfDestructor[RAPID_MODE_INTERFACE] = DestroyRapidModeInterface;
     intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
     intfDestructor[REPEAT_MODE_INTERFACE] = DestroyRepeatModeInterface;
@@ -149,6 +172,7 @@ AJ_Status Hae_Init()
     intfDestructor[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = DestroyRobotCleaningCyclePhaseInterface;
     intfDestructor[SOIL_LEVEL_INTERFACE] = DestroySoilLevelInterface;
     intfDestructor[SPIN_SPEED_LEVEL_INTERFACE] = DestroySpinSpeedLevelInterface;
+    intfDestructor[TIMER_INTERFACE] = DestroyTimerInterface;
     intfDestructor[CURRENT_TEMPERATURE_INTERFACE] = DestroyCurrentTemperatureInterface;
     intfDestructor[TARGET_TEMPERATURE_INTERFACE] = DestroyTargetTemperatureInterface;
     intfDestructor[WATER_LEVEL_INTERFACE] = DestroyWaterLevelInterface;
@@ -160,11 +184,16 @@ AJ_Status Hae_Init()
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
     onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
     onGetProperty[CURRENT_POWER_INTERFACE] = CurrentPowerInterfaceOnGetProperty;
+    onGetProperty[CYCLE_CONTROL_INTERFACE] = CycleControlInterfaceOnGetProperty;
+    onGetProperty[DISH_WASHING_CYCLE_PHASE_INTERFACE] = DishWashingCyclePhaseInterfaceOnGetProperty;
+    onGetProperty[LAUNDRY_CYCLE_PHASE_INTERFACE] = LaundryCyclePhaseInterfaceOnGetProperty;
     onGetProperty[ON_OFF_STATUS_INTERFACE] = OnOffStatusInterfaceOnGetProperty;
+    onGetProperty[OVEN_CYCLE_PHASE_INTERFACE] = OvenCyclePhaseInterfaceOnGetProperty;
     onGetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnGetProperty;
     onGetProperty[BATTERY_STATUS_INTERFACE] = BatteryStatusInterfaceOnGetProperty;
     onGetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnGetProperty;
     onGetProperty[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnGetProperty;
+    onGetProperty[HEATING_ZONE_INTERFACE] = HeatingZoneInterfaceOnGetProperty;
     onGetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnGetProperty;
     onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
     onGetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnGetProperty;
@@ -173,6 +202,7 @@ AJ_Status Hae_Init()
     onGetProperty[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnGetProperty;
     onGetProperty[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceOnGetProperty;
     onGetProperty[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceOnGetProperty;
+    onGetProperty[TIMER_INTERFACE] = TimerInterfaceOnGetProperty;
     onGetProperty[CURRENT_TEMPERATURE_INTERFACE] = CurrentTemperatureInterfaceOnGetProperty;
     onGetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnGetProperty;
     onGetProperty[WATER_LEVEL_INTERFACE] = WaterLevelInterfaceOnGetProperty;
@@ -208,10 +238,15 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceEmitPropertiesChanged;
 
     onMethodHandler[CHANNEL_INTERFACE] = ChannelInterfaceOnMethodHandler;
+    onMethodHandler[CYCLE_CONTROL_INTERFACE] = CycleControlInterfaceOnMethodHandler;
+    onMethodHandler[DISH_WASHING_CYCLE_PHASE_INTERFACE] = LaundryCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[LAUNDRY_CYCLE_PHASE_INTERFACE] = OvenCyclePhaseInterfaceOnMethodHandler;
     onMethodHandler[ON_CONTROL_INTERFACE] = OnControlInterfaceOnMethodHandler;
     onMethodHandler[OFF_CONTROL_INTERFACE] = OffControlInterfaceOnMethodHandler;
+    onMethodHandler[OVEN_CYCLE_PHASE_INTERFACE] = DishWashingCyclePhaseInterfaceOnMethodHandler;
     onMethodHandler[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnMethodHandler;
     onMethodHandler[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[TIMER_INTERFACE] = TimerInterfaceOnMethodHandler;
     onMethodHandler[HID_INTERFACE] = HidInterfaceOnMethodHandler;
 
     objInfoFirst = NULL;
