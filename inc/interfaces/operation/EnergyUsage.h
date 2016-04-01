@@ -22,6 +22,7 @@
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
 /**
  * EnergyUsage interface listener
@@ -54,9 +55,10 @@ typedef struct {
     /**
      * Handler for ResetCumulativeEnergy method
      * @param[in] objPath object path
+     * @param[out] errorCode errorCode
      * @return AJ_OK on success
      */
-    AJ_Status (*OnResetCumulativeEnergy) (const char* objPath);
+    AJ_Status (*OnResetCumulativeEnergy) (const char* objPath, ErrorCode* errorCode);
 } EnergyUsageListener;
 
 /**

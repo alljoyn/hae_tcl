@@ -61,7 +61,7 @@ void DestroyVendorDefinedInterface(void* properties);
 AJ_Status VendorDefinedInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
 AJ_Status VendorDefinedInterfaceOnSetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener, bool* propChanged);
 AJ_Status VendorDefinedInterfaceEmitPropertiesChanged(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex);
-AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
 
 /**
  * Get TestProperty of VendorDefined interface
@@ -78,7 +78,7 @@ AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t
  * @param[in] testProperty testProperty
  * @return AJ_OK on success
  */
-AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t* testProperty);
+AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty);
 
 /**
  * Emit TestSignal signal of VendorDefined interface

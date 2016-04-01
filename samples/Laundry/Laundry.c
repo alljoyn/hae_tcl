@@ -429,7 +429,7 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_LAUNDRY, &isControllableRead);
     printf("isControllable : %u\n", isControllableRead);
 
-    status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_LAUNDRY, &testProperty);
+    status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_LAUNDRY, testProperty);
     status = Hae_VendorDefinedInterfaceGetTestProperty(HAE_OBJECT_PATH_LAUNDRY, &testPropertyRead);
     printf("testProperty : %d\n", testPropertyRead);
 

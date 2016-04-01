@@ -20,6 +20,10 @@
 #include "FanSpeedLevelImpl.h"
 
 #define INTERFACE_VERSION 1
+#define FAN_TURNED_OFF 0x00
+#define AUTO_MODE_ON 0x00
+#define AUTO_MODE_OFF 0x01
+#define AUTO_MODE_NOT_SUPPORTED 0xFF
 
 const char* const intfDescOperationFanSpeedLevel[] = {
     "$org.alljoyn.SmartSpaces.Operation.FanSpeedLevel",
@@ -45,13 +49,25 @@ AJ_Status FanSpeedLevelValidationCheck(const char* objPath, uint8_t fanSpeedLeve
 
     props = (FanSpeedLevelProperties*)GetProperties(objPath, FAN_SPEED_LEVEL_INTERFACE);
     if (props) {
-        if (fanSpeedLevel > props->maxFanSpeedLevel) {
+        if (fanSpeedLevel == FAN_TURNED_OFF) {
+            status = AJ_ERR_RANGE;
+        }
+        else if (fanSpeedLevel > props->maxFanSpeedLevel) {
             status = AJ_ERR_RANGE;
         }
     } else {
         status = AJ_ERR_NO_MATCH;
     }
 
+    return status;
+}
+
+AJ_Status AutoModeValidationCheck(uint8_t autoMode)
+{
+    AJ_Status status = AJ_OK;
+    if (autoMode != AUTO_MODE_OFF && autoMode != AUTO_MODE_ON) {
+        status = AJ_ERR_INVALID;
+    }
     return status;
 }
 
@@ -154,15 +170,11 @@ AJ_Status FanSpeedLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* 
     case 1 :
         {
             uint8_t fanSpeedLevel;
-
             if (lt && lt->OnGetFanSpeedLevel) {
                 status = lt->OnGetFanSpeedLevel(objPath, &fanSpeedLevel);
                 if (status == AJ_OK) {
                     props->fanSpeedLevel = fanSpeedLevel;
                 }
-            }
-            if (!props->fanSpeedLevel) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "y", props->fanSpeedLevel);
         }
@@ -177,9 +189,6 @@ AJ_Status FanSpeedLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* 
                       props->maxFanSpeedLevel = maxFanSpeedLevel;
                  }
             }
-            if (!props->maxFanSpeedLevel) {
-                return AJ_ERR_NULL;
-            }
             status = AJ_MarshalArgs(replyMsg, "y", props->maxFanSpeedLevel);
         }
         break;
@@ -192,9 +201,6 @@ AJ_Status FanSpeedLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* 
                 if (status == AJ_OK) {
                     props->autoMode = autoMode;
                 }
-            }
-            if (!props->autoMode) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "y", props->autoMode);
         }
@@ -260,6 +266,10 @@ AJ_Status FanSpeedLevelInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
             status = AJ_UnmarshalArgs(replyMsg, "y", &autoMode);
 
             if (status == AJ_OK) {
+                status = AutoModeValidationCheck(autoMode);
+                if (status != AJ_OK) {
+                    return status;
+                }
                 status = lt->OnSetAutoMode(objPath, autoMode);
 
                 if (status == AJ_OK) {
@@ -394,6 +404,11 @@ AJ_Status Hae_FanSpeedLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment,
         return AJ_ERR_INVALID;
     }
 
+    if (autoMode != AUTO_MODE_OFF &&
+        autoMode != AUTO_MODE_ON &&
+        autoMode != AUTO_MODE_NOT_SUPPORTED) {
+        return AJ_ERR_INVALID;
+    }
     props = (FanSpeedLevelProperties*)GetProperties(objPath, FAN_SPEED_LEVEL_INTERFACE);
     if (props) {
         if (props->autoMode != autoMode) {

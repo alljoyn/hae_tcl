@@ -186,11 +186,15 @@ AJ_Status RobotCleaningCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, co
     return status;
 }
 
-AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener)
+AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
     if (!listener) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (!propChangedByMethod) {
         return AJ_ERR_INVALID;
     }
 
@@ -208,10 +212,11 @@ AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const
             status = AJ_UnmarshalArgs(msg, "s", &languageTag);
 
             if (status == AJ_OK) {
-                status = lt->OnGetVendorPhasesDescription(objPath, languageTag, &phasesDescription, &numReturnedRecords);
+                ErrorCode errorCode = NOT_ERROR;
+                AJ_Message reply;
+                status = lt->OnGetVendorPhasesDescription(objPath, languageTag, &phasesDescription, &numReturnedRecords, &errorCode);
 
                 if (status == AJ_OK) {
-                    AJ_Message reply;
                     AJ_Arg array, strc;
                     int i = 0;
 
@@ -223,9 +228,11 @@ AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const
                         AJ_MarshalCloseContainer(&reply, &strc);
                     }
                     AJ_MarshalCloseContainer(&reply, &array);
-
-                    status = AJ_DeliverMsg(&reply);
+                } else {
+                    AJ_MarshalReplyMsg(msg, &reply);
+                    AJ_MarshalErrorMsgWithInfo(msg, &reply, GetInterfaceErrorName(errorCode), GetInterfaceErrorMessage(errorCode));
                 }
+                status = AJ_DeliverMsg(&reply);
             }
         }
         break;

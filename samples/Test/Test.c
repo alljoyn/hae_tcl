@@ -437,11 +437,14 @@ AJ_Status OnSetChannelId(const char* objPath, const char* channelId)
 }
 
 AJ_Status OnGetChannelList(const char* objPath, uint16_t startingRecord, uint16_t numRecords,
-                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords)
+                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords, ErrorCode* errorCode)
 {
     int size = sizeof(channels) / sizeof(ChannelInfoRecord);
 
     if (startingRecord >= size) {
+        if (errorCode) {
+            *errorCode = INVALID_VALUE;
+        }
         return AJ_ERR_INVALID;
     }
 
@@ -485,7 +488,7 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     printf("channelId : %s\n", channelIdBuf);
     status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_TV, numOfChannels);
 
-    status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_TV, &testProperty);
+    status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_TV, testProperty);
     status = Hae_VendorDefinedInterfaceGetTestProperty(HAE_OBJECT_PATH_TV, &testPropertyRead);
     printf("testProperty : %d\n", testPropertyRead);
 

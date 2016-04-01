@@ -106,6 +106,7 @@ env.Append(CPPDEFINES = [ v for k, v in ARGLIST if k.lower() == 'define' ])
 # Install header files
 #######################################################
 env.Install('#dist/include/ajtcl/hae', env.Glob('inc/*.h'))
+env.Install('#dist/include/ajtcl/hae/interfaces', env.Glob('inc/interfaces/*.h'))
 env.Install('#dist/include/ajtcl/hae/interfaces/operation', env.Glob('inc/interfaces/operation/*.h'))
 env.Install('#dist/include/ajtcl/hae/interfaces/environment', env.Glob('inc/interfaces/environment/*.h'))
 env.Install('#dist/include/ajtcl/hae/interfaces/input', env.Glob('inc/interfaces/input/*.h'))
