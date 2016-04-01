@@ -24,6 +24,6 @@ const char* const intfDescOperationRobotCleaningCyclePhase[6];
 AJ_Status CreateRobotCleaningCyclePhaseInterface(void** properties);
 void DestroyRobotCleaningCyclePhaseInterface(void* properties);
 AJ_Status RobotCleaningCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+AJ_Status RobotCleaningCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* ROBOTCLEANINGCYCLEPHASEIMPL_H_ */

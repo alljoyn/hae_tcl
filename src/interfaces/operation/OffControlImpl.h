@@ -23,6 +23,6 @@ const char* const intfDescOperationOffControl[4];
 
 AJ_Status CreateOffControlInterface(void** properties);
 void DestroyOffControlInterface(void* properties);
-AJ_Status OffControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+AJ_Status OffControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* OFFCONTROLIMPL_H_ */

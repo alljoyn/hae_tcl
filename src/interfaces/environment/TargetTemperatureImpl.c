@@ -14,6 +14,7 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
+#include <math.h>
 #include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
 #include "../../HaeControllee/HaeControlleeImpl.h"
 #include "TargetTemperatureImpl.h"
@@ -38,16 +39,39 @@ typedef struct {
     double stepValue;
 } TargetTemperatureProperties;
 
-AJ_Status TTTargetValueValidationCheck(const char* objPath, double targetValue)
+AJ_Status TargetTemperatureTargetValueValidationCheck(const char* objPath, double targetValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
-
 
     props = (TargetTemperatureProperties*)GetProperties(objPath, TARGET_TEMPERATURE_INTERFACE);
     if (props) {
         if (targetValue < props->minValue || targetValue > props->maxValue) {
             status = AJ_ERR_RANGE;
+        } else if (props->stepValue != 0 && fmod(targetValue - props->minValue, props->stepValue) != 0.0) {
+            status = AJ_ERR_INVALID;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
+AJ_Status TargetTemperatureAdjustTargetValue(const char* objPath, double* targetValue)
+{
+    AJ_Status status = AJ_OK;
+    TargetTemperatureProperties* props = NULL;
+
+    props = (TargetTemperatureProperties*)GetProperties(objPath, TARGET_TEMPERATURE_INTERFACE);
+    if (props) {
+        if (props->stepValue == 0.0) {
+            return status;
+        } else {
+            double div = *targetValue / props->stepValue;
+            double value = floor(div + 0.5) * props->stepValue;
+
+            *targetValue = (value < props->minValue) ? props->minValue : (value > props->maxValue ? props->maxValue : value);
         }
     } else {
         status = AJ_ERR_NO_MATCH;
@@ -231,7 +255,7 @@ AJ_Status TargetTemperatureInterfaceOnSetProperty(AJ_Message* replyMsg, const ch
             status = AJ_UnmarshalArgs(replyMsg, "d", &targetValue);
 
             if (status == AJ_OK) {
-                status = TTTargetValueValidationCheck(objPath, targetValue);
+                status = TargetTemperatureAdjustTargetValue(objPath, &targetValue);
                 if (status != AJ_OK) {
                     return AJ_OK;
                 }
@@ -285,7 +309,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAtta
         return AJ_ERR_INVALID;
     }
 
-    status = TTTargetValueValidationCheck(objPath, targetValue);
+    status = TargetTemperatureTargetValueValidationCheck(objPath, targetValue);
     if (status != AJ_OK) {
         return status;
     }

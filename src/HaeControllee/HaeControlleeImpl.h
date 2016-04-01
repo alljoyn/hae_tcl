@@ -55,6 +55,6 @@ typedef void (*InterfaceDestructor)(void* properties);
 typedef AJ_Status (*OnGetProperty)(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
 typedef AJ_Status (*OnSetProperty)(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener, bool* propChanged);
 typedef AJ_Status (*EmitPropertiesChanged)(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex);
-typedef AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+typedef AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* HAECONTROLLEEIMPL_H_ */

@@ -1,6 +1,3 @@
-/**
- * @file
- */
 /******************************************************************************
  * Copyright AllSeen Alliance. All rights reserved.
  *
@@ -17,25 +14,40 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef OFFCONTROL_H_
-#define OFFCONTROL_H_
-
-#include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
 #include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
-/**
- * OffControl interface listener
- */
-typedef struct {
-    /**
-     * Handler for SwitchOff method
-     * @param[in] objPath object path
-     * @param[out] errorCode error code
-     * @return AJ_OK on success
-     */
-    AJ_Status (*OnSwitchOff) (const char* objPath, ErrorCode* errorCode);
+const char* errorName[] = {
+    "", //Not Error
+    "org.alljoyn.Error.InvalidValue",
+    "org.alljoyn.Error.FeatureNotAvailable",
+    "org.alljoyn.Error.LanguageNotSupported",
+    "org.alljoyn.SmartSpaces.Error.NotAcceptableDueToInternalState",
+    "org.alljoyn.SmartSpaces.Error.RemoteControlDisabled",
+};
 
-} OffControlListener;
+const char* errorMessage[] = {
+    "", //Not Error
+    "Invalid value.",
+    "Feature not available.",
+    "The language specified is not supported.",
+    "The value is not acceptable due to internal state.",
+    "Remote control disabled.",
+};
 
-#endif /* OFFCONTROL_H_ */
+const char* GetInterfaceErrorName(ErrorCode errorCode)
+{
+    if (errorCode > MAX_ERROR_CODE) {
+        return "";
+    }
+
+    return errorName[errorCode];
+}
+
+const char* GetInterfaceErrorMessage(ErrorCode errorCode)
+{
+    if (errorCode > MAX_ERROR_CODE) {
+        return "";
+    }
+
+    return errorMessage[errorCode];
+}

@@ -20,6 +20,10 @@
 
 #define INTERFACE_VERSION 1
 
+#define AUTO_MODE_OFF 0x00
+#define AUTO_MODE_ON 0x01
+#define AUTO_MODE_NOT_SUPPORTED 0xFF
+
 const char* const intfDescEnvironmentWindDirection[] = {
     "$org.alljoyn.SmartSpaces.Environment.WindDirection",
     "@Version>q",
@@ -42,11 +46,27 @@ typedef struct {
     uint8_t verticalAutoMode;
 } WindDirectionProperties;
 
-AJ_Status HorizontalDirectionValidationCheck(const char* objPath, uint16_t horizontalDirection)
+AJ_Status WindDirectionAdjustHorizontalDirection(const char* objPath, uint16_t* horizontalDirection)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
 
+    props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
+    if (props) {
+        if (*horizontalDirection > props->horizontalMax) {
+            *horizontalDirection = props->horizontalMax;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
+AJ_Status WindDirectionHorizontalDirectionValidationCheck(const char* objPath, uint16_t horizontalDirection)
+{
+    AJ_Status status = AJ_OK;
+    WindDirectionProperties* props = NULL;
 
     props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
     if (props) {
@@ -60,16 +80,70 @@ AJ_Status HorizontalDirectionValidationCheck(const char* objPath, uint16_t horiz
     return status;
 }
 
-AJ_Status VerticalDirectionValidationCheck(const char* objPath, uint16_t verticalDirection)
+AJ_Status WindDirectionHorizontalAutoModeValidationCheck(const char* objPath, uint8_t horizontalAutoMode)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
 
+    props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
+    if (props) {
+        if (props->horizontalAutoMode == AUTO_MODE_NOT_SUPPORTED) {
+            status = AJ_ERR_INVALID;
+        } else if (horizontalAutoMode != AUTO_MODE_OFF && horizontalAutoMode != AUTO_MODE_ON) {
+            status = AJ_ERR_INVALID;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
+AJ_Status WindDirectionAdjustVerticalDirection(const char* objPath, uint16_t* verticalDirection)
+{
+    AJ_Status status = AJ_OK;
+    WindDirectionProperties* props = NULL;
+
+    props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
+    if (props) {
+        if (*verticalDirection > props->verticalMax) {
+            *verticalDirection = props->verticalMax;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
+AJ_Status WindDirectionVerticalDirectionValidationCheck(const char* objPath, uint16_t verticalDirection)
+{
+    AJ_Status status = AJ_OK;
+    WindDirectionProperties* props = NULL;
 
     props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
     if (props) {
         if (verticalDirection < 0 || verticalDirection > props->verticalMax) {
             status = AJ_ERR_RANGE;
+        }
+    } else {
+        status = AJ_ERR_NO_MATCH;
+    }
+
+    return status;
+}
+
+AJ_Status WindDirectionVerticalAutoModeValidationCheck(const char* objPath, uint8_t verticalAutoMode)
+{
+    AJ_Status status = AJ_OK;
+    WindDirectionProperties* props = NULL;
+
+    props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
+    if (props) {
+        if (props->verticalAutoMode == AUTO_MODE_NOT_SUPPORTED) {
+            status = AJ_ERR_INVALID;
+        } else if (verticalAutoMode != AUTO_MODE_OFF && verticalAutoMode != AUTO_MODE_ON) {
+            status = AJ_ERR_INVALID;
         }
     } else {
         status = AJ_ERR_NO_MATCH;
@@ -288,14 +362,12 @@ AJ_Status WindDirectionInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
             status = AJ_UnmarshalArgs(replyMsg, "q", &horizontalDirection);
 
             if (status == AJ_OK) {
-                status = HorizontalDirectionValidationCheck(objPath, horizontalDirection);
-
+                status = WindDirectionAdjustHorizontalDirection(objPath, &horizontalDirection);
                 if (status != AJ_OK) {
                     return status;
                 }
 
                 status = lt->OnSetHorizontalDirection(objPath, horizontalDirection);
-
                 if (status == AJ_OK) {
                     if (props->horizontalDirection != horizontalDirection) {
                         props->horizontalDirection = horizontalDirection;
@@ -313,8 +385,12 @@ AJ_Status WindDirectionInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
             status = AJ_UnmarshalArgs(replyMsg, "y", &horizontalAutoMode);
 
             if (status == AJ_OK) {
-                status = lt->OnSetHorizontalAutoMode(objPath, horizontalAutoMode);
+                status = WindDirectionHorizontalAutoModeValidationCheck(objPath, horizontalAutoMode);
+                if (status != AJ_OK) {
+                    return status;
+                }
 
+                status = lt->OnSetHorizontalAutoMode(objPath, horizontalAutoMode);
                 if (status == AJ_OK) {
                     if (props->horizontalAutoMode != horizontalAutoMode) {
                         props->horizontalAutoMode = horizontalAutoMode;
@@ -332,13 +408,12 @@ AJ_Status WindDirectionInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
             status = AJ_UnmarshalArgs(replyMsg, "q", &verticalDirection);
 
             if (status == AJ_OK) {
-                status = VerticalDirectionValidationCheck(objPath, verticalDirection);
+                status = WindDirectionAdjustVerticalDirection(objPath, &verticalDirection);
                 if (status != AJ_OK) {
                     return status;
                 }
 
                 status = lt->OnSetVerticalDirection(objPath, verticalDirection);
-
                 if (status == AJ_OK) {
                     if (props->verticalDirection != verticalDirection) {
                         props->verticalDirection = verticalDirection;
@@ -356,8 +431,12 @@ AJ_Status WindDirectionInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
             status = AJ_UnmarshalArgs(replyMsg, "y", &verticalAutoMode);
 
             if (status == AJ_OK) {
-                status = lt->OnSetVerticalAutoMode(objPath, verticalAutoMode);
+                status = WindDirectionVerticalAutoModeValidationCheck(objPath, verticalAutoMode);
+                if (status != AJ_OK) {
+                    return status;
+                }
 
+                status = lt->OnSetVerticalAutoMode(objPath, verticalAutoMode);
                 if (status == AJ_OK) {
                     if (props->verticalAutoMode != verticalAutoMode) {
                         props->verticalAutoMode = verticalAutoMode;
@@ -401,7 +480,8 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* bus
     if (!busAttachment) {
         return AJ_ERR_INVALID;
     }
-    status = HorizontalDirectionValidationCheck(objPath, horizontalDirection);
+
+    status = WindDirectionHorizontalDirectionValidationCheck(objPath, horizontalDirection);
     if (status != AJ_OK) {
         return status;
     }
@@ -495,6 +575,10 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busA
         return AJ_ERR_INVALID;
     }
 
+    if (horizontalAutoMode != AUTO_MODE_OFF && horizontalAutoMode != AUTO_MODE_ON && horizontalAutoMode != AUTO_MODE_NOT_SUPPORTED) {
+        return AJ_ERR_INVALID;
+    }
+
     props = (WindDirectionProperties*)GetProperties(objPath, WIND_DIRECTION_INTERFACE);
     if (props) {
         if (props->horizontalAutoMode != horizontalAutoMode) {
@@ -537,8 +621,7 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAt
         return AJ_ERR_INVALID;
     }
 
-    status = VerticalDirectionValidationCheck(objPath, verticalDirection);
-
+    status = WindDirectionVerticalDirectionValidationCheck(objPath, verticalDirection);
     if (status != AJ_OK) {
         return status;
     }
@@ -628,6 +711,10 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalAutoMode(AJ_BusAttachment* busAtt
     WindDirectionProperties* props = NULL;
 
     if (!busAttachment) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (verticalAutoMode != AUTO_MODE_OFF && verticalAutoMode != AUTO_MODE_ON && verticalAutoMode != AUTO_MODE_NOT_SUPPORTED) {
         return AJ_ERR_INVALID;
     }
 

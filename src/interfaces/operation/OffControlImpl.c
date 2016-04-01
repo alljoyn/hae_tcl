@@ -53,11 +53,15 @@ void DestroyOffControlInterface(void* properties)
     }
 }
 
-AJ_Status OffControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener)
+AJ_Status OffControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
     if (!listener) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (!propChangedByMethod) {
         return AJ_ERR_INVALID;
     }
 
@@ -68,7 +72,15 @@ AJ_Status OffControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPat
         if (!lt->OnSwitchOff) {
             status = AJ_ERR_NULL;
         } else {
-            status = lt->OnSwitchOff(objPath);
+            ErrorCode errorCode = NOT_ERROR;
+            AJ_Message reply;
+            status = lt->OnSwitchOff(objPath, &errorCode);
+
+            AJ_MarshalReplyMsg(msg, &reply);
+            if (status != AJ_OK) {
+                AJ_MarshalErrorMsgWithInfo(msg, &reply, GetInterfaceErrorName(errorCode), GetInterfaceErrorMessage(errorCode));
+            }
+            status = AJ_DeliverMsg(&reply);
         }
         break;
     default:
