@@ -1,7 +1,7 @@
 HAE Service Framework
 =====================
 
-Welcome to the HAE Service Framework.
+Welcom to the HAE Service Framework.
 
 HAE Service Framework provides easy methods to implement HAE controllee and controller applications.
 HAE Service Framework is based on AJTCL v15.09.
@@ -36,7 +36,7 @@ hae_tcl
  * hae_tcl/sampls/common: source files for device sample (AppHandler, PropertyStore)
  * hae_tcl/sampls/inc: header files for device sample (AppHandler, PropertyStore)
  * hae_tcl/src/HaeControllee: controllee source files
- * hae_tcl/src/interface: interface related source files
+ * hae_tcl/src/interface: interface related  source files
 
 Building
 --------

@@ -24,6 +24,7 @@ const char* const intfDescOperationEnergyUsage[7];
 AJ_Status CreateEnergyUsageInterface(void** properties);
 void DestroyEnergyUsageInterface(void* properties);
 AJ_Status EnergyUsageInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status EnergyUsageInterfaceEmitPropertiesChanged(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex);
 
 #endif /* ENERGYUSAGEIMPL_H_ */

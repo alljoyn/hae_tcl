@@ -21,7 +21,6 @@
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/AudioVideoInputImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
-#include "../interfaces/operation/ClosedStatusImpl.h"
 #include "../interfaces/operation/CurrentPowerImpl.h"
 #include "../interfaces/operation/OnControlImpl.h"
 #include "../interfaces/operation/OffControlImpl.h"
@@ -30,17 +29,12 @@
 #include "../interfaces/operation/BatteryStatusImpl.h"
 #include "../interfaces/operation/ClimateControlModeImpl.h"
 #include "../interfaces/operation/EnergyUsageImpl.h"
-#include "../interfaces/operation/RapidModeImpl.h"
-#include "../interfaces/operation/RemoteControllabilityImpl.h"
 #include "../interfaces/operation/RepeatModeImpl.h"
 #include "../interfaces/operation/ResourceSavingImpl.h"
 #include "../interfaces/operation/AirRecirculationModeImpl.h"
 #include "../interfaces/operation/RobotCleaningCyclePhaseImpl.h"
-#include "../interfaces/operation/SoilLevelImpl.h"
-#include "../interfaces/operation/SpinSpeedLevelImpl.h"
 #include "../interfaces/environment/CurrentTemperatureImpl.h"
 #include "../interfaces/environment/TargetTemperatureImpl.h"
-#include "../interfaces/environment/WaterLevelImpl.h"
 #include "../interfaces/environment/WindDirectionImpl.h"
 #include "../interfaces/input/HidImpl.h"
 
@@ -80,7 +74,6 @@ AJ_Status Hae_Init()
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
     intfDescs[AUDIO_VIDEO_INPUT_INTERFACE] = intfDescOperationAudioVideoInput;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
-    intfDescs[CLOSED_STATUS_INTERFACE] = intfDescOperationClosedStatus;
     intfDescs[CURRENT_POWER_INTERFACE] = intfDescOperationCurrentPower;
     intfDescs[ON_CONTROL_INTERFACE] = intfDescOperationOnControl;
     intfDescs[OFF_CONTROL_INTERFACE] = intfDescOperationOffControl;
@@ -89,24 +82,18 @@ AJ_Status Hae_Init()
     intfDescs[BATTERY_STATUS_INTERFACE] = intfDescOperationBatteryStatus;
     intfDescs[CLIMATE_CONTROL_MODE_INTERFACE] = intfDescOperationClimateControlMode;
     intfDescs[ENERGY_USAGE_INTERFACE] = intfDescOperationEnergyUsage;
-    intfDescs[RAPID_MODE_INTERFACE] = intfDescOperationRapidMode;
-    intfDescs[REMOTE_CONTROLLABILITY_INTERFACE] = intfDescOperationRemoteControllability;
     intfDescs[REPEAT_MODE_INTERFACE] = intfDescOperationRepeatMode;
     intfDescs[RESOURCE_SAVING_INTERFACE] = intfDescOperationResourceSaving;
     intfDescs[AIR_RECIRCULATION_MODE_INTERFACE] = intfDescOperationAirRecirculationMode;
     intfDescs[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = intfDescOperationRobotCleaningCyclePhase;
-    intfDescs[SOIL_LEVEL_INTERFACE] = intfDescOperationSoilLevel;
-    intfDescs[SPIN_SPEED_LEVEL_INTERFACE] = intfDescOperationSpinSpeedLevel;
     intfDescs[CURRENT_TEMPERATURE_INTERFACE] = intfDescEnvironmentCurrentTemperature;
     intfDescs[TARGET_TEMPERATURE_INTERFACE] = intfDescEnvironmentTargetTemperature;
-    intfDescs[WATER_LEVEL_INTERFACE] = intfDescEnvironmentWaterLevel;
     intfDescs[WIND_DIRECTION_INTERFACE] = intfDescEnvironmentWindDirection;
     intfDescs[HID_INTERFACE] = intfDescInputHid;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
-    intfCreator[CLOSED_STATUS_INTERFACE] = CreateClosedStatusInterface;
     intfCreator[CURRENT_POWER_INTERFACE] = CreateCurrentPowerInterface;
     intfCreator[ON_CONTROL_INTERFACE] = CreateOnControlInterface;
     intfCreator[OFF_CONTROL_INTERFACE] = CreateOffControlInterface;
@@ -115,24 +102,18 @@ AJ_Status Hae_Init()
     intfCreator[BATTERY_STATUS_INTERFACE] = CreateBatteryStatusInterface;
     intfCreator[CLIMATE_CONTROL_MODE_INTERFACE] = CreateClimateControlModeInterface;
     intfCreator[ENERGY_USAGE_INTERFACE] = CreateEnergyUsageInterface;
-    intfCreator[RAPID_MODE_INTERFACE] = CreateRapidModeInterface;
-    intfCreator[REMOTE_CONTROLLABILITY_INTERFACE] = CreateRemoteControllabilityInterface;
     intfCreator[REPEAT_MODE_INTERFACE] = CreateRepeatModeInterface;
     intfCreator[RESOURCE_SAVING_INTERFACE] = CreateResourceSavingInterface;
     intfCreator[AIR_RECIRCULATION_MODE_INTERFACE] = CreateAirRecirculationModeInterface;
     intfCreator[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = CreateRobotCleaningCyclePhaseInterface;
-    intfCreator[SOIL_LEVEL_INTERFACE] = CreateSoilLevelInterface;
-    intfCreator[SPIN_SPEED_LEVEL_INTERFACE] = CreateSpinSpeedLevelInterface;
     intfCreator[CURRENT_TEMPERATURE_INTERFACE] = CreateCurrentTemperatureInterface;
     intfCreator[TARGET_TEMPERATURE_INTERFACE] = CreateTargetTemperatureInterface;
-    intfCreator[WATER_LEVEL_INTERFACE] = CreateWaterLevelInterface;
     intfCreator[WIND_DIRECTION_INTERFACE] = CreateWindDirectionInterface;
     intfCreator[HID_INTERFACE] = CreateHidInterface;
 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
-    intfDestructor[CLOSED_STATUS_INTERFACE] = DestroyClosedStatusInterface;
     intfDestructor[CURRENT_POWER_INTERFACE] = DestroyCurrentPowerInterface;
     intfDestructor[ON_CONTROL_INTERFACE] = DestroyOnControlInterface;
     intfDestructor[OFF_CONTROL_INTERFACE] = DestroyOffControlInterface;
@@ -141,41 +122,30 @@ AJ_Status Hae_Init()
     intfDestructor[BATTERY_STATUS_INTERFACE] = DestroyBatteryStatusInterface;
     intfDestructor[CLIMATE_CONTROL_MODE_INTERFACE] = DestroyClimateControlModeInterface;
     intfDestructor[ENERGY_USAGE_INTERFACE] = DestroyEnergyUsageInterface;
-    intfDestructor[RAPID_MODE_INTERFACE] = DestroyRapidModeInterface;
-    intfDestructor[REMOTE_CONTROLLABILITY_INTERFACE] = DestroyRemoteControllabilityInterface;
     intfDestructor[REPEAT_MODE_INTERFACE] = DestroyRepeatModeInterface;
     intfDestructor[RESOURCE_SAVING_INTERFACE] = DestroyResourceSavingInterface;
     intfDestructor[AIR_RECIRCULATION_MODE_INTERFACE] = DestroyAirRecirculationModeInterface;
     intfDestructor[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = DestroyRobotCleaningCyclePhaseInterface;
-    intfDestructor[SOIL_LEVEL_INTERFACE] = DestroySoilLevelInterface;
-    intfDestructor[SPIN_SPEED_LEVEL_INTERFACE] = DestroySpinSpeedLevelInterface;
     intfDestructor[CURRENT_TEMPERATURE_INTERFACE] = DestroyCurrentTemperatureInterface;
     intfDestructor[TARGET_TEMPERATURE_INTERFACE] = DestroyTargetTemperatureInterface;
-    intfDestructor[WATER_LEVEL_INTERFACE] = DestroyWaterLevelInterface;
     intfDestructor[WIND_DIRECTION_INTERFACE] = DestroyWindDirectionInterface;
     intfDestructor[HID_INTERFACE] = DestroyHidInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
-    onGetProperty[CLOSED_STATUS_INTERFACE] = ClosedStatusInterfaceOnGetProperty;
     onGetProperty[CURRENT_POWER_INTERFACE] = CurrentPowerInterfaceOnGetProperty;
     onGetProperty[ON_OFF_STATUS_INTERFACE] = OnOffStatusInterfaceOnGetProperty;
     onGetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnGetProperty;
     onGetProperty[BATTERY_STATUS_INTERFACE] = BatteryStatusInterfaceOnGetProperty;
     onGetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnGetProperty;
     onGetProperty[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnGetProperty;
-    onGetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnGetProperty;
-    onGetProperty[REMOTE_CONTROLLABILITY_INTERFACE] = RemoteControllabilityInterfaceOnGetProperty;
     onGetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnGetProperty;
     onGetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnGetProperty;
     onGetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnGetProperty;
     onGetProperty[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnGetProperty;
-    onGetProperty[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceOnGetProperty;
-    onGetProperty[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceOnGetProperty;
     onGetProperty[CURRENT_TEMPERATURE_INTERFACE] = CurrentTemperatureInterfaceOnGetProperty;
     onGetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnGetProperty;
-    onGetProperty[WATER_LEVEL_INTERFACE] = WaterLevelInterfaceOnGetProperty;
     onGetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnGetProperty;
     onGetProperty[HID_INTERFACE] = HidInterfaceOnGetProperty;
 
@@ -184,12 +154,9 @@ AJ_Status Hae_Init()
     onSetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnSetProperty;
     onSetProperty[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceOnSetProperty;
     onSetProperty[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceOnSetProperty;
-    onSetProperty[RAPID_MODE_INTERFACE] = RapidModeInterfaceOnSetProperty;
     onSetProperty[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceOnSetProperty;
     onSetProperty[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceOnSetProperty;
     onSetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnSetProperty;
-    onSetProperty[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceOnSetProperty;
-    onSetProperty[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceOnSetProperty;
     onSetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnSetProperty;
     onSetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnSetProperty;
 
@@ -198,12 +165,10 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[CHANNEL_INTERFACE] = ChannelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceEmitPropertiesChanged;
-    emitPropertiesChanged[RAPID_MODE_INTERFACE] = RapidModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceEmitPropertiesChanged; //There is no writable property, but there is a property which can be changed by method call
     emitPropertiesChanged[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceEmitPropertiesChanged;
-    emitPropertiesChanged[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceEmitPropertiesChanged;
-    emitPropertiesChanged[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceEmitPropertiesChanged;
 
@@ -525,6 +490,25 @@ static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_
     return intfInfo;
 }
 
+static void EmitPropChangedByMethod(HaeInterfaceTypes intfType, AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint32_t mask)
+{
+    int i = 1;
+    uint8_t check = 0;
+
+    for (i = 1; i < 32; i++) {
+        mask >>= 1;
+        if (!mask) {
+            break;
+        }
+        check = mask & (uint32_t)1;
+        if (check) {
+            if (emitPropertiesChanged[intfType]) {
+                emitPropertiesChanged[intfType](busAttachment, objPath, properties, i);
+            }
+        }
+    }
+}
+
 static AJ_Status PropGetHandler(AJ_Message* replyMsg, uint32_t propId, void* context)
 {
     uint8_t objIndex = GetObjectIndex(propId);
@@ -654,9 +638,15 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
             } else { //method
                 HaeInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
                 if (intfInfo) {
+                    HaePropertiesChangedByMethod propChangedByMethod;
+                    propChangedByMethod.properties = intfInfo->properties;
+                    propChangedByMethod.member_index_mask = 0;
                     if (intfInfo->intfType > UNDEFINED_INTERFACE && intfInfo->intfType < VENDOR_DEFINED_INTERFACE) {
                         if (onMethodHandler[intfInfo->intfType]) {
-                            *status = onMethodHandler[intfInfo->intfType](msg, objInfo->path, memberIndex, intfInfo->listener);
+                            *status = onMethodHandler[intfInfo->intfType](msg, objInfo->path, memberIndex, intfInfo->listener, &propChangedByMethod);
+                            if (*status == AJ_OK && propChangedByMethod.member_index_mask != 0) {
+                                EmitPropChangedByMethod(intfInfo->intfType, busAttachment, objInfo->path, propChangedByMethod.properties, propChangedByMethod.member_index_mask);
+                            }
                         } else {
                             *status = AJ_ERR_INVALID;
                         }
@@ -668,7 +658,10 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
 
                         if (vendorDefinedIntfInfo->handler) {
                             if (vendorDefinedIntfInfo->handler->OnMethodHandler) {
-                                *status = vendorDefinedIntfInfo->handler->OnMethodHandler(msg, objInfo->path, memberIndex, intfInfo->listener);
+                                *status = vendorDefinedIntfInfo->handler->OnMethodHandler(msg, objInfo->path, memberIndex, intfInfo->listener, &propChangedByMethod);
+                                if (*status == AJ_OK && propChangedByMethod.member_index_mask != 0) {
+                                    EmitPropChangedByMethod(intfInfo->intfType, busAttachment, objInfo->path, propChangedByMethod.properties, propChangedByMethod.member_index_mask);
+                                }
                             } else {
                                 *status = AJ_ERR_NULL;
                             }

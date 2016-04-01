@@ -36,7 +36,6 @@
 #include <ajtcl/hae/HaeControllee.h>
 #include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
 #include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
-#include <ajtcl/hae/interfaces/environment/WaterLevel.h>
 #include <ajtcl/hae/interfaces/environment/WindDirection.h>
 #include <ajtcl/hae/interfaces/input/Hid.h>
 #include <ajtcl/hae/interfaces/operation/AirRecirculationMode.h>
@@ -45,20 +44,15 @@
 #include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
 #include <ajtcl/hae/interfaces/operation/Channel.h>
 #include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
-#include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
 #include <ajtcl/hae/interfaces/operation/CurrentPower.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
-#include <ajtcl/hae/interfaces/operation/RapidMode.h>
-#include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
 #include <ajtcl/hae/interfaces/operation/RepeatMode.h>
 #include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
 #include <ajtcl/hae/interfaces/operation/RobotCleaningCyclePhase.h>
-#include <ajtcl/hae/interfaces/operation/SoilLevel.h>
-#include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
 
 /*
  * Logger definition
@@ -689,7 +683,8 @@ AJ_Status OnGetIsCharging(const char* objPath, bool* isCharging)
 }
 
 //Channel
-ChannelInfoRecord channels[5] = {
+#define TOTAL_NUM_OF_CHANNEL    5
+ChannelInfoRecord channels[TOTAL_NUM_OF_CHANNEL] = {
     {"1-1", "1", "aaa"},
     {"1-2", "2", "bbb"},
     {"1-3", "3", "ccc"},
@@ -708,25 +703,37 @@ AJ_Status OnGetChannelId(const char* objPath, char* channelId)
 }
 AJ_Status OnSetChannelId(const char* objPath, const char* channelId)
 {
+    int i;
+    AJ_Status status = AJ_ERR_INVALID;
+
     printf("OnSetChannelId : %s %s\n", objPath, channelId);
 
-    return AJ_OK;
+    for (i = 0; i < TOTAL_NUM_OF_CHANNEL; i++) {
+        if (strcmp(channels[i].channelId, channelId) == 0) {
+            status = AJ_OK;
+            break;
+        }
+    }
+    return status;
 }
 AJ_Status OnGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels)
 {
     printf("OnGetTotalNumberOfChannels : %s\n", objPath);
 
-    *totalNumberOfChannels = 100;
+    *totalNumberOfChannels = TOTAL_NUM_OF_CHANNEL;
 
     return AJ_OK;
 }
 AJ_Status OnGetChannelList(const char* objPath, const uint16_t startingRecord, const uint16_t numRecords,
-                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords)
+                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords, ErrorCode* errorCode)
 {
     int size = sizeof(channels) / sizeof(ChannelInfoRecord);
     printf("OnGetChannelList : %s, startingRecord : %u, numRecords : %u\n", objPath, startingRecord, numRecords);
 
     if (startingRecord >= size) {
+        if (errorCode) {
+            *errorCode = INVALID_VALUE;
+        }
         return AJ_ERR_INVALID;
     }
 
@@ -822,7 +829,7 @@ AJ_Status OnGetUpdateMinTime3(const char* objPath, uint16_t* updateMinTime)
 
     return AJ_OK;
 }
-AJ_Status OnResetCumulativeEnergy(const char* objPath)
+AJ_Status OnResetCumulativeEnergy(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnResetCumulativeEnergy : %s\n", objPath);
 
@@ -871,7 +878,7 @@ AJ_Status OnSetAutoMode(const char* objPath, const uint8_t autoMode)
 }
 
 //OffControl
-AJ_Status OnSwitchOff(const char* objPath)
+AJ_Status OnSwitchOff(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnSwitchOff : %s\n", objPath);
 
@@ -879,7 +886,7 @@ AJ_Status OnSwitchOff(const char* objPath)
 }
 
 //OnControl
-AJ_Status OnSwitchOn(const char* objPath)
+AJ_Status OnSwitchOn(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnSwitchOn : %s\n", objPath);
 
@@ -895,23 +902,6 @@ AJ_Status OnGetOnOff(const char* objPath, bool* onOff)
 
     return AJ_OK;
 }
-
-//RapidMode
-AJ_Status OnGetRapidMode(const char* objPath, bool* rapidMode)
-{
-    printf("OnGetRapidMode : %s\n", objPath);
-
-    *rapidMode = true;
-
-    return AJ_OK;
-}
-AJ_Status OnSetRapidMode(const char* objPath, const bool rapidMode)
-{
-    printf("OnSetRapidMode : %s, rapidMode : %d\n", objPath, rapidMode);
-
-    return AJ_OK;
-}
-
 
 //RepeatMode
 AJ_Status OnGetRepeatMode(const char* objPath, bool* repeatMode)
@@ -972,219 +962,23 @@ AJ_Status OnGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCycle
     return AJ_OK;
 }
 
-/* SoilLevel */
-AJ_Status OnSetSoilLevelTargetLevel(const char* objPath, const uint8_t targetLevel)
-{
-    printf("SoilLevel OnSetTargetLevel  : %s, targetLevel : %u\n", objPath, targetLevel);
-
-    return AJ_OK;
-}
-
-/* SpinSpeedLevel */
-AJ_Status OnSetSpinSpeedLevelTargetLevel(const char* objPath, const uint8_t targetLevel)
-{
-    printf("SpinSpeedLevel OnSetTargetLevel  : %s, targetLevel : %u\n", objPath, targetLevel);
-
-    return AJ_OK;
-}
-
 AJ_Status OnGetVendorPhasesDescription(const char* objPath, const char* languageTag, CyclePhaseDescriptor** phasesDescription,
-                                       uint16_t* numReturnedRecords)
+                                       uint16_t* numReturnedRecords, ErrorCode* errorCode)
 {
     printf("OnGetVendorPhasesDescription : %s, languageTag : %s\n", objPath, languageTag);
 
-    *phasesDescription = description;
-    *numReturnedRecords = sizeof(description) / sizeof(CyclePhaseDescriptor);
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = description;
+        *numReturnedRecords = sizeof(description) / sizeof(CyclePhaseDescriptor);
 
-    return AJ_OK;
-}
-
-
-AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-
-    bool isClosed = true;
-    
-    bool isClosedRead;
-
-    if (status == AJ_OK) {
-        status = Hae_ClosedStatusInterfaceSetIsClosed(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isClosed);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_ClosedStatusInterfaceGetIsClosed(HAE_OBJECT_PATH_CONTROLLEE, &isClosedRead);
-        printf("ClosedStatus IsClosed : %d\n", isClosedRead);
-    }
-
-    return status;
-}
-
-AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-
-    bool rapidMode = true;
-    
-    bool rapidModeRead;
-
-    if (status == AJ_OK) {
-        status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, rapidMode);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, &rapidModeRead);
-        printf("RapidMode : %d\n", rapidModeRead);
-    }
-
-    return status;
-}
-
-AJ_Status InitHaeRemoteControllabilityProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-
-    bool isControllable = true;
-    
-    bool isControllableRead;
-
-    if (status == AJ_OK) {
-        status = Hae_RemoteControllabilityInterfaceSetIsControllable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isControllable);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_CONTROLLEE, &isControllableRead);
-        printf("RemoteControllability IsClosed : %d\n", isControllableRead);
-    }
-
-    return status;
-}
-
-AJ_Status InitHaeSoilLevelProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-    int i = 0;
-
-    uint8_t maxLevel = 5;
-    uint8_t targetLevel = 0;
-    const uint8_t selectableLevels[] = { 0, 1, 2 };
-
-    uint8_t maxLevelRead;
-    uint8_t targetLevelRead;
-    uint8_t selectableLevelsRead[3];
-
-    /* write in this order (target level as last) to pass the validation */
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
-        printf("SoilLevel MaxLevel: %u\n", maxLevelRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
-        printf("SoilLevel TargetLevel : %u\n", targetLevelRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SoilLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
-        printf("SoilLevel SelectableLevels : \n");
-        for (i = 0; i < 3; i++) {
-            printf("%u\t", selectableLevelsRead[i]);
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
         }
-        printf("\n");
-    }
 
-    return status;
-}
-
-AJ_Status InitHaeSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-    int i = 0;
-
-    uint8_t maxLevel = 5;
-    uint8_t targetLevel = 0;
-    const uint8_t selectableLevels[] = { 0, 1, 2 };
-
-    uint8_t maxLevelRead;
-    uint8_t targetLevelRead;
-    uint8_t selectableLevelsRead[3];
-
-    /* write in this order (target level as last) to pass the validation */
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
+        return AJ_ERR_FAILURE;
     }
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
-        printf("SpinSpeedLevel MaxLevel: %u\n", maxLevelRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
-        printf("SpinSpeedLevel TargetLevel : %u\n", targetLevelRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_SpinSpeedLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
-        printf("SpinSpeedLevel SelectableLevels : \n");
-        for (i = 0; i < 3; i++) {
-            printf("%u\t", selectableLevelsRead[i]);
-        }
-        printf("\n");
-    }
-
-    return status;
-}
-
-AJ_Status InitHaeWaterLevelProperties(AJ_BusAttachment* busAttachment)
-{
-    AJ_Status status = AJ_OK;
-
-    uint8_t supplySource = 0;
-    uint8_t currentLevel = 5;
-    uint8_t maxLevel = 10;
-
-    uint8_t supplySourceRead;
-    uint8_t currentLevelRead;
-    uint8_t maxLevelRead;
-
-    /* write in this order (current level as last) to pass the validation */
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceSetSupplySource(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supplySource);
-    }
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
-    }
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, currentLevel);
-    }
-
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceGetSupplySource(HAE_OBJECT_PATH_CONTROLLEE, &supplySourceRead);
-        printf("Water Supply Source: %u\n", supplySourceRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &currentLevelRead);
-        printf("Water Current Level: %u\n", currentLevelRead);
-    }
-    if (status == AJ_OK) {
-        status = Hae_WaterLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
-        printf("Water Max Level : %u\n", maxLevelRead);
-    }
-
-    return status;
 }
 
 
@@ -1229,7 +1023,7 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t batteryRead = 0;
     char channelId[81] = "1-1";
     char channelIdBuf[128];
-    uint16_t numOfChannels = 70;
+    uint16_t numOfChannels = TOTAL_NUM_OF_CHANNEL;
     uint16_t numOfChannelsRead = 0;
     const uint16_t supportedModes[3] = { 0, 1, 2 };
     uint16_t supportedModesRead[3];
@@ -1248,7 +1042,6 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t supportedCyclePhasesRead[4];
     uint8_t cyclePhase = 1;
     uint8_t cyclePhaseRead = 0;
-
 
     status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
     status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
@@ -1409,7 +1202,6 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_OnOffStatusInterfaceGetOnOff(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
 
-
     status = Hae_RepeatModeInterfaceSetRepeatMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
     status = Hae_RepeatModeInterfaceGetRepeatMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("RepeatMode Read : %d\n", boolRead);
@@ -1429,30 +1221,6 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
     status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
-
-    if (status == AJ_OK) {
-        status = InitHaeClosedStatusProperties(busAttachment);
-    }
-
-    if (status == AJ_OK) {
-        status = InitHaeRapidModeProperties(busAttachment);
-    }
-
-    if (status == AJ_OK) {
-        status = InitHaeRemoteControllabilityProperties(busAttachment);
-    }
-
-    if (status == AJ_OK) {
-        status = InitHaeSoilLevelProperties(busAttachment);
-    }
-
-    if (status == AJ_OK) {
-        status = InitHaeSpinSpeedLevelProperties(busAttachment);
-    }
-
-    if (status == AJ_OK) {
-        status = InitHaeWaterLevelProperties(busAttachment);
-    }
 
     return status;
 }
@@ -1480,21 +1248,15 @@ int AJ_Main(void)
     BatteryStatusListener batteryStatusListener;
     ChannelListener channelListener;
     ClimateControlModeListener climateControlModeListener;
-    ClosedStatusListener closedStatusListener;
     CurrentPowerListener currentPowerListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
-    RapidModeListener rapidModeListener;
-    RemoteControllabilityListener remoteControllabilityListener;
     RepeatModeListener repeatModeListener;
     ResourceSavingListener resourceSavingListener;
     RobotCleaningCyclePhaseListener robotCleaningCyclePhaseListener;
-    SoilLevelListener soilLevelListener;
-    SpinSpeedLevelListener spinSpeedLevelListener;
-    WaterLevelListener waterLevelListener;
 
     AJ_Initialize();
 
@@ -1594,9 +1356,6 @@ int AJ_Main(void)
     //climateControlModeListener.OnGetOperationalState = OnGetOperationalState;
     status = Hae_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
 
-    closedStatusListener.OnGetIsClosed = NULL;
-    status = Hae_CreateInterface(CLOSED_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &closedStatusListener);
-
     currentPowerListener.OnGetCurrentPower = NULL;
     //currentPowerListener.OnGetCurrentPower = OnGetCurrentPower;
     currentPowerListener.OnGetPrecision = NULL;
@@ -1634,14 +1393,6 @@ int AJ_Main(void)
     //onOffStatusListener.OnGetOnOff = OnGetOnOff;
     status = Hae_CreateInterface(ON_OFF_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 
-    rapidModeListener.OnGetRapidMode = NULL;
-    //rapidModeListener.OnGetRapidMode = OnGetRapidMode;
-    rapidModeListener.OnSetRapidMode = OnSetRapidMode;
-    status = Hae_CreateInterface(RAPID_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeListener);
-
-    remoteControllabilityListener.OnGetIsControllable = NULL;
-    status = Hae_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
-
     repeatModeListener.OnGetRepeatMode = NULL;
     //repeatModeListener.OnGetRepeatMode = OnGetRepeatMode;
     repeatModeListener.OnSetRepeatMode = OnSetRepeatMode;
@@ -1657,25 +1408,7 @@ int AJ_Main(void)
     robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     //robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = OnGetSupportedCyclePhases;
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = OnGetVendorPhasesDescription;
-
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
-
-    waterLevelListener.OnGetSupplySource = NULL;
-    waterLevelListener.OnGetCurrentLevel = NULL;
-    waterLevelListener.OnGetMaxLevel = NULL;
-    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
-
-    soilLevelListener.OnGetMaxLevel = NULL;
-    soilLevelListener.OnGetTargetLevel = NULL;
-    soilLevelListener.OnSetTargetLevel = OnSetSoilLevelTargetLevel;
-    soilLevelListener.OnGetSelectableLevels = NULL;
-    status = Hae_CreateInterface(SOIL_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &soilLevelListener);
-
-    spinSpeedLevelListener.OnGetMaxLevel = NULL;
-    spinSpeedLevelListener.OnGetTargetLevel = NULL;
-    spinSpeedLevelListener.OnSetTargetLevel = OnSetSpinSpeedLevelTargetLevel;
-    spinSpeedLevelListener.OnGetSelectableLevels = NULL;
-    status = Hae_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
 
     status = Hae_Start();
 

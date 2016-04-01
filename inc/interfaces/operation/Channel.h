@@ -22,6 +22,7 @@
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
 /**
  * ChannelInfoRecord struct
@@ -67,10 +68,11 @@ typedef struct {
      * @param[in] numRecords the number of records
      * @param[out] listOfChannelInfoRecords list of channel info records
      * @param[out] numReturnedRecords the number of returned channel info records
+     * @param[out] errorCode error code
      * @return AJ_OK on success
      */
     AJ_Status (*OnGetChannelList) (const char* objPath, const uint16_t startingRecord, const uint16_t numRecords,
-                                   ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords);
+                                   ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords, ErrorCode* errorCode);
 } ChannelListener;
 
 /**

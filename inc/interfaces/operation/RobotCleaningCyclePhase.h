@@ -22,6 +22,7 @@
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
 /**
  * CyclePhaseDescriptor struct
@@ -58,10 +59,11 @@ typedef struct {
      * @param[in] languageTag Preferred language to be used in selecting the output strings
      * @param[out] phasesDescription Cycle phases description
      * @param[out] numReturnedRecords the number of returned CyclePhaseDescriptor info records
+     * @param[out] errorCode error code
      * @return AJ_OK on success
      */
     AJ_Status (*OnGetVendorPhasesDescription) (const char* objPath, const char* languageTag, CyclePhaseDescriptor** phasesDescription,
-                                                uint16_t* numReturnedRecords);
+                                               uint16_t* numReturnedRecords, ErrorCode* errorCode);
 } RobotCleaningCyclePhaseListener;
 
 /**

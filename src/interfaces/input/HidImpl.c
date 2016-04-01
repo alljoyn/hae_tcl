@@ -164,11 +164,15 @@ AJ_Status HidInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, v
     return status;
 }
 
-AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener)
+AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
     if (!listener) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (!propChangedByMethod) {
         return AJ_ERR_INVALID;
     }
 
