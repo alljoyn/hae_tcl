@@ -16,6 +16,7 @@
 
 #include <string.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
+#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 #include "../../HaeControllee/HaeControlleeImpl.h"
 #include "EnergyUsageImpl.h"
 
@@ -101,6 +102,28 @@ static AJ_Status EmitPropChanged(AJ_BusAttachment* busAttachment, const char* ob
     return status;
 }
 
+AJ_Status EnergyUsageInterfaceEmitPropertiesChanged(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex)
+{
+    AJ_Status status = AJ_OK;
+    EnergyUsageProperties* props = NULL;
+
+    if (!properties) {
+        return AJ_ERR_INVALID;
+    }
+
+    props = (EnergyUsageProperties*)properties;
+
+    switch (memberIndex) {
+    case 1 :
+        status = EmitPropChanged(busAttachment, objPath, "CumulativeEnergy", "d", &(props->cumulativeEnergy));
+        break;
+    default:
+        status = AJ_ERR_INVALID;
+    }
+
+    return status;
+}
+
 AJ_Status EnergyUsageInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener)
 {
     AJ_Status status = AJ_OK;
@@ -170,11 +193,15 @@ AJ_Status EnergyUsageInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener)
+AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
     if (!listener) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (!propChangedByMethod) {
         return AJ_ERR_INVALID;
     }
 
@@ -185,7 +212,23 @@ AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPa
         if (!lt->OnResetCumulativeEnergy) {
             status = AJ_ERR_NULL;
         } else {
-            status = lt->OnResetCumulativeEnergy(objPath);
+            ErrorCode errorCode = NOT_ERROR;
+            AJ_Message reply;
+            status = lt->OnResetCumulativeEnergy(objPath, &errorCode);
+
+            if (status == AJ_OK) {
+                EnergyUsageProperties* props = (EnergyUsageProperties*)(propChangedByMethod->properties);
+                if (props) {
+                    props->cumulativeEnergy = 0.0;
+                    propChangedByMethod->member_index_mask |= (1 << 1); //mask bit 1(member index of CumulativeEnergy property)
+                }
+            }
+
+            AJ_MarshalReplyMsg(msg, &reply);
+            if (status != AJ_OK) {
+                AJ_MarshalErrorMsgWithInfo(msg, &reply, GetInterfaceErrorName(errorCode), GetInterfaceErrorMessage(errorCode));
+            }
+            status = AJ_DeliverMsg(&reply);
         }
         break;
     default:

@@ -22,6 +22,7 @@
 
 #include <ajtcl/alljoyn.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
 /**
  * OnControl interface listener
@@ -30,9 +31,10 @@ typedef struct {
     /**
      * Handler for SwitchOn method
      * @param[in] objPath object path
+     * @param[out] errorCode error code
      * @return AJ_OK on success
      */
-    AJ_Status (*OnSwitchOn) (const char* objPath);
+    AJ_Status (*OnSwitchOn) (const char* objPath, ErrorCode* errorCode);
 
 } OnControlListener;
 

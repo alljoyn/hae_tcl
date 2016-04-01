@@ -36,7 +36,21 @@ typedef struct {
     bool mute;
 } AudioVolumeProperties;
 
-AJ_Status VolumeValidationCheck(const char* objPath, uint8_t volume)
+uint8_t AudioVolumeAdjustVolume(const char* objPath, uint8_t volume)
+{
+    AJ_Status status = AJ_OK;
+    AudioVolumeProperties* props = NULL;
+
+    props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
+    if (props) {
+        if (volume > props->maxVolume) {
+            return props->maxVolume;
+        }
+    }
+    return volume;
+}
+
+AJ_Status AudioVolumeCheckVolumeForValidation(const char* objPath, uint8_t volume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -223,7 +237,7 @@ AJ_Status AudioVolumeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* ob
             status = AJ_UnmarshalArgs(replyMsg, "y", &volume);
 
             if (status == AJ_OK) {
-                status = VolumeValidationCheck(objPath, volume);
+                volume = AudioVolumeAdjustVolume(objPath, volume);
 
                 if (status != AJ_OK) {
                     return status;
@@ -297,7 +311,7 @@ AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, con
         return AJ_ERR_INVALID;
     }
 
-    status = VolumeValidationCheck(objPath, volume);
+    status = AudioVolumeCheckVolumeForValidation(objPath, volume);
 
     if (status != AJ_OK) {
         return status;

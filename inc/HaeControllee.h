@@ -90,6 +90,11 @@ typedef enum {
 
 } HaeInterfaceTypes;
 
+typedef struct {
+    void* properties;
+    uint32_t member_index_mask;
+} HaePropertiesChangedByMethod;
+
 /**
  * Vendor defined interface handler
  */
@@ -152,9 +157,10 @@ typedef struct {
      * @param[in] objPath the object path including the interface
      * @param[in] memberIndex index of the method in the interface description
      * @param[in] listener interface listener
+     * @param[in] propChangedByMethod includes pointer to properties belonged to the interface. The change of properties values shall be recorded to this.
      * @return AJ_OK on success
      */
-    AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener);
+    AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
 } VendorDefinedInterfaceHandler;
 
 /**

@@ -198,6 +198,7 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[CHANNEL_INTERFACE] = ChannelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[FAN_SPEED_LEVEL_INTERFACE] = FanSpeedLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[CLIMATE_CONTROL_MODE_INTERFACE] = ClimateControlModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceEmitPropertiesChanged; //There is no writable property, but there is a property which can be changed by method call
     emitPropertiesChanged[RAPID_MODE_INTERFACE] = RapidModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[REPEAT_MODE_INTERFACE] = RepeatModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[RESOURCE_SAVING_INTERFACE] = ResourceSavingInterfaceEmitPropertiesChanged;
@@ -525,6 +526,25 @@ static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_
     return intfInfo;
 }
 
+static void EmitPropChangedByMethod(HaeInterfaceTypes intfType, AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint32_t mask)
+{
+    int i = 1;
+    uint8_t check = 0;
+
+    for (i = 1; i < 32; i++) {
+        mask >>= 1;
+        if (!mask) {
+            break;
+        }
+        check = mask & (uint32_t)1;
+        if (check) {
+            if (emitPropertiesChanged[intfType]) {
+                emitPropertiesChanged[intfType](busAttachment, objPath, properties, i);
+            }
+        }
+    }
+}
+
 static AJ_Status PropGetHandler(AJ_Message* replyMsg, uint32_t propId, void* context)
 {
     uint8_t objIndex = GetObjectIndex(propId);
@@ -654,9 +674,15 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
             } else { //method
                 HaeInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
                 if (intfInfo) {
+                    HaePropertiesChangedByMethod propChangedByMethod;
+                    propChangedByMethod.properties = intfInfo->properties;
+                    propChangedByMethod.member_index_mask = 0;
                     if (intfInfo->intfType > UNDEFINED_INTERFACE && intfInfo->intfType < VENDOR_DEFINED_INTERFACE) {
                         if (onMethodHandler[intfInfo->intfType]) {
-                            *status = onMethodHandler[intfInfo->intfType](msg, objInfo->path, memberIndex, intfInfo->listener);
+                            *status = onMethodHandler[intfInfo->intfType](msg, objInfo->path, memberIndex, intfInfo->listener, &propChangedByMethod);
+                            if (*status == AJ_OK && propChangedByMethod.member_index_mask != 0) {
+                                EmitPropChangedByMethod(intfInfo->intfType, busAttachment, objInfo->path, propChangedByMethod.properties, propChangedByMethod.member_index_mask);
+                            }
                         } else {
                             *status = AJ_ERR_INVALID;
                         }
@@ -668,7 +694,10 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
 
                         if (vendorDefinedIntfInfo->handler) {
                             if (vendorDefinedIntfInfo->handler->OnMethodHandler) {
-                                *status = vendorDefinedIntfInfo->handler->OnMethodHandler(msg, objInfo->path, memberIndex, intfInfo->listener);
+                                *status = vendorDefinedIntfInfo->handler->OnMethodHandler(msg, objInfo->path, memberIndex, intfInfo->listener, &propChangedByMethod);
+                                if (*status == AJ_OK && propChangedByMethod.member_index_mask != 0) {
+                                    EmitPropChangedByMethod(intfInfo->intfType, busAttachment, objInfo->path, propChangedByMethod.properties, propChangedByMethod.member_index_mask);
+                                }
                             } else {
                                 *status = AJ_ERR_NULL;
                             }

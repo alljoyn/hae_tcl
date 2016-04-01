@@ -1,6 +1,3 @@
-/**
- * @file
- */
 /******************************************************************************
  * Copyright AllSeen Alliance. All rights reserved.
  *
@@ -17,25 +14,34 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef OFFCONTROL_H_
-#define OFFCONTROL_H_
-
-#include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#ifndef HAEINTERFACEERRORS_H_
+#define HAEINTERFACEERRORS_H_
 
 /**
- * OffControl interface listener
+ * Error Code
  */
-typedef struct {
-    /**
-     * Handler for SwitchOff method
-     * @param[in] objPath object path
-     * @param[out] errorCode error code
-     * @return AJ_OK on success
-     */
-    AJ_Status (*OnSwitchOff) (const char* objPath, ErrorCode* errorCode);
+typedef enum {
+    NOT_ERROR = 0,
+    INVALID_VALUE,
+    FEATURE_NOT_AVAILABLE,
+    LANGUAGE_NOT_SUPPORTED,
+    NOT_ACCEPTABLE_DUE_TO_INTERNAL_STATE,
+    REMOTE_CONTROL_DISABLED,
+    MAX_ERROR_CODE = REMOTE_CONTROL_DISABLED
+} ErrorCode;
 
-} OffControlListener;
+/**
+ * Get interface error name
+ * @param[in] errorCode error code
+ * @return Error name
+ */
+const char* GetInterfaceErrorName(ErrorCode errorCode);
 
-#endif /* OFFCONTROL_H_ */
+/**
+ * Get interface error message
+ * @param[in] errorCode error code
+ * @return Error message
+ */
+const char* GetInterfaceErrorMessage(ErrorCode errorCode);
+
+#endif /* HAEINTERFACEERRORS_H_ */

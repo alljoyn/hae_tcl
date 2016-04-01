@@ -689,7 +689,8 @@ AJ_Status OnGetIsCharging(const char* objPath, bool* isCharging)
 }
 
 //Channel
-ChannelInfoRecord channels[5] = {
+#define TOTAL_NUM_OF_CHANNEL    5
+ChannelInfoRecord channels[TOTAL_NUM_OF_CHANNEL] = {
     {"1-1", "1", "aaa"},
     {"1-2", "2", "bbb"},
     {"1-3", "3", "ccc"},
@@ -708,25 +709,37 @@ AJ_Status OnGetChannelId(const char* objPath, char* channelId)
 }
 AJ_Status OnSetChannelId(const char* objPath, const char* channelId)
 {
+    int i;
+    AJ_Status status = AJ_ERR_INVALID;
+
     printf("OnSetChannelId : %s %s\n", objPath, channelId);
 
-    return AJ_OK;
+    for (i = 0; i < TOTAL_NUM_OF_CHANNEL; i++) {
+        if (strcmp(channels[i].channelId, channelId) == 0) {
+            status = AJ_OK;
+            break;
+        }
+    }
+    return status;
 }
 AJ_Status OnGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels)
 {
     printf("OnGetTotalNumberOfChannels : %s\n", objPath);
 
-    *totalNumberOfChannels = 100;
+    *totalNumberOfChannels = TOTAL_NUM_OF_CHANNEL;
 
     return AJ_OK;
 }
 AJ_Status OnGetChannelList(const char* objPath, const uint16_t startingRecord, const uint16_t numRecords,
-                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords)
+                           ChannelInfoRecord** listOfChannelInfoRecords, uint16_t* numReturnedRecords, ErrorCode* errorCode)
 {
     int size = sizeof(channels) / sizeof(ChannelInfoRecord);
     printf("OnGetChannelList : %s, startingRecord : %u, numRecords : %u\n", objPath, startingRecord, numRecords);
 
     if (startingRecord >= size) {
+        if (errorCode) {
+            *errorCode = INVALID_VALUE;
+        }
         return AJ_ERR_INVALID;
     }
 
@@ -822,7 +835,7 @@ AJ_Status OnGetUpdateMinTime3(const char* objPath, uint16_t* updateMinTime)
 
     return AJ_OK;
 }
-AJ_Status OnResetCumulativeEnergy(const char* objPath)
+AJ_Status OnResetCumulativeEnergy(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnResetCumulativeEnergy : %s\n", objPath);
 
@@ -871,7 +884,7 @@ AJ_Status OnSetAutoMode(const char* objPath, const uint8_t autoMode)
 }
 
 //OffControl
-AJ_Status OnSwitchOff(const char* objPath)
+AJ_Status OnSwitchOff(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnSwitchOff : %s\n", objPath);
 
@@ -879,7 +892,7 @@ AJ_Status OnSwitchOff(const char* objPath)
 }
 
 //OnControl
-AJ_Status OnSwitchOn(const char* objPath)
+AJ_Status OnSwitchOn(const char* objPath, ErrorCode* errorCode)
 {
     printf("OnSwitchOn : %s\n", objPath);
 
@@ -911,7 +924,6 @@ AJ_Status OnSetRapidMode(const char* objPath, const bool rapidMode)
 
     return AJ_OK;
 }
-
 
 //RepeatMode
 AJ_Status OnGetRepeatMode(const char* objPath, bool* repeatMode)
@@ -972,6 +984,25 @@ AJ_Status OnGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCycle
     return AJ_OK;
 }
 
+AJ_Status OnGetVendorPhasesDescription(const char* objPath, const char* languageTag, CyclePhaseDescriptor** phasesDescription,
+                                       uint16_t* numReturnedRecords, ErrorCode* errorCode)
+{
+    printf("OnGetVendorPhasesDescription : %s, languageTag : %s\n", objPath, languageTag);
+
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = description;
+        *numReturnedRecords = sizeof(description) / sizeof(CyclePhaseDescriptor);
+
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
+}
+
 /* SoilLevel */
 AJ_Status OnSetSoilLevelTargetLevel(const char* objPath, const uint8_t targetLevel)
 {
@@ -988,24 +1019,13 @@ AJ_Status OnSetSpinSpeedLevelTargetLevel(const char* objPath, const uint8_t targ
     return AJ_OK;
 }
 
-AJ_Status OnGetVendorPhasesDescription(const char* objPath, const char* languageTag, CyclePhaseDescriptor** phasesDescription,
-                                       uint16_t* numReturnedRecords)
-{
-    printf("OnGetVendorPhasesDescription : %s, languageTag : %s\n", objPath, languageTag);
-
-    *phasesDescription = description;
-    *numReturnedRecords = sizeof(description) / sizeof(CyclePhaseDescriptor);
-
-    return AJ_OK;
-}
-
 
 AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
     bool isClosed = true;
-    
+
     bool isClosedRead;
 
     if (status == AJ_OK) {
@@ -1025,7 +1045,7 @@ AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
     AJ_Status status = AJ_OK;
 
     bool rapidMode = true;
-    
+
     bool rapidModeRead;
 
     if (status == AJ_OK) {
@@ -1045,7 +1065,7 @@ AJ_Status InitHaeRemoteControllabilityProperties(AJ_BusAttachment* busAttachment
     AJ_Status status = AJ_OK;
 
     bool isControllable = true;
-    
+
     bool isControllableRead;
 
     if (status == AJ_OK) {
@@ -1229,7 +1249,7 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t batteryRead = 0;
     char channelId[81] = "1-1";
     char channelIdBuf[128];
-    uint16_t numOfChannels = 70;
+    uint16_t numOfChannels = TOTAL_NUM_OF_CHANNEL;
     uint16_t numOfChannelsRead = 0;
     const uint16_t supportedModes[3] = { 0, 1, 2 };
     uint16_t supportedModesRead[3];
@@ -1248,7 +1268,6 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t supportedCyclePhasesRead[4];
     uint8_t cyclePhase = 1;
     uint8_t cyclePhaseRead = 0;
-
 
     status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
     status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
@@ -1408,7 +1427,6 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_OnOffStatusInterfaceSetOnOff(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
     status = Hae_OnOffStatusInterfaceGetOnOff(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
-
 
     status = Hae_RepeatModeInterfaceSetRepeatMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
     status = Hae_RepeatModeInterfaceGetRepeatMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
@@ -1657,7 +1675,6 @@ int AJ_Main(void)
     robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     //robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = OnGetSupportedCyclePhases;
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = OnGetVendorPhasesDescription;
-
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 
     waterLevelListener.OnGetSupplySource = NULL;

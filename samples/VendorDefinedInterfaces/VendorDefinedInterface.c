@@ -201,11 +201,15 @@ AJ_Status VendorDefinedInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
     return status;
 }
 
-AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener)
+AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
     if (!listener) {
+        return AJ_ERR_INVALID;
+    }
+
+    if (!propChangedByMethod) {
         return AJ_ERR_INVALID;
     }
 
@@ -259,7 +263,7 @@ AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t
     return status;
 }
 
-AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t* testProperty)
+AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty)
 {
     AJ_Status status = AJ_OK;
     VendorDefinedProperties* props = NULL;
@@ -268,14 +272,10 @@ AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachm
         return AJ_ERR_INVALID;
     }
 
-    if (!testProperty) {
-        return AJ_ERR_INVALID;
-    }
-
     props = (VendorDefinedProperties*)GetProperties(objPath, vendorDefinedInterfaceType);
     if (props) {
-        if (props->testProperty != *testProperty) {
-            props->testProperty = *testProperty;
+        if (props->testProperty != testProperty) {
+            props->testProperty = testProperty;
 
             status = EmitPropChanged(busAttachment, objPath, "TestProperty", "i", &(props->testProperty));
         }
