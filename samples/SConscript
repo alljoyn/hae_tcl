@@ -22,9 +22,10 @@ common_objs = samples_env.Object(samples_env.Glob('common/*.c'))
 vendor_objs = samples_env.Object(samples_env.Glob('VendorDefinedInterfaces/*.c'))
 
 build_samples = [
-    'Test',
+    'ConfigurableControllee',
     'IntegratedControllee',
-    'Laundry'
+    'Laundry',
+    'Test'
 ]
 
 for sample in build_samples:
