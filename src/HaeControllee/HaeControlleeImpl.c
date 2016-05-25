@@ -500,8 +500,9 @@ AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* su
 
 static bool IsHaeMsg(uint32_t msgId)
 {
-    if ((msgId >> 24) == HAE_OBJECT_LIST_INDEX)
+    if ((msgId >> 24) == HAE_OBJECT_LIST_INDEX) {
         return true;
+    }
 
     return false;
 }

@@ -4,7 +4,7 @@ HAE Service Framework
 Welcome to the HAE Service Framework.
 
 HAE Service Framework provides easy methods to implement HAE controllee and controller applications.
-HAE Service Framework is based on AJTCL v15.09.
+HAE Service Framework is based on AJTCL v16.04.
 
 
 Folder Structure
@@ -12,16 +12,17 @@ Folder Structure
 <pre>
 hae_tcl
 +---inc
-|   \---interface
-|       \---hae
-|           \---interfaces
-|               +---environment
-|               +---input
-|               \---operation
+|   \---interfaces
+|       +---environment
+|       +---input
+|       \---operation
 +---samples
-|   +---Test
 |   +---common
-|   \---inc
+|   +---inc
+|   +---IntegratedControllee
+|   +---Laundry
+|   +---Test
+|   \---VendorDefinedInterfaces
 \---src
     +---HaeControllee
     \---interfaces
@@ -32,9 +33,11 @@ hae_tcl
 
  * hae_tcl/inc: header files
  * hae_tcl/inc/interfaces: interface related header files
- * hae_tcl/samples/Test: test sample for making other device sample
  * hae_tcl/sampls/common: source files for device sample (AppHandler, PropertyStore)
  * hae_tcl/sampls/inc: header files for device sample (AppHandler, PropertyStore)
+ * hae_tcl/samples/IntegratedControllee : integrated controllee
+ * hae_tcl/samples/Laundry : laundry sample
+ * hae_tcl/samples/Test: test sample for making other device sample
  * hae_tcl/src/HaeControllee: controllee source files
  * hae_tcl/src/interface: interface related source files
 
