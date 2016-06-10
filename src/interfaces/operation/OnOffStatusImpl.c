@@ -108,16 +108,11 @@ AJ_Status OnOffStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     case 1 :
         {
             bool onOff;
-
             if (lt && lt->OnGetOnOff) {
                 status = lt->OnGetOnOff(objPath, &onOff);
                 if (status == AJ_OK) {
                      props->onOff = onOff;
                 }
-            }
-
-            if (!props->onOff) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "b", props->onOff);
         }
@@ -140,7 +135,7 @@ AJ_Status Hae_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
 
     props = (OnOffStatusProperties*)GetProperties(objPath, ON_OFF_STATUS_INTERFACE);
     if (props) {
-      *onOff = props->onOff;
+        *onOff = props->onOff;
     } else {
         status = AJ_ERR_NO_MATCH;
     }

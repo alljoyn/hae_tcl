@@ -14,17 +14,16 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <string.h>
-#include <ajtcl/hae/interfaces/environment/WaterLevel.h>
+#include <ajtcl/hae/interfaces/environment/CurrentAirQualityLevel.h>
 #include "../../HaeControllee/HaeControlleeImpl.h"
-#include "WaterLevelImpl.h"
+#include "CurrentAirQualityLevelImpl.h"
 
 #define INTERFACE_VERSION 1
 
-const char* const intfDescEnvironmentWaterLevel[] = {
-    "$org.alljoyn.SmartSpaces.Environment.WaterLevel",
+const char* const intfDescEnvironmentCurrentAirQualityLevel[] = {
+    "$org.alljoyn.SmartSpaces.Environment.CurrentAirQualityLevel",
     "@Version>q",
-    "@SupplySource>y",
+    "@ContaminantType>y",
     "@CurrentLevel>y",
     "@MaxLevel>y",
     NULL
@@ -32,45 +31,28 @@ const char* const intfDescEnvironmentWaterLevel[] = {
 
 typedef struct {
     uint16_t version;
-    uint8_t supplySource;
+    uint8_t contaminantType;
     uint8_t currentLevel;
     uint8_t maxLevel;
-} WaterLevelProperties;
+} CurrentAirQualityLevelProperties;
 
-AJ_Status CurrentLevelValidationCheck(const char* objPath, uint8_t currentLevel)
+AJ_Status CreateCurrentAirQualityLevelInterface(void** properties)
 {
-    AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
-
-
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
-    if (props) {
-        if (currentLevel > props->maxLevel) {
-            status = AJ_ERR_RANGE;
-        }
-    } else {
-        status = AJ_ERR_NO_MATCH;
-    }
-
-    return status;
-}
-
-AJ_Status CreateWaterLevelInterface(void** properties)
-{
-    *properties = malloc(sizeof(WaterLevelProperties));
+    *properties = malloc(sizeof(CurrentAirQualityLevelProperties));
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
 
-    ((WaterLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
+    ((CurrentAirQualityLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 
     return AJ_OK;
 }
 
-void DestroyWaterLevelInterface(void* properties)
+void DestroyCurrentAirQualityLevelInterface(void* properties)
 {
     if (properties) {
-        WaterLevelProperties* props = (WaterLevelProperties*)properties;
+        CurrentAirQualityLevelProperties* props = (CurrentAirQualityLevelProperties*)properties;
+
         free(props);
     }
 }
@@ -89,10 +71,12 @@ static AJ_Status EmitPropChanged(AJ_BusAttachment* busAttachment, const char* ob
     status = MakePropChangedId(objPath, &msgId);
     if (status == AJ_OK) {
         AJ_MarshalSignal(busAttachment, &msg, msgId, NULL, 0, AJ_FLAG_GLOBAL_BROADCAST, 0);
-        AJ_MarshalArgs(&msg, "s", intfDescEnvironmentWaterLevel[0]+1); //To remove '$'
+        AJ_MarshalArgs(&msg, "s", intfDescEnvironmentCurrentAirQualityLevel[0]+1); //To remove '$'
         AJ_MarshalContainer(&msg, &array, AJ_ARG_ARRAY);
         AJ_MarshalContainer(&msg, &strc, AJ_ARG_DICT_ENTRY);
-        if (!strcmp(signature, "y")) {
+        if (!strcmp(signature, "q")) {
+            AJ_MarshalArgs(&msg, "sv", propName, signature, *(uint16_t*)val);
+        } else if (!strcmp(signature, "y")) {
             AJ_MarshalArgs(&msg, "sv", propName, signature, *(uint8_t*)val);
         } else {
             return AJ_ERR_SIGNATURE;
@@ -107,20 +91,20 @@ static AJ_Status EmitPropChanged(AJ_BusAttachment* busAttachment, const char* ob
     return status;
 }
 
-AJ_Status WaterLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener)
+AJ_Status CurrentAirQualityLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
-    WaterLevelListener* lt = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
+    CurrentAirQualityLevelListener* lt = NULL;
 
     if (!properties) {
         return AJ_ERR_INVALID;
     }
 
     if (listener) {
-        lt = (WaterLevelListener*)listener;
+        lt = (CurrentAirQualityLevelListener*)listener;
     }
-    props = (WaterLevelProperties*)properties;
+    props = (CurrentAirQualityLevelProperties*)properties;
 
     switch (memberIndex) {
     case 0 :
@@ -128,14 +112,14 @@ AJ_Status WaterLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* obj
         break;
     case 1 :
         {
-            uint8_t supplySource;
-            if (lt && lt->OnGetSupplySource) {
-                status = lt->OnGetSupplySource(objPath, &supplySource);
+            uint8_t contaminantType;
+            if (lt && lt->OnGetContaminantType) {
+                status = lt->OnGetContaminantType(objPath, &contaminantType);
                 if (status == AJ_OK) {
-                    props->supplySource = supplySource;
+                    props->contaminantType = contaminantType;
                 }
             }
-            status = AJ_MarshalArgs(replyMsg, "y", props->supplySource);
+            status = AJ_MarshalArgs(replyMsg, "y", props->contaminantType);
         }
         break;
     case 2 :
@@ -143,9 +127,9 @@ AJ_Status WaterLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* obj
             uint8_t currentLevel;
             if (lt && lt->OnGetCurrentLevel) {
                 status = lt->OnGetCurrentLevel(objPath, &currentLevel);
-                 if (status == AJ_OK) {
-                      props->currentLevel = currentLevel;
-                 }
+                if (status == AJ_OK) {
+                    props->currentLevel = currentLevel;
+                }
             }
             status = AJ_MarshalArgs(replyMsg, "y", props->currentLevel);
         }
@@ -169,18 +153,18 @@ AJ_Status WaterLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* obj
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* supplySource)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceGetContaminantType(const char* objPath, uint8_t* contaminantType)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
-    if (!supplySource) {
+    if (!contaminantType) {
         return AJ_ERR_INVALID;
     }
 
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
-        *supplySource = props->supplySource;
+        *contaminantType = props->contaminantType;
     } else {
         status = AJ_ERR_NO_MATCH;
     }
@@ -188,21 +172,21 @@ AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* s
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t supplySource)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceSetContaminantType(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t contaminantType)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
     if (!busAttachment) {
         return AJ_ERR_INVALID;
     }
 
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
-        if (props->supplySource != supplySource) {
-            props->supplySource = supplySource;
+        if (props->contaminantType != contaminantType) {
+            props->contaminantType = contaminantType;
 
-            status = EmitPropChanged(busAttachment, objPath, "SupplySource", "y", &(props->supplySource));
+            status = EmitPropChanged(busAttachment, objPath, "ContaminantType", "y", &(props->contaminantType));
         }
     } else {
         status = AJ_ERR_NO_MATCH;
@@ -211,16 +195,16 @@ AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
     if (!currentLevel) {
         return AJ_ERR_INVALID;
     }
 
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
         *currentLevel = props->currentLevel;
     } else {
@@ -230,21 +214,16 @@ AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* c
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
     if (!busAttachment) {
         return AJ_ERR_INVALID;
     }
 
-    status = CurrentLevelValidationCheck(objPath, currentLevel);
-    if (status != AJ_OK) {
-        return status;
-    }
-
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
         if (props->currentLevel != currentLevel) {
             props->currentLevel = currentLevel;
@@ -258,16 +237,16 @@ AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
     if (!maxLevel) {
         return AJ_ERR_INVALID;
     }
 
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
         *maxLevel = props->maxLevel;
     } else {
@@ -277,16 +256,16 @@ AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLe
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
+AJ_Status Hae_CurrentAirQualityLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
 {
     AJ_Status status = AJ_OK;
-    WaterLevelProperties* props = NULL;
+    CurrentAirQualityLevelProperties* props = NULL;
 
     if (!busAttachment) {
         return AJ_ERR_INVALID;
     }
 
-    props = (WaterLevelProperties*)GetProperties(objPath, WATER_LEVEL_INTERFACE);
+    props = (CurrentAirQualityLevelProperties*)GetProperties(objPath, CURRENT_AIR_QUALITY_LEVEL_INTERFACE);
     if (props) {
         if (props->maxLevel != maxLevel) {
             props->maxLevel = maxLevel;
@@ -299,4 +278,3 @@ AJ_Status Hae_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, co
 
     return status;
 }
-
