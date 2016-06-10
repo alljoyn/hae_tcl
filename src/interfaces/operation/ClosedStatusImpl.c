@@ -23,7 +23,7 @@
 const char* const intfDescOperationClosedStatus[] = {
     "$org.alljoyn.SmartSpaces.Operation.ClosedStatus",
     "@Version>q",
-    "@IsClosed=b",
+    "@IsClosed>b",
     NULL
 };
 

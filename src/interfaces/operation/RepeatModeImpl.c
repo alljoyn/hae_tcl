@@ -130,15 +130,11 @@ AJ_Status RepeatModeInterfaceOnGetProperty(AJ_Message* replyMsg, const char* obj
     case 1 :
         {
             bool repeatMode;
-
             if (lt && lt->OnGetRepeatMode) {
                 status = lt->OnGetRepeatMode(objPath, &repeatMode);
                 if (status == AJ_OK) {
                     props->repeatMode = repeatMode;
                 }
-            }
-            if (!props->repeatMode) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "b", props->repeatMode);
         }

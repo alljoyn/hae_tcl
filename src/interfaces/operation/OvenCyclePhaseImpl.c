@@ -145,15 +145,11 @@ AJ_Status OvenCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char*
     case 1 :
         {
             uint8_t cyclePhase;
-
             if (lt && lt->OnGetCyclePhase) {
                 status = lt->OnGetCyclePhase(objPath, &cyclePhase);
                 if (status == AJ_OK) {
                     props->cyclePhase = cyclePhase;
                 }
-            }
-            if (!props->cyclePhase) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "y", props->cyclePhase);
         }

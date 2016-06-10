@@ -120,15 +120,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 1 :
         {
             int32_t referenceTimer;
-
             if (lt && lt->OnGetReferenceTimer) {
                 status = lt->OnGetReferenceTimer(objPath, &referenceTimer);
                 if (status == AJ_OK) {
                     props->referenceTimer = referenceTimer;
                 }
-            }
-            if (!props->referenceTimer) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->referenceTimer);
         }
@@ -136,15 +132,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 2 :
         {
             int32_t targetTimeToStart;
-
             if (lt && lt->OnGetTargetTimeToStart) {
                 status = lt->OnGetTargetTimeToStart(objPath, &targetTimeToStart);
                 if (status == AJ_OK) {
                     props->targetTimeToStart = targetTimeToStart;
                 }
-            }
-            if (!props->targetTimeToStart) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->targetTimeToStart);
         }
@@ -152,15 +144,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 3 :
         {
             int32_t targetTimeToStop;
-
             if (lt && lt->OnGetTargetTimeToStop) {
                 status = lt->OnGetTargetTimeToStop(objPath, &targetTimeToStop);
                 if (status == AJ_OK) {
                     props->targetTimeToStop = targetTimeToStop;
                 }
-            }
-            if (!props->targetTimeToStop) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->targetTimeToStop);
         }
@@ -168,15 +156,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 4 :
         {
             int32_t estimatedTimeToEnd;
-
             if (lt && lt->OnGetEstimatedTimeToEnd) {
                 status = lt->OnGetEstimatedTimeToEnd(objPath, &estimatedTimeToEnd);
                 if (status == AJ_OK) {
                     props->estimatedTimeToEnd = estimatedTimeToEnd;
                 }
-            }
-            if (!props->estimatedTimeToEnd) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->estimatedTimeToEnd);
         }
@@ -184,15 +168,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 5 :
         {
             int32_t runningTime;
-
             if (lt && lt->OnGetRunningTime) {
                 status = lt->OnGetRunningTime(objPath, &runningTime);
                 if (status == AJ_OK) {
                     props->runningTime = runningTime;
                 }
-            }
-            if (!props->runningTime) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->runningTime);
         }
@@ -200,15 +180,11 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     case 6 :
         {
             int32_t targetDuration;
-
             if (lt && lt->OnGetTargetDuration) {
                 status = lt->OnGetTargetDuration(objPath, &targetDuration);
                 if (status == AJ_OK) {
                     props->targetDuration = targetDuration;
                 }
-            }
-            if (!props->targetDuration) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "i", props->targetDuration);
         }

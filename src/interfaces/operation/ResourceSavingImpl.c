@@ -130,15 +130,11 @@ AJ_Status ResourceSavingInterfaceOnGetProperty(AJ_Message* replyMsg, const char*
     case 1 :
         {
             bool resourceSavingMode;
-
             if (lt && lt->OnGetResourceSavingMode) {
                 status = lt->OnGetResourceSavingMode(objPath, &resourceSavingMode);
                 if (status == AJ_OK) {
                     props->resourceSavingMode = resourceSavingMode;
                 }
-            }
-            if (!props->resourceSavingMode) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "b", props->resourceSavingMode);
         }
