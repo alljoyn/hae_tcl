@@ -44,12 +44,21 @@
 #include "../interfaces/operation/SoilLevelImpl.h"
 #include "../interfaces/operation/SpinSpeedLevelImpl.h"
 #include "../interfaces/operation/TimerImpl.h"
+#include "../interfaces/operation/MoistureOutputLevelImpl.h"
+#include "../interfaces/operation/FilterStatusImpl.h"
+#include "../interfaces/environment/CurrentAirQualityImpl.h"
+#include "../interfaces/environment/CurrentAirQualityLevelImpl.h"
 #include "../interfaces/environment/CurrentTemperatureImpl.h"
 #include "../interfaces/environment/TargetTemperatureImpl.h"
 #include "../interfaces/environment/WaterLevelImpl.h"
 #include "../interfaces/environment/WindDirectionImpl.h"
 #include "../interfaces/input/HidImpl.h"
-
+#include "../interfaces/environment/CurrentHumidityImpl.h"
+#include "../interfaces/environment/TargetHumidityImpl.h"
+#include "../interfaces/environment/TargetTemperatureLevelImpl.h"
+#include "../interfaces/operation/HvacFanModeImpl.h"
+#include "../interfaces/operation/PlugInUnitsImpl.h"
+#include "../interfaces/operation/RapidModeTimedImpl.h"
 
 #define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
@@ -109,11 +118,21 @@ AJ_Status Hae_Init()
     intfDescs[SOIL_LEVEL_INTERFACE] = intfDescOperationSoilLevel;
     intfDescs[SPIN_SPEED_LEVEL_INTERFACE] = intfDescOperationSpinSpeedLevel;
     intfDescs[TIMER_INTERFACE] = intfDescOperationTimer;
+    intfDescs[MOISTURE_OUTPUT_LEVEL_INTERFACE] = intfDescOperationMoistureOutputLevel;
+    intfDescs[FILTER_STATUS_INTERFACE] = intfDescOperationFilterStatus;
+    intfDescs[CURRENT_AIR_QUALITY_INTERFACE] = intfDescEnvironmentCurrentAirQuality;
+    intfDescs[CURRENT_AIR_QUALITY_LEVEL_INTERFACE] = intfDescEnvironmentCurrentAirQualityLevel;
     intfDescs[CURRENT_TEMPERATURE_INTERFACE] = intfDescEnvironmentCurrentTemperature;
     intfDescs[TARGET_TEMPERATURE_INTERFACE] = intfDescEnvironmentTargetTemperature;
     intfDescs[WATER_LEVEL_INTERFACE] = intfDescEnvironmentWaterLevel;
     intfDescs[WIND_DIRECTION_INTERFACE] = intfDescEnvironmentWindDirection;
     intfDescs[HID_INTERFACE] = intfDescInputHid;
+    intfDescs[CURRENT_HUMIDITY_INTERFACE] = intfDescEnvironmentCurrentHumidity;
+    intfDescs[TARGET_HUMIDITY_INTERFACE] = intfDescEnvironmentTargetHumidity;
+    intfDescs[TARGET_TEMPERATURE_LEVEL_INTERFACE] = intfDescEnvironmentTargetTemperatureLevel;
+    intfDescs[HVAC_FAN_MODE_INTERFACE] = intfDescOperationHvacFanMode;
+    intfDescs[PLUG_IN_UNITS_INTERFACE] = intfDescOperationPlugInUnits;
+    intfDescs[RAPID_MODE_TIMED_INTERFACE] = intfDescOperationRapidModeTimed;
 
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
@@ -141,11 +160,21 @@ AJ_Status Hae_Init()
     intfCreator[SOIL_LEVEL_INTERFACE] = CreateSoilLevelInterface;
     intfCreator[SPIN_SPEED_LEVEL_INTERFACE] = CreateSpinSpeedLevelInterface;
     intfCreator[TIMER_INTERFACE] = CreateTimerInterface;
+    intfCreator[MOISTURE_OUTPUT_LEVEL_INTERFACE] = CreateMoistureOutputLevelInterface;
+    intfCreator[FILTER_STATUS_INTERFACE] = CreateFilterStatusInterface;
+    intfCreator[CURRENT_AIR_QUALITY_INTERFACE] = CreateCurrentAirQualityInterface;
+    intfCreator[CURRENT_AIR_QUALITY_LEVEL_INTERFACE] = CreateCurrentAirQualityLevelInterface;
     intfCreator[CURRENT_TEMPERATURE_INTERFACE] = CreateCurrentTemperatureInterface;
     intfCreator[TARGET_TEMPERATURE_INTERFACE] = CreateTargetTemperatureInterface;
     intfCreator[WATER_LEVEL_INTERFACE] = CreateWaterLevelInterface;
     intfCreator[WIND_DIRECTION_INTERFACE] = CreateWindDirectionInterface;
     intfCreator[HID_INTERFACE] = CreateHidInterface;
+    intfCreator[CURRENT_HUMIDITY_INTERFACE] = CreateCurrentHumidityInterface;
+    intfCreator[TARGET_HUMIDITY_INTERFACE] = CreateTargetHumidityInterface;
+    intfCreator[TARGET_TEMPERATURE_LEVEL_INTERFACE] = CreateTargetTemperatureLevelInterface;
+    intfCreator[HVAC_FAN_MODE_INTERFACE] = CreateHvacFanModeInterface;
+    intfCreator[PLUG_IN_UNITS_INTERFACE] = CreatePlugInUnitsInterface;
+    intfCreator[RAPID_MODE_TIMED_INTERFACE] = CreateRapidModeTimedInterface;
 
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
@@ -173,11 +202,21 @@ AJ_Status Hae_Init()
     intfDestructor[SOIL_LEVEL_INTERFACE] = DestroySoilLevelInterface;
     intfDestructor[SPIN_SPEED_LEVEL_INTERFACE] = DestroySpinSpeedLevelInterface;
     intfDestructor[TIMER_INTERFACE] = DestroyTimerInterface;
+    intfDestructor[MOISTURE_OUTPUT_LEVEL_INTERFACE] = DestroyMoistureOutputLevelInterface;
+    intfDestructor[FILTER_STATUS_INTERFACE] = DestroyFilterStatusInterface;
+    intfDestructor[CURRENT_AIR_QUALITY_INTERFACE] = DestroyCurrentAirQualityInterface;
+    intfDestructor[CURRENT_AIR_QUALITY_LEVEL_INTERFACE] = DestroyCurrentAirQualityLevelInterface;
     intfDestructor[CURRENT_TEMPERATURE_INTERFACE] = DestroyCurrentTemperatureInterface;
     intfDestructor[TARGET_TEMPERATURE_INTERFACE] = DestroyTargetTemperatureInterface;
     intfDestructor[WATER_LEVEL_INTERFACE] = DestroyWaterLevelInterface;
     intfDestructor[WIND_DIRECTION_INTERFACE] = DestroyWindDirectionInterface;
     intfDestructor[HID_INTERFACE] = DestroyHidInterface;
+    intfDestructor[CURRENT_HUMIDITY_INTERFACE] = DestroyCurrentHumidityInterface;
+    intfDestructor[TARGET_HUMIDITY_INTERFACE] = DestroyTargetHumidityInterface;
+    intfDestructor[TARGET_TEMPERATURE_LEVEL_INTERFACE] = DestroyTargetTemperatureLevelInterface;
+    intfDestructor[HVAC_FAN_MODE_INTERFACE] = DestroyHvacFanModeInterface;
+    intfDestructor[PLUG_IN_UNITS_INTERFACE] = DestroyPlugInUnitsInterface;
+    intfDestructor[RAPID_MODE_TIMED_INTERFACE] = DestroyRapidModeTimedInterface;
 
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
@@ -203,11 +242,21 @@ AJ_Status Hae_Init()
     onGetProperty[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceOnGetProperty;
     onGetProperty[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceOnGetProperty;
     onGetProperty[TIMER_INTERFACE] = TimerInterfaceOnGetProperty;
+    onGetProperty[MOISTURE_OUTPUT_LEVEL_INTERFACE] = MoistureOutputLevelInterfaceOnGetProperty;
+    onGetProperty[FILTER_STATUS_INTERFACE] = FilterStatusInterfaceOnGetProperty;
+    onGetProperty[CURRENT_AIR_QUALITY_INTERFACE] = CurrentAirQualityInterfaceOnGetProperty;
+    onGetProperty[CURRENT_AIR_QUALITY_LEVEL_INTERFACE] = CurrentAirQualityLevelInterfaceOnGetProperty;
     onGetProperty[CURRENT_TEMPERATURE_INTERFACE] = CurrentTemperatureInterfaceOnGetProperty;
     onGetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnGetProperty;
     onGetProperty[WATER_LEVEL_INTERFACE] = WaterLevelInterfaceOnGetProperty;
     onGetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnGetProperty;
     onGetProperty[HID_INTERFACE] = HidInterfaceOnGetProperty;
+    onGetProperty[CURRENT_HUMIDITY_INTERFACE] = CurrentHumidityInterfaceOnGetProperty;
+    onGetProperty[TARGET_HUMIDITY_INTERFACE] = TargetHumidityInterfaceOnGetProperty;
+    onGetProperty[TARGET_TEMPERATURE_LEVEL_INTERFACE] = TargetTemperatureLevelInterfaceOnGetProperty;
+    onGetProperty[HVAC_FAN_MODE_INTERFACE] = HvacFanModeInterfaceOnGetProperty;
+    onGetProperty[PLUG_IN_UNITS_INTERFACE] = PlugInUnitsInterfaceOnGetProperty;
+    onGetProperty[RAPID_MODE_TIMED_INTERFACE] = RapidModeTimedInterfaceOnGetProperty;
 
     onSetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnSetProperty;
     onSetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnSetProperty;
@@ -220,8 +269,13 @@ AJ_Status Hae_Init()
     onSetProperty[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceOnSetProperty;
     onSetProperty[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceOnSetProperty;
     onSetProperty[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceOnSetProperty;
+    onSetProperty[MOISTURE_OUTPUT_LEVEL_INTERFACE] = MoistureOutputLevelInterfaceOnSetProperty;
     onSetProperty[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceOnSetProperty;
     onSetProperty[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceOnSetProperty;
+    onSetProperty[TARGET_HUMIDITY_INTERFACE] = TargetHumidityInterfaceOnSetProperty;
+    onSetProperty[TARGET_TEMPERATURE_LEVEL_INTERFACE] = TargetTemperatureLevelInterfaceOnSetProperty;
+    onSetProperty[HVAC_FAN_MODE_INTERFACE] = HvacFanModeInterfaceOnSetProperty;
+    onSetProperty[RAPID_MODE_TIMED_INTERFACE] = RapidModeTimedInterfaceOnSetProperty;
 
     emitPropertiesChanged[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceEmitPropertiesChanged;
@@ -235,16 +289,21 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[AIR_RECIRCULATION_MODE_INTERFACE] = AirRecirculationModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[SOIL_LEVEL_INTERFACE] = SoilLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[SPIN_SPEED_LEVEL_INTERFACE] = SpinSpeedLevelInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[MOISTURE_OUTPUT_LEVEL_INTERFACE] = MoistureOutputLevelInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[TARGET_TEMPERATURE_INTERFACE] = TargetTemperatureInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[WIND_DIRECTION_INTERFACE] = WindDirectionInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[TARGET_HUMIDITY_INTERFACE] = TargetHumidityInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[TARGET_TEMPERATURE_LEVEL_INTERFACE] = TargetTemperatureLevelInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[HVAC_FAN_MODE_INTERFACE] = HvacFanModeInterfaceEmitPropertiesChanged;
+    emitPropertiesChanged[RAPID_MODE_TIMED_INTERFACE] = RapidModeTimedInterfaceEmitPropertiesChanged;
 
     onMethodHandler[CHANNEL_INTERFACE] = ChannelInterfaceOnMethodHandler;
     onMethodHandler[CYCLE_CONTROL_INTERFACE] = CycleControlInterfaceOnMethodHandler;
-    onMethodHandler[DISH_WASHING_CYCLE_PHASE_INTERFACE] = LaundryCyclePhaseInterfaceOnMethodHandler;
-    onMethodHandler[LAUNDRY_CYCLE_PHASE_INTERFACE] = OvenCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[DISH_WASHING_CYCLE_PHASE_INTERFACE] = DishWashingCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[LAUNDRY_CYCLE_PHASE_INTERFACE] = LaundryCyclePhaseInterfaceOnMethodHandler;
     onMethodHandler[ON_CONTROL_INTERFACE] = OnControlInterfaceOnMethodHandler;
     onMethodHandler[OFF_CONTROL_INTERFACE] = OffControlInterfaceOnMethodHandler;
-    onMethodHandler[OVEN_CYCLE_PHASE_INTERFACE] = DishWashingCyclePhaseInterfaceOnMethodHandler;
+    onMethodHandler[OVEN_CYCLE_PHASE_INTERFACE] = OvenCyclePhaseInterfaceOnMethodHandler;
     onMethodHandler[ENERGY_USAGE_INTERFACE] = EnergyUsageInterfaceOnMethodHandler;
     onMethodHandler[ROBOT_CLEANING_CYCLE_PHASE_INTERFACE] = RobotCleaningCyclePhaseInterfaceOnMethodHandler;
     onMethodHandler[TIMER_INTERFACE] = TimerInterfaceOnMethodHandler;

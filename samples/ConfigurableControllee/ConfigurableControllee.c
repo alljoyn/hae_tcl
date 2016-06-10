@@ -34,6 +34,8 @@
 #include <ajtcl/services/ServicesHandlers.h>
 #include <ajtcl/services/Common/AllJoynLogo.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/environment/CurrentAirQuality.h>
+#include <ajtcl/hae/interfaces/environment/CurrentAirQualityLevel.h>
 #include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
 #include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
 #include <ajtcl/hae/interfaces/environment/WaterLevel.h>
@@ -51,13 +53,16 @@
 #include <ajtcl/hae/interfaces/operation/DishWashingCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
+#include <ajtcl/hae/interfaces/operation/FilterStatus.h>
 #include <ajtcl/hae/interfaces/operation/HeatingZone.h>
 #include <ajtcl/hae/interfaces/operation/LaundryCyclePhase.h>
+#include <ajtcl/hae/interfaces/operation/MoistureOutputLevel.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
 #include <ajtcl/hae/interfaces/operation/OvenCyclePhase.h>
 #include <ajtcl/hae/interfaces/operation/RapidMode.h>
+#include <ajtcl/hae/interfaces/operation/RapidModeTimed.h>
 #include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
 #include <ajtcl/hae/interfaces/operation/RepeatMode.h>
 #include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
@@ -65,12 +70,22 @@
 #include <ajtcl/hae/interfaces/operation/SoilLevel.h>
 #include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/Timer.h>
+#include <ajtcl/hae/interfaces/environment/CurrentHumidity.h>
+#include <ajtcl/hae/interfaces/environment/TargetHumidity.h>
+#include <ajtcl/hae/interfaces/environment/TargetTemperatureLevel.h>
+#include <ajtcl/hae/interfaces/operation/HvacFanMode.h>
+#include <ajtcl/hae/interfaces/operation/PlugInUnits.h>
 
 /* to enable/disable a specific interface, uncomment/comment the related row */
+#define ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF
+#define ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF
 #define ENABLE_ENVIRONMENT_CURRENT_TEMPERATURE_IF
 #define ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_IF
 #define ENABLE_ENVIRONMENT_WATER_LEVEL_IF
 #define ENABLE_ENVIRONMENT_WIND_DIRECTION_IF
+#define ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF
+#define ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF
+#define ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF
 #define ENABLE_INPUT_HID_IF
 #define ENABLE_OPERATION_AIR_RECIRCULATION_MODE_IF
 #define ENABLE_OPERATION_AUDIO_VIDEO_INPUT_IF
@@ -84,13 +99,17 @@
 #define ENABLE_OPERATION_DISH_WASHING_CYCLE_PHASE_IF
 #define ENABLE_OPERATION_ENERGY_USAGE_IF
 #define ENABLE_OPERATION_FAN_SPEED_LEVEL_IF
+#define ENABLE_OPERATION_FILTER_STATUS_IF
 #define ENABLE_OPERATION_HEATING_ZONE_IF
+#define ENABLE_OPERATION_HVAC_FAN_MODE_IF
 #define ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF
+#define ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF
 #define ENABLE_OPERATION_OFF_CONTROL_IF
 #define ENABLE_OPERATION_ON_CONTROL_IF
 #define ENABLE_OPERATION_ON_OFF_STATUS_IF
 #define ENABLE_OPERATION_OVEN_CYCLE_PHASE_IF
 #define ENABLE_OPERATION_RAPID_MODE_IF
+#define ENABLE_OPERATION_RAPID_MODE_TIMED_IF
 #define ENABLE_OPERATION_REMOTE_CONTROLLABILITY_IF
 #define ENABLE_OPERATION_REPEAT_MODE_IF
 #define ENABLE_OPERATION_RESOURCE_SAVING_IF
@@ -98,6 +117,7 @@
 #define ENABLE_OPERATION_SOIL_LEVEL_IF
 #define ENABLE_OPERATION_SPIN_SPEED_LEVEL_IF
 #define ENABLE_OPERATION_TIMER_IF
+#define ENABLE_OPERATION_PLUG_IN_UNITS_IF
 
 /*
  * Logger definition
@@ -524,8 +544,8 @@ void InitHaePropertiesPrintResult(AJ_Status setStatus, AJ_Status getStatus, cons
                 case 'd':
                     printf("%s %s get ok : %f\n", interfaceName, proprietyDescriptor->name, *(double*)proprietyDescriptor->readPtr);
                     break;
-//                case 's':
-//                    printf("%s %s get ok : %s\n", interfaceName, proprietyDescriptor->name, (char*)proprietyDescriptor->readPtr);
+                case 's':
+                    printf("%s %s get ok : %s\n", interfaceName, proprietyDescriptor->name, (char*)proprietyDescriptor->readPtr);
                     break;
                 default:
                     printf("InitHaePropertiesPrintResult: undefined type %c\n", proprietyDescriptor->dataType);
@@ -545,7 +565,7 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
     uint16_t qVar;
     int32_t iVar;
     double dVar;
-//    char* sVar;
+    char* sVar;
     uint8_t* ayVar;
     uint16_t* aqVar;
 
@@ -579,8 +599,8 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
             case 'd':
                 dVar = *(double*)proprietyDescriptor->valuePtr;
                 break;
-//            case 's':
-//                sVar = (char*)proprietyDescriptor->valuePtr;
+            case 's':
+                sVar = (char*)proprietyDescriptor->valuePtr;
                 break;
             default:
                 printf("HaeInterfaceSetProperty: undefined type %c\n", proprietyDescriptor->dataType);
@@ -630,8 +650,35 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
 //                break;
 //        } /* switch (proprietyDescriptor->dataType) */
 //    }
-
-    if (strcmp(interfaceName, "CurrentTemperature") == 0) {
+    if (strcmp(interfaceName, "CurrentAirQuality") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ContaminantType") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, dVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, dVar);
+        } else if (strcmp(proprietyDescriptor->name, "MinValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, dVar);
+        } else if (strcmp(proprietyDescriptor->name, "Precision") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, dVar);
+        } else if (strcmp(proprietyDescriptor->name, "UpdateMinTime") == 0) {
+            status = Hae_CurrentAirQualityInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    }
+    else if (strcmp(interfaceName, "CurrentAirQualityLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ContaminantType") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "CurrentLevel") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxLevel") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    }
+    else if (strcmp(interfaceName, "CurrentTemperature") == 0) {
         if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
             status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, dVar);
         } else if (strcmp(proprietyDescriptor->name, "Precision") == 0) {
@@ -704,9 +751,9 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
             printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
     } else if (strcmp(interfaceName, "Channel") == 0) {
-//        if (strcmp(proprietyDescriptor->name, "ChannelId") == 0) {
-//            status = Hae_ChannelInterfaceSetChannelId(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, sVar);
-//        } else
+        if (strcmp(proprietyDescriptor->name, "ChannelId") == 0) {
+            status = Hae_ChannelInterfaceSetChannelId(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, sVar);
+        } else
         if (strcmp(proprietyDescriptor->name, "TotalNumberOfChannels") == 0) {
             status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
         } else {
@@ -776,6 +823,24 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
         } else {
             printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
+    } else if (strcmp(interfaceName, "FilterStatus") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ExpectedLifeInDays") == 0) {
+            status = Hae_FilterStatusInterfaceSetExpectedLifeInDays(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
+        } else if (strcmp(proprietyDescriptor->name, "IsCleanable") == 0) {
+            status = Hae_FilterStatusInterfaceSetIsCleanable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, bVar);
+        } else if (strcmp(proprietyDescriptor->name, "OrderPercentage") == 0) {
+            status = Hae_FilterStatusInterfaceSetOrderPercentage(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "Manufacturer") == 0) {
+            status = Hae_FilterStatusInterfaceSetManufacturer(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, sVar);
+        } else if (strcmp(proprietyDescriptor->name, "PartNumber") == 0) {
+            status = Hae_FilterStatusInterfaceSetPartNumber(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, sVar);
+        } else if (strcmp(proprietyDescriptor->name, "Url") == 0) {
+            status = Hae_FilterStatusInterfaceSetUrl(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, sVar);
+        } else if (strcmp(proprietyDescriptor->name, "LifeRemaining") == 0) {
+            status = Hae_FilterStatusInterfaceSetLifeRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
     } else if (strcmp(interfaceName, "HeatingZone") == 0) {
         if (strcmp(proprietyDescriptor->name, "NumberOfHeatingZones") == 0) {
             status = Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(busAttachment, HAE_OBJECT_PATH_CONTROLLEE , yVar);
@@ -786,6 +851,14 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
         } else {
             printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
+    } else if (strcmp(interfaceName, "HvacFanMode") == 0) {
+        if (strcmp(proprietyDescriptor->name, "SupportedModes") == 0) {
+            status = Hae_HvacFanModeInterfaceSetSupportedModes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aqVar , proprietyDescriptor->size);
+        } else if (strcmp(proprietyDescriptor->name, "Mode") == 0) {
+            status = Hae_HvacFanModeInterfaceSetMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
     } else if (strcmp(interfaceName, "LaundryCyclePhase") == 0) {
         if (strcmp(proprietyDescriptor->name, "SupportedCyclePhases") == 0) {
             status = Hae_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, ayVar , proprietyDescriptor->size);
@@ -793,6 +866,16 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
             status = Hae_LaundryCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
         } else {
             printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "MoistureOutputLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MoistureOutputLevel") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceSetMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxMoistureOutputLevel") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "AutoMode") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceSetAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
     } else if (strcmp(interfaceName, "OnOffStatus") == 0) {
         if (strcmp(proprietyDescriptor->name, "OnOff") == 0) {
@@ -811,6 +894,14 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
     } else if (strcmp(interfaceName, "RapidMode") == 0) {
         if (strcmp(proprietyDescriptor->name, "RapidMode") == 0) {
             status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, bVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "RapidModeTimed") == 0) {
+        if (strcmp(proprietyDescriptor->name, "RapidModeMinutesRemaining") == 0) {
+            status = Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxSetMinutes") == 0) {
+            status = Hae_RapidModeTimedInterfaceSetMaxSetMinutes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, qVar);
         } else {
             printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
@@ -874,6 +965,38 @@ AJ_Status HaeInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
         } else if (strcmp(proprietyDescriptor->name, "TargetDuration") == 0) {
             status = Hae_TimerInterfaceSetTargetDuration(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, iVar);
         }
+    } else if (strcmp(interfaceName, "CurrentHumidity") == 0) {
+        if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
+            status = Hae_CurrentHumidityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_CurrentHumidityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "TargetHumidity") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MinValue") == 0) {
+            status = Hae_TargetHumidityInterfaceSetMinValue( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_TargetHumidityInterfaceSetMaxValue( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "StepValue") == 0) {
+            status = Hae_TargetHumidityInterfaceSetStepValue( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "TargetValue") == 0) {
+            status = Hae_TargetHumidityInterfaceSetTargetValue( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "SelectableHumidityLevels") == 0) {
+            status = Hae_TargetHumidityInterfaceSetSelectableHumidityLevels( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, ayVar, proprietyDescriptor->size);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "TargetTemperatureLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MaxLevel") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceSetMaxLevel( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "TargetLevel") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceSetTargetLevel( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, yVar);
+        } else if (strcmp(proprietyDescriptor->name, "SelectableTemperatureLevels") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels( busAttachment, HAE_OBJECT_PATH_CONTROLLEE, ayVar, proprietyDescriptor->size);
+        } else {
+            printf("HaeInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
     } else {
         printf("HaeInterfaceSetProperty: undefined interface name %s\n", interfaceName);
     }
@@ -889,7 +1012,7 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
     uint16_t* qVarPtr;
     int32_t* iVarPtr;
     double* dVarPtr;
-//    char** sVarPtr;
+    char** sVarPtr;
 
     /* void cast to prevent warning */
     (void)bVarPtr;
@@ -897,7 +1020,7 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
     (void)qVarPtr;
     (void)iVarPtr;
     (void)dVarPtr;
-//    (void)sVarPtr;
+    (void)sVarPtr;
 
     switch (proprietyDescriptor->dataType) {
         case 'b':
@@ -915,15 +1038,43 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
         case 'd':
             dVarPtr = (double*)proprietyDescriptor->readPtr;
             break;
-//        case 's':
-//            sVarPtr = (char**)proprietyDescriptor->readPtr;
-//            break;
+        case 's':
+            sVarPtr = (char**)proprietyDescriptor->readPtr;
+            break;
         default:
             printf("HaeInterfaceGetProperty: undefined type %c\n", proprietyDescriptor->dataType);
             break;
     } /* switch (proprietyDescriptor->dataType) */
 
-    if (strcmp(interfaceName, "CurrentTemperature") == 0) {
+    if (strcmp(interfaceName, "CurrentAirQuality") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ContaminantType") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, dVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, dVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MinValue") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, dVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "Precision") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, dVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "UpdateMinTime") == 0) {
+            status = Hae_CurrentAirQualityInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    }
+    else if (strcmp(interfaceName, "CurrentAirQualityLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ContaminantType") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "CurrentLevel") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxLevel") == 0) {
+            status = Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    }
+     else if (strcmp(interfaceName, "CurrentTemperature") == 0) {
         if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
             status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, dVarPtr);
         } else if (strcmp(proprietyDescriptor->name, "Precision") == 0) {
@@ -996,9 +1147,9 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
     } else if (strcmp(interfaceName, "Channel") == 0) {
-//        if (strcmp(proprietyDescriptor->name, "ChannelId") == 0 ) {
-//            status = Hae_ChannelInterfaceGetChannelId(HAE_OBJECT_PATH_CONTROLLEE, (char*)sVarPtr);
-//        } else
+        if (strcmp(proprietyDescriptor->name, "ChannelId") == 0 ) {
+            status = Hae_ChannelInterfaceGetChannelId(HAE_OBJECT_PATH_CONTROLLEE, (char*)sVarPtr);
+        } else
         if (strcmp(proprietyDescriptor->name, "TotalNumberOfChannels") == 0 ) {
             status = Hae_ChannelInterfaceGetTotalNumberOfChannels(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
         } else {
@@ -1068,6 +1219,24 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
         } else {
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
+    } else if (strcmp(interfaceName, "FilterStatus") == 0) {
+        if (strcmp(proprietyDescriptor->name, "ExpectedLifeInDays") == 0) {
+            status = Hae_FilterStatusInterfaceGetExpectedLifeInDays(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "IsCleanable") == 0) {
+            status = Hae_FilterStatusInterfaceGetIsCleanable(HAE_OBJECT_PATH_CONTROLLEE, bVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "OrderPercentage") == 0) {
+            status = Hae_FilterStatusInterfaceGetOrderPercentage(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "Manufacturer") == 0) {
+            status = Hae_FilterStatusInterfaceGetManufacturer(HAE_OBJECT_PATH_CONTROLLEE, (char*)sVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "PartNumber") == 0) {
+            status = Hae_FilterStatusInterfaceGetPartNumber(HAE_OBJECT_PATH_CONTROLLEE, (char*)sVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "Url") == 0) {
+            status = Hae_FilterStatusInterfaceGetUrl(HAE_OBJECT_PATH_CONTROLLEE, (char*)sVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "LifeRemaining") == 0) {
+            status = Hae_FilterStatusInterfaceGetLifeRemaining(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
     } else if (strcmp(interfaceName, "HeatingZone") == 0) {
         if (strcmp(proprietyDescriptor->name, "NumberOfHeatingZones") == 0) {
             status = Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
@@ -1078,11 +1247,29 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
         } else  {
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
+    } else if (strcmp(interfaceName, "HvacFanMode") == 0) {
+        if (strcmp(proprietyDescriptor->name, "SupportedModes") == 0) {
+            status = Hae_HvacFanModeInterfaceGetSupportedModes(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "Mode") == 0) {
+            status = Hae_HvacFanModeInterfaceGetMode(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
     } else if (strcmp(interfaceName, "LaundryCyclePhase") == 0) {
         if (strcmp(proprietyDescriptor->name, "SupportedCyclePhases") == 0) {
             status = Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
         } else if (strcmp(proprietyDescriptor->name, "CyclePhase") == 0) {
             status = Hae_LaundryCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "MoistureOutputLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MoistureOutputLevel") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceGetMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxMoistureOutputLevel") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "AutoMode") == 0) {
+            status = Hae_MoistureOutputLevelInterfaceGetAutoMode(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
         } else {
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
@@ -1103,6 +1290,14 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
     } else if (strcmp(interfaceName, "RapidMode") == 0) {
         if (strcmp(proprietyDescriptor->name, "RapidMode") == 0) {
             status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, bVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "RapidModeTimed") == 0) {
+        if (strcmp(proprietyDescriptor->name, "RapidModeMinutesRemaining") == 0) {
+            status = Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxSetMinutes") == 0) {
+            status = Hae_RapidModeTimedInterfaceGetMaxSetMinutes(HAE_OBJECT_PATH_CONTROLLEE, qVarPtr);
         } else {
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
@@ -1168,8 +1363,39 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
         } else {
             printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
-    }
-     else {
+    } else if (strcmp(interfaceName, "CurrentHumidity") == 0) {
+        if (strcmp(proprietyDescriptor->name, "CurrentValue") == 0) {
+            status = Hae_CurrentHumidityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_CurrentHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "TargetHumidity") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MinValue") == 0) {
+            status = Hae_TargetHumidityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "MaxValue") == 0) {
+            status = Hae_TargetHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "StepValue") == 0) {
+           status = Hae_TargetHumidityInterfaceGetStepValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "TargetValue") == 0) {
+            status = Hae_TargetHumidityInterfaceGetTargetValue(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "SelectableHumidityLevels") == 0) {
+            status = Hae_TargetHumidityInterfaceGetSelectableHumidityLevels(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else if (strcmp(interfaceName, "TargetTemperatureLevel") == 0) {
+        if (strcmp(proprietyDescriptor->name, "MaxLevel") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "TargetLevel") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else if (strcmp(proprietyDescriptor->name, "SelectableTemperatureLevels") == 0) {
+            status = Hae_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(HAE_OBJECT_PATH_CONTROLLEE, yVarPtr);
+        } else {
+            printf("HaeInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
+        }
+    } else {
         printf("HaeInterfaceGetProperty: undefined interface name %s\n", interfaceName);
     }
 
@@ -1223,6 +1449,94 @@ AJ_Status HaeInterfaceGetProperty(const char* objPath, const char* interfaceName
 }
 
 /* InitHae<If>Properties definition for each interface */
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF)
+/* Environment.CurrentAirQuality */
+
+AJ_Status InitHaeCurrentAirQualityProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t contaminantType = 0;
+    double currentValue = 3.0;
+    double maxValue = 10.0;
+    double minValue = 1.0;
+    double precision = 0.5;
+    uint16_t updateMinTime = 1;
+    uint8_t contaminantTypeRead;
+    double currentValueRead;
+    double maxValueRead;
+    double minValueRead;
+    double precisionRead;
+    uint16_t updateMinTimeRead;
+
+    const char* const interfaceName = "CurrentAirQuality";
+
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "ContaminantType"  , 0 , 'y' , &contaminantType,  &contaminantTypeRead ,  1 },
+        { "CurrentValue"     , 0 , 'd' , &currentValue  ,   &currentValueRead  , 1 },
+        { "MaxValue"         , 0 , 'd' , &maxValue      ,   &maxValueRead  , 1 },
+        { "MinValue"         , 0 , 'd' , &minValue      ,   &minValueRead  , 1 },
+        { "Precision"        , 0 , 'd' , &precision     ,   &precisionRead     , 1 },
+        { "UpdateMinTime"    , 0 , 'q' , &updateMinTime ,   &updateMinTimeRead , 1 },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+
+#endif /* defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF) */
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF)
+/* Environment.CurrentAirQualityLevel */
+
+AJ_Status InitHaeCurrentAirQualityLevelProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t contaminantType = 0;
+    uint8_t currentLevel = 3;
+    uint8_t maxLevel = 10;
+    uint8_t contaminantTypeRead;
+    uint8_t currentLevelRead;
+    uint8_t maxLevelRead;
+
+    const char* const interfaceName = "CurrentAirQualityLevel";
+
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "ContaminantType"  , 0 , 'y' , &contaminantType,  &contaminantTypeRead ,  1 },
+        { "CurrentLevel"     , 0 , 'y' , &currentLevel  ,   &currentLevelRead  , 1 },
+        { "MaxLevel"         , 0 , 'y' , &maxLevel      ,   &maxLevelRead  , 1 },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+
+#endif /* defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF) */
+
 
 #if defined(ENABLE_ENVIRONMENT_CURRENT_TEMPERATURE_IF)
 /* Environment.CurrentTemperature */
@@ -1665,6 +1979,7 @@ AJ_Status InitHaeBatteryStatusProperties(AJ_BusAttachment* busAttachment)
 /* Operation.Channel */
 
 #define MAX_CHANNEL_STRING_SIZE  6
+#define TOTAL_NUM_OF_CHANNEL 12
 
 char *ChannelInfoValues[][3] = {
     {"1-1"  , "1"  , "aaa"},
@@ -1699,6 +2014,7 @@ AJ_Status InitHaeChannelProperties(AJ_BusAttachment* busAttachment)
 
     char channelId[MAX_CHANNEL_STRING_SIZE];
     strcpy(channelId, ChannelInfoListSample[0].channelId);
+    channelId[strlen(ChannelInfoListSample[0].channelId)] = '\0';
     uint16_t totalNumberOfChannels = sizeof(ChannelInfoListSample)/sizeof(ChannelInfoListSample[0]);
 
     char channelIdRead[sizeof(channelId)/sizeof(channelId[0])];
@@ -1729,9 +2045,18 @@ AJ_Status InitHaeChannelProperties(AJ_BusAttachment* busAttachment)
 
 AJ_Status ChannelOnSetChannelId (const char* objPath, const char* channelId)
 {
+    AJ_Status status = AJ_ERR_INVALID;
+    int i = 0;
     printf("Channel OnSetChannelId : %s %s\n", objPath, channelId);
 
-    return AJ_OK;
+    for (i = 0; i < TOTAL_NUM_OF_CHANNEL; i++) {
+        if (strcmp(ChannelInfoValues[i][0], channelId) == 0) {
+            status = AJ_OK;
+            break;
+        }
+    }
+
+    return status;
 }
 
 AJ_Status ChannelOnGetChannelList (const char* objPath, const uint16_t startingRecord, const uint16_t numRecords,
@@ -1743,6 +2068,9 @@ AJ_Status ChannelOnGetChannelList (const char* objPath, const uint16_t startingR
     printf("Channel OnGetChannelList : %s, startingRecord : %u, numRecords : %u\n", objPath, startingRecord, numRecords);
 
     if (startingRecord >= size) {
+        if (errorCode) {
+            *errorCode = INVALID_VALUE;
+        }
         return AJ_ERR_INVALID;
     }
 
@@ -1947,10 +2275,18 @@ AJ_Status DishWashingCyclePhaseOnGetVendorPhasesDescription (const char* objPath
 {
     printf("DishWashingCyclePhase OnGetVendorPhasesDescription : %s, %s\n", objPath, languageTag);
 
-    *phasesDescription = &DishWashingVendorPhases[0];
-    *numReturnedRecords = sizeof(DishWashingVendorPhases)/sizeof(DishWashingVendorPhases[0]);
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = &DishWashingVendorPhases[0];
+        *numReturnedRecords = sizeof(DishWashingVendorPhases) / sizeof(DishWashingVendorPhases[0]);
 
-    return AJ_OK;
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
 }
 
 #endif /* defined(ENABLE_OPERATION_DISH_WASHING_CYCLE_PHASE_IF) */
@@ -2034,6 +2370,13 @@ AJ_Status InitHaeFanSpeedLevelProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
+AJ_Status FanSpeedLevelOnSetFanSpeedLevel(const char* objPath, const uint8_t fanSpeedLevel)
+{
+    printf("FanSpeedLevel OnSetFanSpeedLevel : %s, %u\n", objPath, fanSpeedLevel);
+
+    return AJ_OK;
+}
+
 AJ_Status FanSpeedLevelOnSetAutoMode(const char* objPath, const uint8_t autoMode)
 {
     printf("FanSpeedLevel OnSetAutoMode : %s, %u\n", objPath, autoMode);
@@ -2042,6 +2385,58 @@ AJ_Status FanSpeedLevelOnSetAutoMode(const char* objPath, const uint8_t autoMode
 }
 
 #endif /* defined(ENABLE_OPERATION_FAN_SPEED_LEVEL_IF) */
+
+#if defined(ENABLE_OPERATION_FILTER_STATUS_IF)
+/* Operation.FilterStatus */
+
+#define MAX_MANUFACTURER_STRING_SIZE 10
+#define MAX_PARTNUMBER_STRING_SIZE 10
+#define MAX_URL_STRING_SIZE 30
+
+AJ_Status InitHaeFilterStatusProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint16_t expectedLifeInDays = 30;
+    bool isCleanable = true;
+    uint8_t orderPercentage = 10;
+    char manufacturer[MAX_MANUFACTURER_STRING_SIZE] = "HAE";
+    char partNumber[MAX_PARTNUMBER_STRING_SIZE] = "A1";
+    char url[MAX_URL_STRING_SIZE] = "http://";
+    uint8_t lifeRemaining = 100;
+    uint16_t expectedLifeInDaysRead;
+    bool isCleanableRead;
+    uint8_t orderPercentageRead;
+    char manufacturerRead[MAX_MANUFACTURER_STRING_SIZE];
+    char partNumberRead[MAX_PARTNUMBER_STRING_SIZE];
+    char urlRead[MAX_URL_STRING_SIZE];
+    uint8_t lifeRemainingRead;
+
+    const char* const interfaceName = "FilterStatus";
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "ExpectedLifeInDays" ,  0  , 'q' , &expectedLifeInDays  , &expectedLifeInDaysRead , 1 },
+        { "IsCleanable"        ,  0  , 'b' , &isCleanable         , &isCleanableRead        , 1 },
+        { "OrderPercentage"    ,  0  , 'y' , &orderPercentage     , &orderPercentageRead    , 1 },
+        { "Manufacturer"       ,  0  , 's' , &manufacturer        , &manufacturerRead       , 1 },
+        { "PartNumber"         ,  0  , 's' , &partNumber          , &partNumberRead         , 1 },
+        { "Url"                ,  0  , 's' , &url                 , &urlRead                , 1 },
+        { "LifeRemaining"      ,  0  , 'y' , &lifeRemaining       , &lifeRemainingRead      , 1 },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+#endif /* defined(ENABLE_OPERATION_FILTER_STATUS_IF) */
 
 #if defined(ENABLE_OPERATION_HEATING_ZONE_IF)
 /* Operation.HeatingZone */
@@ -2127,14 +2522,72 @@ AJ_Status LaundryCyclePhaseOnGetVendorPhasesDescription (const char* objPath, co
 {
     printf("LaundryCyclePhase OnGetVendorPhasesDescription : %s, %s\n", objPath, languageTag);
 
-    *phasesDescription = &LaundryVendorPhases[0];
-    *numReturnedRecords = sizeof(LaundryVendorPhases)/sizeof(LaundryVendorPhases[0]);
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = &LaundryVendorPhases[0];
+        *numReturnedRecords = sizeof(LaundryVendorPhases) / sizeof(LaundryVendorPhases[0]);
+
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
+}
+
+#endif /* defined(ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF) */
+
+#if defined (ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF)
+/* Operation.MoistureOutputLevel */
+
+AJ_Status InitHaeMoistureOutputLevelProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t moistureOutputLevel = 0;
+    uint8_t maxMoistureOutputLevel = 10;
+    uint8_t autoMode = 0;
+    uint8_t moistureOutputLevelRead;
+    uint8_t maxMoistureOutputLevelRead;
+    uint8_t autoModeRead;
+
+    const char* const interfaceName = "MoistureOutputLevel";
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "MaxMoistureOutputLevel" , 0 , 'y' , &maxMoistureOutputLevel , &maxMoistureOutputLevelRead , 1 },
+        { "MoistureOutputLevel"    , 0 , 'y' , &moistureOutputLevel    , &moistureOutputLevelRead    , 1 },
+        { "AutoMode"               , 0 , 'y' , &autoMode               , &autoModeRead               , 1 },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+AJ_Status MoistureOutputLevelOnSetMoistureOutputLevel(const char* objPath, const uint8_t value)
+{
+    printf("MoistureOutputLevel OnSetMoistureOutputLevel : %s %u\n", objPath, value);
 
     return AJ_OK;
 }
 
+AJ_Status MoistureOutputLevelOnSetAutoMode(const char* objPath, const uint8_t autoMode)
+{
+    printf("MoistureOutputLevel OnSetAutoMode : %s, autoMode: %u\n", objPath, autoMode);
 
-#endif /* defined(ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF) */
+    return AJ_OK;
+}
+
+#endif /* defined(ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF) */
 
 #if defined(ENABLE_OPERATION_OFF_CONTROL_IF)
 /* Operation.OffControl */
@@ -2229,10 +2682,18 @@ AJ_Status OvenCyclePhaseOnGetVendorPhasesDescription (const char* objPath, const
 {
     printf("OvenCyclePhase OnGetVendorPhasesDescription : %s, %s\n", objPath, languageTag);
 
-    *phasesDescription = &OvenVendorPhases[0];
-    *numReturnedRecords = sizeof(OvenVendorPhases)/sizeof(OvenVendorPhases[0]);
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = &OvenVendorPhases[0];
+        *numReturnedRecords = sizeof(OvenVendorPhases) / sizeof(OvenVendorPhases[0]);
 
-    return AJ_OK;
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
 }
 
 #endif /* defined(ENABLE_OPERATION_OVEN_CYCLE_PHASE_IF) */
@@ -2275,6 +2736,47 @@ AJ_Status RapidModeOnSetRapidMode(const char* objPath, const bool rapidMode)
 }
 
 #endif /* defined(ENABLE_OPERATION_RAPID_MODE_IF) */
+
+#if defined(ENABLE_OPERATION_RAPID_MODE_TIMED_IF)
+
+AJ_Status InitHaeRapidModeTimedProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint16_t rapidModeMinutesRemaining = 0;
+    uint16_t rapidModeMinutesRead;
+    uint16_t maxSetMinutes = 60;
+    uint16_t maxSetMinutesRead;
+
+    const char* const interfaceName = "RapidModeTimed";
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "MaxSetMinutes"             , 0 , 'q' , &maxSetMinutes             , &maxSetMinutesRead    , 1 },
+        { "RapidModeMinutesRemaining" , 0 , 'q' , &rapidModeMinutesRemaining , &rapidModeMinutesRead , 1 },
+    };
+
+    printf("\n");
+
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+AJ_Status RapidModeTimedOnSetRapidModeMinutesRemaining(const char* objPath, const uint16_t value)
+{
+    printf("RapidModeTimed OnSetRapidModeMinutesRemaining : %s %u\n", objPath, value);
+
+    return AJ_OK;
+}
+
+#endif /* defined(ENABLE_OPERATION_RAPID_MODE_TIMED_IF) */
 
 #if defined(ENABLE_OPERATION_REMOTE_CONTROLLABILITY_IF)
 /* Operation.RemoteControllability */
@@ -2413,15 +2915,24 @@ AJ_Status InitHaeRobotCleaningCyclePhaseProperties(AJ_BusAttachment* busAttachme
     return status;
 }
 
-AJ_Status RobotCleaningCyclePhaseOnGetVendorPhasesDescription(const char* objPath, const char* languageTag,
-    CyclePhaseDescriptor** phasesDescription, uint16_t* numReturnedRecords, ErrorCode* errorCode)
+AJ_Status RobotCleaningCyclePhaseOnGetVendorPhasesDescription (const char* objPath, const char* languageTag,
+                            CyclePhaseDescriptor** phasesDescription, uint16_t* numReturnedRecords,
+                            ErrorCode* errorCode)
 {
     printf("RobotCleaningCyclePhase OnGetVendorPhasesDescription : %s, %s\n", objPath, languageTag);
 
-    *phasesDescription = &RobotCleaningVendorPhases[0];
-    *numReturnedRecords = sizeof(RobotCleaningVendorPhases)/sizeof(RobotCleaningVendorPhases[0]);
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *phasesDescription = &RobotCleaningVendorPhases[0];
+        *numReturnedRecords = sizeof(RobotCleaningVendorPhases) / sizeof(RobotCleaningVendorPhases[0]);
 
-    return AJ_OK;
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
 }
 
 #endif /* defined(ENABLE_OPERATION_ROBOT_CLEANING_CYCLE_PHASE_IF) */
@@ -2576,13 +3087,213 @@ AJ_Status TimerListenerOnSetTargetTimeToStop(const char* objPath, const int32_t 
 
 #endif /* defined(ENABLE_OPERATION_TIMER_IF) */
 
+#if defined(ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF)
+/* Environment.CurrentHumidity */
 
+AJ_Status InitHaeCurrentHumidityProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t currentValue = 30;
+    uint8_t maxValue = 90;
+    uint8_t currentValueRead;
+    uint8_t maxValueRead;
+
+    const char* const interfaceName = "CurrentHumidity";
+
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "CurrentValue"  , 0 , 'y' , &currentValue  , &currentValueRead  , 1 },
+        { "MaxValue"      , 0 , 'y' , &maxValue      , &maxValueRead      , 1 },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+#endif /* defined(ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF) */
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF)
+/* Environment.TargetHumidity */
+
+AJ_Status InitHaeTargetHumidityProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t targetValue = 40;
+    uint8_t minValue = 10;
+    uint8_t maxValue = 70;
+    uint8_t stepValue = 5;
+    uint8_t selectableHumidityLevels[] = { 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
+    uint8_t targetValueRead;
+    uint8_t minValueRead;
+    uint8_t maxValueRead;
+    uint8_t stepValueRead;
+    uint8_t selectableHumidityLevelsRead[sizeof(selectableHumidityLevels)/sizeof(selectableHumidityLevels[0])];
+
+    const char* const interfaceName = "TargetHumidity";
+    /* be carefull to the order */
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "MinValue"                ,  0 , 'y' , &minValue                   , &minValueRead                   , 1 },
+        { "MaxValue"                ,  0 , 'y' , &maxValue                   , &maxValueRead                   , 1 },
+        { "StepValue"               ,  0 , 'y' , &stepValue                  , &stepValueRead                  , 1 },
+        { "TargetValue"             ,  0 , 'y' , &targetValue                , &targetValueRead                , 1 },
+        { "SelectableHumidityLevels", 'a', 'y' , &selectableHumidityLevels   , &selectableHumidityLevelsRead   , sizeof(selectableHumidityLevels)/sizeof(selectableHumidityLevels[0]) },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+AJ_Status TargetHumidityOnSetTargetValue(const char* objPath, const uint8_t targetValue)
+{
+    printf("TargetHumidity OnSetTargetValue : %s, targetValue: %u\n", objPath, targetValue);
+
+    return AJ_OK;
+}
+
+#endif /* defined(ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF) */
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF)
+/* Environment.TargetTemperatureLevel */
+
+AJ_Status InitHaeTargetTemperatureLevelProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    uint8_t targetLevel = 40;
+    uint8_t maxLevel = 70;
+    uint8_t selectableTemperatureLevels[] = { 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 };
+    uint8_t targetLevelRead;
+    uint8_t maxLevelRead;
+    uint8_t selectableTemperatureLevelsRead[sizeof(selectableTemperatureLevels)/sizeof(selectableTemperatureLevels[0])];
+
+    const char* const interfaceName = "TargetTemperatureLevel";
+    /* be carefull to the order */
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "MaxLevel"                ,  0 , 'y' , &maxLevel                   , &maxLevelRead                   , 1 },
+        { "TargetLevel"             ,  0 , 'y' , &targetLevel                , &targetLevelRead                , 1 },
+        { "SelectableTemperatureLevels", 'a', 'y' , &selectableTemperatureLevels   , &selectableTemperatureLevelsRead   , sizeof(selectableTemperatureLevels)/sizeof(selectableTemperatureLevels[0]) },
+    };
+
+    printf("\n");
+
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+
+    return status;
+}
+
+AJ_Status TargetTemperatureLevelOnSetTargetLevel(const char* objPath, const uint8_t targetLevel)
+{
+    printf("TargetTemperatureLevel OnSetTargetLevel : %s, targetLevel: %u\n", objPath, targetLevel);
+
+    return AJ_OK;
+}
+
+#endif /* defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF) */
+
+#if defined(ENABLE_OPERATION_HVAC_FAN_MODE_IF)
+/* Operation.HvacFanMode */
+
+AJ_Status InitHaeHvacFanModeProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+    const uint16_t supportedModes[] = { 0, 1, 2, 3, 4, 5 };
+    uint16_t mode = 2;
+    uint16_t supportedModesRead[sizeof(supportedModes)/sizeof(supportedModes[0])];
+    uint16_t modeRead;
+
+    const char* const interfaceName = "HvacFanMode";
+    const HAE_ProprietyDescriptor proprietyDescriptor[] = {
+        { "SupportedModes"   , 'a' , 'q' , &supportedModes   , &supportedModesRead   , sizeof(supportedModes)/sizeof(supportedModes[0]) },
+        { "Mode"             ,  0  , 'q' , &mode             , &modeRead             , 1                                                },
+    };
+    printf("\n");
+    for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
+        setStatus = HaeInterfaceSetProperty(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        getStatus = HaeInterfaceGetProperty(HAE_OBJECT_PATH_CONTROLLEE, interfaceName, &proprietyDescriptor[i]);
+        InitHaePropertiesPrintResult(setStatus, getStatus, interfaceName, &proprietyDescriptor[i]);
+    }
+    return status;
+}
+
+AJ_Status HvacFanModeOnSetMode (const char* objPath, const uint16_t mode)
+{
+    printf("HvacFanMode OnSetMode : %s, %u\n", objPath, mode);
+
+    return AJ_OK;
+}
+
+#endif /* defined(ENABLE_OPERATION_HVAC_FAN_MODE_IF) */
+
+#if defined(ENABLE_OPERATION_PLUG_IN_UNITS_IF)
+/* Operation.PlugInUnits*/
+
+AJ_Status InitHaePlugInUnitsProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+    AJ_Status getStatus = AJ_OK;
+    AJ_Status setStatus = AJ_OK;
+    PlugInInfo units[2] = { { HAE_OBJECT_PATH_CONTROLLEE, 1, false }, { HAE_OBJECT_PATH_CONTROLLEE, 2, true } };
+    PlugInInfo unitsRead[2];
+
+    setStatus = Hae_PlugInUnitsInterfaceSetPlugInUnits(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, units, 2);
+    getStatus = Hae_PlugInUnitsInterfaceGetPlugInUnits(HAE_OBJECT_PATH_CONTROLLEE, unitsRead);
+    printf("PlugInUnits Read \n");
+    int i = 0;
+    for (i = 0; i < 2; i++) {
+        printf("%s, %d, %s\n", unitsRead[i].objectPath, unitsRead[i].deviceId, unitsRead[i].pluggedIn ? "true" : "false");
+    }
+
+    return status;
+}
+
+#endif /* defined(ENABLE_OPERATION_PLUG_IN_UNITS) */
 
 AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
     /* init properties for each interface */
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF)
+    /* Environment.CurrentAirQuality */
+    status = InitHaeCurrentAirQualityProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF)
+    /* Environment.CurrentAirQualityLevel */
+    status = InitHaeCurrentAirQualityLevelProperties(busAttachment);
+#endif
 
 #if defined(ENABLE_ENVIRONMENT_CURRENT_TEMPERATURE_IF)
     /* Environment.CurrentTemperature */
@@ -2669,6 +3380,11 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = InitHaeFanSpeedLevelProperties(busAttachment);
 #endif
 
+#if defined(ENABLE_OPERATION_FILTER_STATUS_IF)
+    /* Operation.FilterStatus */
+    status = InitHaeFilterStatusProperties(busAttachment);
+#endif
+
 #if defined(ENABLE_OPERATION_HEATING_ZONE_IF)
     /* Operation.HeatingZone */
     status = InitHaeHeatingZoneProperties(busAttachment);
@@ -2677,6 +3393,11 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
 #if defined(ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF)
     /* Operation.LaundryCyclePhase */
     status = InitHaeLaundryCyclePhaseProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF)
+    /* Operation.MoistureOutputLevel */
+    status = InitHaeMoistureOutputLevelProperties(busAttachment);
 #endif
 
 #if defined(ENABLE_OPERATION_OFF_CONTROL_IF)
@@ -2702,6 +3423,11 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
 #if defined(ENABLE_OPERATION_RAPID_MODE_IF)
     /* Operation.RapidMode */
     status = InitHaeRapidModeProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_OPERATION_RAPID_MODE_TIMED_IF)
+    /* Operation.RapidModetimed */
+    status = InitHaeRapidModeTimedProperties(busAttachment);
 #endif
 
 #if defined(ENABLE_OPERATION_REMOTE_CONTROLLABILITY_IF)
@@ -2739,6 +3465,32 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = InitHaeTimerProperties(busAttachment);
 #endif
 
+#if defined(ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF)
+    /* Environment.CurrentHumidity */
+    status = InitHaeCurrentHumidityProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF)
+    /* Environment.TargetHumidity */
+    status = InitHaeTargetHumidityProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF)
+    /* Environment.TargetTemperatureLevel */
+    status = InitHaeTargetTemperatureLevelProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_OPERATION_HVAC_FAN_MODE_IF)
+    /* Operation.HvacFanMode */
+    status = InitHaeHvacFanModeProperties(busAttachment);
+#endif
+
+#if defined(ENABLE_OPERATION_PLUG_IN_UNITS_IF)
+    /* Operation.PlugInUnits*/
+    status = InitHaePlugInUnitsProperties(busAttachment);
+#endif
+
+
     return status;
 }
 
@@ -2755,161 +3507,211 @@ int AJ_Main(void)
     uint8_t forcedDisconnnect = FALSE;
     uint8_t rebootRequired = FALSE;
     AJ_BusAttachment busAttachment;
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF)
+    /* Environment.CurrentAirQuality*/
+    CurrentAirQualityListener currentAirQualityListener;
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF)
+    /* Environment.CurrentAirQualityLevel*/
+    CurrentAirQualityLevelListener currentAirQualityLevelListener;
+#endif
 
 #if defined(ENABLE_ENVIRONMENT_CURRENT_TEMPERATURE_IF)
     /* Environment.CurrentTemperature */
     CurrentTemperatureListener currentTemperatureListener;
 #endif
-    
+
 #if defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_IF)
     /* Environment.TargetTemperature */
     TargetTemperatureListener targetTemperatureListener;
 #endif
-    
+
 #if defined(ENABLE_ENVIRONMENT_WATER_LEVEL_IF)
     /* Environment.WaterLevel */
     WaterLevelListener waterLevelListener;
 #endif
-    
+
 #if defined(ENABLE_ENVIRONMENT_WIND_DIRECTION_IF)
     /* Environment.WindDirection */
     WindDirectionListener windDirectionListener;
 #endif
-    
+
 #if defined(ENABLE_INPUT_HID_IF)
     /* Input.Hid */
     HidListener hidListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_AIR_RECIRCULATION_MODE_IF)
     /* Operation.AirRecirculationMode */
     AirRecirculationModeListener airRecirculationModeListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_AUDIO_VIDEO_INPUT_IF)
     /* Operation.AudioVideoInput */
     AudioVideoInputListener audioVideoInputListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_AUDIO_VOLUME_IF)
     /* Operation.AudioVolume */
     AudioVolumeListener audioVolumeListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_BATTERY_STATUS_IF)
     /* Operation.BatteryStatus */
     BatteryStatusListener batteryStatusListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_CHANNEL_IF)
     /* Operation.Channel */
     ChannelListener channelListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_CLIMATE_CONTROL_MODE_IF)
     /* Operation.ClimateControlMode */
     ClimateControlModeListener climateControlModeListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_CLOSED_STATUS_IF)
     /* Operation.ClosedStatus */
     ClosedStatusListener closedStatusListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_CURRENT_POWER_IF)
     /* Operation.CurrentPower */
     CurrentPowerListener currentPowerListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_CYCLE_CONTROL_IF)
     /* Operation.CycleControl */
     CycleControlListener cycleControlListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_DISH_WASHING_CYCLE_PHASE_IF)
     /* Operation.DishWashingCyclePhase */
     DishWashingCyclePhaseListener dishWashingCyclePhaseListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ENERGY_USAGE_IF)
     /* Operation.EnergyUsage */
     EnergyUsageListener energyUsageListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_FAN_SPEED_LEVEL_IF)
     /* Operation.FanSpeedLevel */
     FanSpeedLevelListener fanSpeedLevelListener;
 #endif
-    
+
+#if defined(ENABLE_OPERATION_FILTER_STATUS_IF)
+    /* Operation.FilterStatus */
+    FilterStatusListener filterStatusListener;
+#endif
+
 #if defined(ENABLE_OPERATION_HEATING_ZONE_IF)
     /* Operation.HeatingZone */
     HeatingZoneListener heatingZoneListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF)
     /* Operation.LaundryCyclePhase */
     LaundryCyclePhaseListener laundryCyclePhaseListener;
 #endif
-    
+
+#if defined(ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF)
+    /* Operation.MoistureOutputLevel */
+    MoistureOutputLevelListener moistureOutputLevelListener;
+#endif
+
 #if defined(ENABLE_OPERATION_OFF_CONTROL_IF)
     /* Operation.OffControl */
     OffControlListener offControlListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ON_CONTROL_IF)
     /* Operation.OnControl */
     OnControlListener onControlListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ON_OFF_STATUS_IF)
     /* Operation.OnOffStatus */
     OnOffStatusListener onOffStatusListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_OVEN_CYCLE_PHASE_IF)
     /* Operation.OvenCyclePhase */
     OvenCyclePhaseListener ovenCyclePhaseListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_RAPID_MODE_IF)
     /* Operation.RapidMode */
     RapidModeListener rapidModeListener;
 #endif
-    
+
+#if defined(ENABLE_OPERATION_RAPID_MODE_TIMED_IF)
+    /* Operation.RapidModeTimed */
+    RapidModeTimedListener rapidModeTimedListener;
+#endif
+
 #if defined(ENABLE_OPERATION_REMOTE_CONTROLLABILITY_IF)
     /* Operation.RemoteControllability */
     RemoteControllabilityListener remoteControllabilityListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_REPEAT_MODE_IF)
     /* Operation.RepeatMode */
     RepeatModeListener repeatModeListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_RESOURCE_SAVING_IF)
     /* Operation.ResourceSaving */
     ResourceSavingListener resourceSavingListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ROBOT_CLEANING_CYCLE_PHASE_IF)
     /* Operation.RobotCleaningCyclePhase */
     RobotCleaningCyclePhaseListener robotCleaningCyclePhaseListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_SOIL_LEVEL_IF)
     /* Operation.SoilLevel */
     SoilLevelListener soilLevelListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_SPIN_SPEED_LEVEL_IF)
     /* Operation.SpinSpeedLevel */
     SpinSpeedLevelListener spinSpeedLevelListener;
 #endif
-    
+
 #if defined(ENABLE_OPERATION_TIMER_IF)
     /* Operation.Timer */
     TimerListener timerListener;
 #endif
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF)
+    /* Environment.CurrentHumidity */
+    CurrentHumidityListener currentHumidityListener;
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF)
+    /* Environment.TargetHumidity */
+    TargetHumidityListener targetHumidityListener;
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF)
+    /* Environment.TargetTemperatureLevel */
+    TargetTemperatureLevelListener targetTemperatureLevelListener;
+#endif
+
+#if defined(ENABLE_OPERATION_HVAC_FAN_MODE_IF)
+    /* Operation.HvacFanMode */
+    HvacFanModeListener hvacFanModeListener;
+#endif
+
+#if defined(ENABLE_OPERATION_PLUG_IN_UNITS_IF)
+    /* Operation.PlugInUnits*/
+    PlugInUnitsListener plugInUnitsListener;
+#endif
+
 
     AJ_Initialize();
 
@@ -2921,6 +3723,25 @@ int AJ_Main(void)
     }
 
     status = Hae_Init();
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_IF)
+    /* Environment.CurrentAirQuality */
+    currentAirQualityListener.OnGetContaminantType = NULL;
+    currentAirQualityListener.OnGetCurrentValue = NULL;
+    currentAirQualityListener.OnGetMaxValue = NULL;
+    currentAirQualityListener.OnGetMinValue = NULL;
+    currentAirQualityListener.OnGetPrecision = NULL;
+    currentAirQualityListener.OnGetUpdateMinTime = NULL;
+    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityListener);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_AIR_QUALITY_LEVEL_IF)
+    /* Environment.CurrentAirQualityLevel */
+    currentAirQualityLevelListener.OnGetContaminantType = NULL;
+    currentAirQualityLevelListener.OnGetCurrentLevel = NULL;
+    currentAirQualityLevelListener.OnGetMaxLevel = NULL;
+    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityLevelListener);
+#endif
 
 #if defined(ENABLE_ENVIRONMENT_CURRENT_TEMPERATURE_IF)
     /* Environment.CurrentTemperature */
@@ -2969,7 +3790,6 @@ int AJ_Main(void)
     hidListener.OnGetSupportedEvents = NULL;
     hidListener.OnInjectEvents = HidOnInjectEvents;
     status = Hae_CreateInterface(HID_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &hidListener);
-
 #endif
 
 #if defined(ENABLE_OPERATION_AIR_RECIRCULATION_MODE_IF)
@@ -2995,7 +3815,6 @@ int AJ_Main(void)
     audioVolumeListener.OnGetMute = NULL;
     audioVolumeListener.OnSetMute = AudioVolumeOnSetMute;
     status = Hae_CreateInterface(AUDIO_VOLUME_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &audioVolumeListener);
-
 #endif
 
 #if defined(ENABLE_OPERATION_BATTERY_STATUS_IF)
@@ -3017,6 +3836,7 @@ int AJ_Main(void)
 #if defined(ENABLE_OPERATION_CLIMATE_CONTROL_MODE_IF)
     /* Operation.ClimateControlMode */
     climateControlModeListener.OnSetMode = ClimateControlModeOnSetMode;
+    climateControlModeListener.OnGetMode = NULL;
     climateControlModeListener.OnGetSupportedModes = NULL;
     climateControlModeListener.OnGetOperationalState = NULL;
     status = Hae_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
@@ -3036,15 +3856,15 @@ int AJ_Main(void)
     status = Hae_CreateInterface(CURRENT_POWER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentPowerListener);
 #endif
 
-    /* Operation.CycleControl */
 #if defined(ENABLE_OPERATION_CYCLE_CONTROL_IF)
+    /* Operation.CycleControl */
     cycleControlListener.OnGetOperationalState = NULL;
     cycleControlListener.OnGetSupportedOperationalStates = NULL;
     cycleControlListener.OnGetSupportedOperationalCommands = NULL;
     cycleControlListener.OnExecuteOperationalCommand = CycleControlOnExecuteOperationalCommand;
     status = Hae_CreateInterface(CYCLE_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &cycleControlListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_DISH_WASHING_CYCLE_PHASE_IF)
     /* Operation.DishWashingCyclePhase */
     dishWashingCyclePhaseListener.OnGetCyclePhase = NULL;
@@ -3065,11 +3885,23 @@ int AJ_Main(void)
 #if defined(ENABLE_OPERATION_FAN_SPEED_LEVEL_IF)
     /* Operation.FanSpeedLevel */
     fanSpeedLevelListener.OnGetFanSpeedLevel = NULL;
-    fanSpeedLevelListener.OnSetFanSpeedLevel = NULL;
+    fanSpeedLevelListener.OnSetFanSpeedLevel = FanSpeedLevelOnSetFanSpeedLevel;
     fanSpeedLevelListener.OnGetMaxFanSpeedLevel = NULL;
     fanSpeedLevelListener.OnGetAutoMode = NULL;
     fanSpeedLevelListener.OnSetAutoMode = FanSpeedLevelOnSetAutoMode;
     status = Hae_CreateInterface(FAN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &fanSpeedLevelListener);
+#endif
+
+#if defined(ENABLE_OPERATION_FILTER_STATUS_IF)
+    /* Operation.FilterStatus */
+    filterStatusListener.OnGetExpectedLifeInDays = NULL;
+    filterStatusListener.OnGetIsCleanable = NULL;
+    filterStatusListener.OnGetOrderPercentage = NULL;
+    filterStatusListener.OnGetManufacturer = NULL;
+    filterStatusListener.OnGetPartNumber = NULL;
+    filterStatusListener.OnGetUrl = NULL;
+    filterStatusListener.OnGetLifeRemaining = NULL;
+    status = Hae_CreateInterface(FILTER_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &filterStatusListener);
 #endif
 
 #if defined(ENABLE_OPERATION_HEATING_ZONE_IF)
@@ -3079,7 +3911,7 @@ int AJ_Main(void)
     heatingZoneListener.OnGetHeatingLevels = NULL;
     status = Hae_CreateInterface(HEATING_ZONE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &heatingZoneListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_LAUNDRY_CYCLE_PHASE_IF)
     /* Operation.LaundryCyclePhase */
     laundryCyclePhaseListener.OnGetCyclePhase = NULL;
@@ -3088,18 +3920,28 @@ int AJ_Main(void)
     status = Hae_CreateInterface(LAUNDRY_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &laundryCyclePhaseListener);
 #endif
 
+#if defined(ENABLE_OPERATION_MOISTURE_OUTPUT_LEVEL_IF)
+    /* Operation.MoistureOutputLevel */
+    moistureOutputLevelListener.OnGetMoistureOutputLevel = NULL;
+    moistureOutputLevelListener.OnSetMoistureOutputLevel = MoistureOutputLevelOnSetMoistureOutputLevel;
+    moistureOutputLevelListener.OnGetMaxMoistureOutputLevel = NULL;
+    moistureOutputLevelListener.OnGetAutoMode = NULL;
+    moistureOutputLevelListener.OnSetAutoMode = MoistureOutputLevelOnSetAutoMode;
+    status = Hae_CreateInterface(MOISTURE_OUTPUT_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &moistureOutputLevelListener);
+#endif
+
 #if defined(ENABLE_OPERATION_OFF_CONTROL_IF)
     /* Operation.OffControl */
     offControlListener.OnSwitchOff = OffControlOnSwitchOff;
     status = Hae_CreateInterface(OFF_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &offControlListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ON_CONTROL_IF)
     /* Operation.OnControl */
     onControlListener.OnSwitchOn = OnControlOnSwitchOn;
     status = Hae_CreateInterface(ON_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onControlListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ON_OFF_STATUS_IF)
     /* Operation.OnOffStatus */
     onOffStatusListener.OnGetOnOff = NULL;
@@ -3113,20 +3955,28 @@ int AJ_Main(void)
     ovenCyclePhaseListener.OnGetVendorPhasesDescription = OvenCyclePhaseOnGetVendorPhasesDescription;
     status = Hae_CreateInterface(OVEN_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &ovenCyclePhaseListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_RAPID_MODE_IF)
     /* Operation.RapidMode */
     rapidModeListener.OnGetRapidMode = NULL;
     rapidModeListener.OnSetRapidMode = RapidModeOnSetRapidMode;
     status = Hae_CreateInterface(RAPID_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeListener);
 #endif
-    
+
+#if defined(ENABLE_OPERATION_RAPID_MODE_TIMED_IF)
+    /* Operation.RapidModeTimed */
+    rapidModeTimedListener.OnGetRapidModeMinutesRemaining = NULL;
+    rapidModeTimedListener.OnGetMaxSetMinutes = NULL;
+    rapidModeTimedListener.OnSetRapidModeMinutesRemaining = RapidModeTimedOnSetRapidModeMinutesRemaining;
+    status = Hae_CreateInterface(RAPID_MODE_TIMED_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeTimedListener);
+#endif
+
 #if defined(ENABLE_OPERATION_REMOTE_CONTROLLABILITY_IF)
     /* Operation.RemoteControllability */
     remoteControllabilityListener.OnGetIsControllable = NULL;
     status = Hae_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_REPEAT_MODE_IF)
     /* Operation.RepeatMode */
     repeatModeListener.OnGetRepeatMode = NULL;
@@ -3140,7 +3990,7 @@ int AJ_Main(void)
     resourceSavingListener.OnSetResourceSavingMode = ResourceSavingOnSetResourceSavingMode;
     status = Hae_CreateInterface(RESOURCE_SAVING_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &resourceSavingListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_ROBOT_CLEANING_CYCLE_PHASE_IF)
     /* Operation.RobotCleaningCyclePhase */
     robotCleaningCyclePhaseListener.OnGetCyclePhase = NULL;
@@ -3148,7 +3998,7 @@ int AJ_Main(void)
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = RobotCleaningCyclePhaseOnGetVendorPhasesDescription;
     status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_SOIL_LEVEL_IF)
     /* Operation.SoilLevel */
     soilLevelListener.OnGetMaxLevel = NULL;
@@ -3157,7 +4007,7 @@ int AJ_Main(void)
     soilLevelListener.OnGetSelectableLevels = NULL;
     status = Hae_CreateInterface(SOIL_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &soilLevelListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_SPIN_SPEED_LEVEL_IF)
     /* Operation.SpinSpeedLevel */
     spinSpeedLevelListener.OnGetMaxLevel = NULL;
@@ -3166,7 +4016,7 @@ int AJ_Main(void)
     spinSpeedLevelListener.OnGetSelectableLevels = NULL;
     status = Hae_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
 #endif
-    
+
 #if defined(ENABLE_OPERATION_TIMER_IF)
     /* Operation.Timer */
     timerListener.OnGetReferenceTimer = NULL;
@@ -3179,6 +4029,48 @@ int AJ_Main(void)
     timerListener.OnSetTargetTimeToStop = TimerListenerOnSetTargetTimeToStop;
     status = Hae_CreateInterface(TIMER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &timerListener);
 #endif
+
+#if defined(ENABLE_ENVIRONMENT_CURRENT_HUMIDITY_IF)
+    /* Environment.CurrentHumidity */
+    currentHumidityListener.OnGetCurrentValue = NULL;
+    currentHumidityListener.OnGetMaxValue = NULL;
+    status = Hae_CreateInterface(CURRENT_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentHumidityListener);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_HUMIDITY_IF)
+    /* Environment.TargetHumidity */
+    targetHumidityListener.OnGetTargetValue = NULL;
+    targetHumidityListener.OnSetTargetValue = TargetHumidityOnSetTargetValue;
+    targetHumidityListener.OnGetMinValue = NULL;
+    targetHumidityListener.OnGetMaxValue = NULL;
+    targetHumidityListener.OnGetStepValue = NULL;
+    targetHumidityListener.OnGetSelectableHumidityLevels = NULL;
+    status = Hae_CreateInterface(TARGET_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetHumidityListener);
+#endif
+
+#if defined(ENABLE_ENVIRONMENT_TARGET_TEMPERATURE_LEVEL_IF)
+    /* Environment.TargetTemperatureLevel */
+    targetTemperatureLevelListener.OnGetTargetLevel = NULL;
+    targetTemperatureLevelListener.OnSetTargetLevel = TargetTemperatureLevelOnSetTargetLevel;
+    targetTemperatureLevelListener.OnGetMaxLevel = NULL;
+    targetTemperatureLevelListener.OnGetSelectableTemperatureLevels = NULL;
+    status = Hae_CreateInterface(TARGET_TEMPERATURE_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetTemperatureLevelListener);
+#endif
+
+#if defined(ENABLE_OPERATION_HVAC_FAN_MODE_IF)
+    /* Operation.HvacFanMode */
+    hvacFanModeListener.OnGetMode = NULL;
+    hvacFanModeListener.OnSetMode = HvacFanModeOnSetMode;
+    hvacFanModeListener.OnGetSupportedModes = NULL;
+    status = Hae_CreateInterface(HVAC_FAN_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &hvacFanModeListener);
+#endif
+
+#if defined(ENABLE_OPERATION_PLUG_IN_UNITS_IF)
+    /* Operation.PlugInUnits*/
+    plugInUnitsListener.OnGetPlugInUnits = NULL;
+    status = Hae_CreateInterface(PLUG_IN_UNITS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &plugInUnitsListener);
+#endif
+
 
     status = Hae_Start();
 

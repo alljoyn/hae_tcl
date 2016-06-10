@@ -130,15 +130,11 @@ AJ_Status RapidModeInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objP
     case 1 :
         {
             bool rapidMode;
-
             if (lt && lt->OnGetRapidMode) {
                 status = lt->OnGetRapidMode(objPath, &rapidMode);
                 if (status == AJ_OK) {
                     props->rapidMode = rapidMode;
                 }
-            }
-            if (!props->rapidMode) {
-                return AJ_ERR_NULL;
             }
             status = AJ_MarshalArgs(replyMsg, "b", props->rapidMode);
         }

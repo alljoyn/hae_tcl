@@ -34,6 +34,8 @@
 #include <ajtcl/services/ServicesHandlers.h>
 #include <ajtcl/services/Common/AllJoynLogo.h>
 #include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/hae/interfaces/environment/CurrentAirQuality.h>
+#include <ajtcl/hae/interfaces/environment/CurrentAirQualityLevel.h>
 #include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
 #include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
 #include <ajtcl/hae/interfaces/environment/WaterLevel.h>
@@ -53,6 +55,7 @@
 #include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/HeatingZone.h>
 #include <ajtcl/hae/interfaces/operation/LaundryCyclePhase.h>
+#include <ajtcl/hae/interfaces/operation/MoistureOutputLevel.h>
 #include <ajtcl/hae/interfaces/operation/OffControl.h>
 #include <ajtcl/hae/interfaces/operation/OnControl.h>
 #include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
@@ -65,6 +68,13 @@
 #include <ajtcl/hae/interfaces/operation/SoilLevel.h>
 #include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
 #include <ajtcl/hae/interfaces/operation/Timer.h>
+#include <ajtcl/hae/interfaces/operation/FilterStatus.h>
+#include <ajtcl/hae/interfaces/environment/CurrentHumidity.h>
+#include <ajtcl/hae/interfaces/environment/TargetHumidity.h>
+#include <ajtcl/hae/interfaces/environment/TargetTemperatureLevel.h>
+#include <ajtcl/hae/interfaces/operation/HvacFanMode.h>
+#include <ajtcl/hae/interfaces/operation/PlugInUnits.h>
+#include <ajtcl/hae/interfaces/operation/RapidModeTimed.h>
 
 /*
  * Logger definition
@@ -427,6 +437,83 @@ static AJ_Status AuthListenerCallback(uint32_t authmechanism, uint32_t command, 
     return status;
 }
 
+// CurrentAirQuality
+AJ_Status CurrentAirQuality_OnGetContaminantType(const char* objPath, uint8_t* contaminantType)
+{
+    printf("CurrentAirQuality_OnGetContaminantType: %s\n", objPath);
+
+    *contaminantType = 2;
+
+    return AJ_OK;
+}
+
+AJ_Status CurrentAirQuality_OnGetCurrentValue(const char* objPath, double* currentValue)
+{
+    printf("CurrentAirQuality_OnGetCurrentValue : %s\n", objPath);
+
+    *currentValue = 10.0;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQuality_OnGetMaxValue(const char* objPath, double* maxValue)
+{
+    printf("CurrentAirQuality_OnGetMaxValue : %s\n", objPath);
+
+    *maxValue = 30.0;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQuality_OnGetMinValue(const char* objPath, double* minValue)
+{
+    printf("CurrentAirQuality_OnGetMinValue : %s\n", objPath);
+
+    *minValue = 5.0;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQuality_OnGetPrecision(const char* objPath, double* precision)
+{
+    printf("CurrentAirQuality_OnGetPrecision : %s\n", objPath);
+
+    *precision = 0.5;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQuality_OnGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
+{
+    printf("CurrentAirQuality_OnGetUpdateMinTime : %s\n", objPath);
+
+    *updateMinTime = 1;
+
+    return AJ_OK;
+}
+
+// CurrentAirQualityLevel
+AJ_Status CurrentAirQualityLevel_OnGetContaminantType(const char* objPath, uint8_t* contaminantType)
+{
+    printf("CurrentAirQualityLevel_OnGetContaminantType: %s\n", objPath);
+
+    *contaminantType = 2;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQualityLevel_OnGetCurrentLevel(const char* objPath, uint8_t* currentLevel)
+{
+    printf("CurrentAirQualityLevel_OnGetCurrentLevel: %s\n", objPath);
+
+    *currentLevel = 10;
+
+    return AJ_OK;
+}
+AJ_Status CurrentAirQualityLevel_OnGetMaxLevel(const char* objPath, double* maxLevel)
+{
+    printf("CurrentAirQualityLevel_OnGetMaxLevel: %s\n", objPath);
+
+    *maxLevel = 30;
+
+    return AJ_OK;
+}
+
 //CurrentTemperature
 AJ_Status OnGetCurrentValue(const char* objPath, double* currentValue)
 {
@@ -708,8 +795,10 @@ AJ_Status OnGetChannelId(const char* objPath, char* channelId)
 {
     printf("OnGetChannelId : %s\n", objPath);
 
-    strncpy(channelId, channels[0].channelId, strlen(channels[0].channelId));
-    channelId[strlen(channels[0].channelId)] = '\0';
+    if (channelId) {
+        strncpy(channelId, channels[0].channelId, strlen(channels[0].channelId));
+        channelId[strlen(channels[0].channelId)] = '\0';
+    }
 
     return AJ_OK;
 }
@@ -1037,7 +1126,147 @@ AJ_Status OnExecuteOperationalCommand(const char* objPath, const uint8_t command
     return AJ_OK;
 }
 
+//MoistureOutputLevel
+AJ_Status OnGetMoistureOutputLevel(const char* objPath, uint8_t* value)
+{
+    printf("OnGetMoistureOutputLevel : %s\n", objPath);
 
+    *value = 3;
+
+    return AJ_OK;
+}
+AJ_Status OnSetMoistureOutputLevel(const char* objPath, const uint8_t value)
+{
+    printf("OnSetMoistureOutputLevel : %s %u\n", objPath, value);
+
+    return AJ_OK;
+}
+AJ_Status OnGetMaxMoistureOutputLevel(const char* objPath, uint8_t* value)
+{
+    printf("OnGetMaxMoistureOutputLevel : %s\n", objPath);
+
+    *value = 8;
+
+    return AJ_OK;
+}
+
+//FilterStatus
+AJ_Status OnGetExpectedLifeInDays(const char* objPath, uint16_t* value)
+{
+    printf("OnGetExpectedLifeInDays : %s\n", objPath);
+
+    *value = 15;
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetIsCleanable(const char* objPath, bool* isCleanable)
+{
+    printf("OnGetIsCleanable : %s\n", objPath);
+
+    *isCleanable = false;
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetOrderPercentage(const char* objPath, uint8_t* value)
+{
+    printf("OnGetOrderPercentage : %s\n", objPath);
+
+    *value = 20;
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetManufacturer(const char* objPath, char* manufacturer)
+{
+    const char mf[8] = "AllSeen";
+    printf("OnGetManufacturer : %s\n", objPath);
+
+    if (manufacturer) {
+        strncpy(manufacturer, mf, strlen(mf));
+        manufacturer[strlen(mf)] = '\0';
+    }
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetPartNumber(const char* objPath, char* partNumber)
+{
+    const char pn[5] = "AAAA";
+    printf("OnGetPartNumber : %s\n", objPath);
+
+    if (partNumber) {
+        strncpy(partNumber, pn, strlen(pn));
+        partNumber[strlen(pn)] = '\0';
+    }
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetUrl(const char* objPath, char* url)
+{
+    const char u[5] = "http";
+    printf("OnGetUrl : %s\n", objPath);
+
+    if (url) {
+        strncpy(url, u, strlen(u));
+        url[strlen(u)] = '\0';
+    }
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetLifeRemaining(const char* objPath, uint8_t* value)
+{
+    printf("OnGetLifeRemaining : %s\n", objPath);
+
+    *value = 80;
+
+    return AJ_OK;
+}
+
+//RapidModeTimed
+AJ_Status OnGetRapidModeMinutesRemaining(const char* objPath, uint16_t* value)
+{
+    printf("OnGetRapidModeMinutesRemaining : %s\n", objPath);
+
+    *value = 10;
+
+    return AJ_OK;
+}
+
+AJ_Status OnSetRapidModeMinutesRemaining(const char* objPath, const uint16_t value)
+{
+    printf("OnSetRapidModeMinutesRemaining : %s %u\n", objPath, value);
+
+    return AJ_OK;
+}
+
+AJ_Status OnGetMaxSetMinutes(const char* objPath, uint16_t* value)
+{
+    printf("OnGetMaxSetMinutes : %s\n", objPath);
+
+    *value = 90;
+
+    return AJ_OK;
+}
+
+//TargetHumidity
+AJ_Status TargetHumidity_OnSetTargetValue(const char* objPath, const uint8_t targetValue)
+{
+    printf("OnSetTargetValue : %s, targetValue: %d\n", objPath, targetValue);
+
+    return AJ_OK;
+}
+
+//TargetTemperatureLevel
+AJ_Status TargetTemperatureLevel_OnSetTargetLevel(const char* objPath, const uint8_t targetLevel)
+{
+    printf("OnSetTargetLevel : %s, targetLevel: %d\n", objPath, targetLevel);
+
+    return AJ_OK;
+}
 
 AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
 {
@@ -1577,6 +1806,75 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint8_t supportedCyclePhasesRead[4];
     uint8_t cyclePhase = 1;
     uint8_t cyclePhaseRead = 0;
+    uint8_t moisture = 1;
+    uint8_t maxMoisture = 10;
+    uint8_t moistureRead = 0;
+    uint16_t expectedLife = 30;
+    uint16_t expectedLifeRead = 0;
+    bool isCleanable = true;
+    uint8_t orderPercentage = 10;
+    uint8_t orderPercentageRead = 0;
+    char manufacturer[10] = "HAE";
+    char partNumber[10] = "A1";
+    char url[10] = "http://";
+    char strBuf[10];
+    uint8_t lifeRemaining = 100;
+    uint8_t lifeRemainingRead = 0;
+    uint8_t aq_contaminantType = 1;
+    uint8_t aq_contaminantTypeRead = 0;
+    double aq_currentValue = 10.0;
+    double aq_currentValueRead = 0.0;
+    double aq_maxValue = 30.0;
+    double aq_maxValueRead = 0.0;
+    double aq_minValue = 1.0;
+    double aq_minValueRead = 0.0;
+    double aq_precision = 1.0;
+    double aq_precisionRead = 0.0;
+    uint16_t aq_updateMinTime = 1;
+    uint16_t aq_updateMinTimeRead = 0;
+    uint8_t aql_currentLevel = 10;
+    uint8_t aql_currentLevelRead = 0;
+    uint8_t aql_maxLevel = 30;
+    uint8_t aql_maxLevelRead = 0;
+    uint16_t rapidModeMinutesRemaining = 15;
+    uint16_t maxSetMinutes = 60;
+    uint16_t minutesRead = 0;
+
+    status = Hae_CurrentAirQualityInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
+    status = Hae_CurrentAirQualityInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
+    printf("Current Air Quality Contaminant Type Read : %d\n", (int)aq_contaminantTypeRead);
+
+    status = Hae_CurrentAirQualityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_currentValue);
+    status = Hae_CurrentAirQualityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_currentValueRead);
+    printf("Current Air Quality Current Value Read : %f\n", aq_currentValueRead);
+
+    status = Hae_CurrentAirQualityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_maxValue);
+    status = Hae_CurrentAirQualityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_maxValueRead);
+    printf("Current Air Quality Max Value Read : %f\n", aq_maxValueRead);
+
+    status = Hae_CurrentAirQualityInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_minValue);
+    status = Hae_CurrentAirQualityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_minValueRead);
+    printf("Current Air Quality Min Value Read : %f\n", aq_minValueRead);
+
+    status = Hae_CurrentAirQualityInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_precision);
+    status = Hae_CurrentAirQualityInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, &aq_precisionRead);
+    printf("Precision Read : %f\n", aq_precisionRead);
+
+    status = Hae_CurrentAirQualityInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_updateMinTime);
+    status = Hae_CurrentAirQualityInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, &aq_updateMinTimeRead);
+    printf("UpdateMinTime Read : %u\n", aq_updateMinTimeRead);
+
+    status = Hae_CurrentAirQualityLevelInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
+    status = Hae_CurrentAirQualityLevelInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
+    printf("Current Air Quality Level Contaminant Type Read : %d\n", (int)aq_contaminantTypeRead);
+
+    status = Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aql_currentLevel);
+    status = Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &aql_currentLevelRead);
+    printf("Current Air Quality Level Current Value Read : %d\n", (int)aql_currentLevelRead);
+
+    status = Hae_CurrentAirQualityLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aql_maxLevel);
+    status = Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &aql_maxLevelRead);
+    printf("Current Air Quality Level Max Value Read : %d\n", (int)aql_maxLevelRead);
 
     status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
     status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
@@ -1757,6 +2055,46 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
 
+    status = Hae_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxMoisture);
+    status = Hae_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, &moistureRead);
+    printf("MaxMoistureOutputLevel Read: %u\n", moistureRead);
+
+    status = Hae_MoistureOutputLevelInterfaceSetMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, moisture);
+    status = Hae_MoistureOutputLevelInterfaceGetMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, &moistureRead);
+    printf("MoistureOutputLevel Read: %u\n", moistureRead);
+
+    status = Hae_MoistureOutputLevelInterfaceSetAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
+    status = Hae_MoistureOutputLevelInterfaceGetAutoMode(HAE_OBJECT_PATH_CONTROLLEE, &autoModeRead);
+    printf("AutoMode Read: %u\n", autoModeRead);
+
+    status = Hae_FilterStatusInterfaceSetExpectedLifeInDays(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, expectedLife);
+    status = Hae_FilterStatusInterfaceGetExpectedLifeInDays(HAE_OBJECT_PATH_CONTROLLEE, &expectedLifeRead);
+    printf("ExpectedLifeInDays Read: %u\n", expectedLifeRead);
+
+    status = Hae_FilterStatusInterfaceSetIsCleanable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isCleanable);
+    status = Hae_FilterStatusInterfaceGetIsCleanable(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    printf("IsCleanable Read: %d\n", boolRead);
+
+    status = Hae_FilterStatusInterfaceSetOrderPercentage(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, orderPercentage);
+    status = Hae_FilterStatusInterfaceGetOrderPercentage(HAE_OBJECT_PATH_CONTROLLEE, &orderPercentageRead);
+    printf("OrderPercentage Read : %u\n", orderPercentageRead);
+
+    status = Hae_FilterStatusInterfaceSetManufacturer(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, manufacturer);
+    status = Hae_FilterStatusInterfaceGetManufacturer(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    printf("Manufacturer Read : %s\n", strBuf);
+
+    status = Hae_FilterStatusInterfaceSetPartNumber(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, partNumber);
+    status = Hae_FilterStatusInterfaceGetPartNumber(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    printf("PartNumber Read : %s\n", strBuf);
+
+    status = Hae_FilterStatusInterfaceSetUrl(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, url);
+    status = Hae_FilterStatusInterfaceGetUrl(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    printf("Url Read : %s\n", strBuf);
+
+    status = Hae_FilterStatusInterfaceSetLifeRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, lifeRemaining);
+    status = Hae_FilterStatusInterfaceGetLifeRemaining(HAE_OBJECT_PATH_CONTROLLEE, &lifeRemainingRead);
+    printf("LifeRemaining Read : %u\n", lifeRemainingRead);
+
     /* if (status == AJ_OK) */ {
         status = InitHaeClosedStatusProperties(busAttachment);
     }
@@ -1805,6 +2143,123 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         status = InitHaeTimerProperties(busAttachment);
     }
 
+    // Init CurrentHumidity
+    {
+        uint8_t humidity = 10;
+        uint8_t maxValue = 90;
+        uint8_t humidityRead = 0;
+
+        status = Hae_CurrentHumidityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidity);
+        status = Hae_CurrentHumidityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("Current Humidity Read : %d\n", (int)humidityRead);
+
+        status = Hae_CurrentHumidityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxValue);
+        status = Hae_CurrentHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("MaxValue Read : %d\n", (int)humidityRead);
+    }
+
+    // Init TargetHumidity
+    {
+        uint8_t humidity = 30;
+        uint8_t humidityMin = 10;
+        uint8_t humidityMax = 70;
+        uint8_t humidityStep = 5;
+        uint8_t humidityRead = 0;
+        int i;
+        const uint8_t selectableHumidityLevels[] = { 10, 20, 30, 40, 50, 60, 70 };
+        uint8_t selectableHumidityLevelsRead[7];
+
+        status = Hae_TargetHumidityInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityMin);
+        status = Hae_TargetHumidityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("Target Humidity Min Read : %d\n", (int)humidityRead);
+
+        status = Hae_TargetHumidityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityMax);
+        status = Hae_TargetHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("Target Humidity Max Read : %d\n", (int)humidityRead);
+
+        status = Hae_TargetHumidityInterfaceSetStepValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityStep);
+        status = Hae_TargetHumidityInterfaceGetStepValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("Target Humidity Step Read : %d\n", (int)humidityRead);
+
+        status = Hae_TargetHumidityInterfaceSetTargetValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidity);
+        status = Hae_TargetHumidityInterfaceGetTargetValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        printf("Target Humidity Read : %d\n", (int)humidityRead);
+
+        status = Hae_TargetHumidityInterfaceSetSelectableHumidityLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableHumidityLevels, sizeof(selectableHumidityLevels) / sizeof(selectableHumidityLevels[0]));
+        status = Hae_TargetHumidityInterfaceGetSelectableHumidityLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableHumidityLevelsRead);
+        printf("Target Humidity Read : { ");
+        for (i = 0; i < 7; i++) {
+            printf("%d ", (int)selectableHumidityLevelsRead[i]);
+        }
+        printf("}\n");
+    }
+
+    // Init TargetTemperatureLevel
+    {
+        uint8_t temperatureLevel = 30;
+        uint8_t temperatureLevelMax = 70;
+        uint8_t temperatureLevelRead = 0;
+        int i;
+        const uint8_t selectableTemperatureLevels[] = { 10, 20, 30, 40, 50, 60, 70 };
+        uint8_t selectableTemperatureLevelsRead[7];
+
+        status = Hae_TargetTemperatureLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureLevelMax);
+        status = Hae_TargetTemperatureLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
+        printf("Target TemperatureLevel Max Read : %d\n", (int)temperatureLevelRead);
+
+        status = Hae_TargetTemperatureLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureLevel);
+        status = Hae_TargetTemperatureLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
+        printf("Target TemperatureLevel Read : %d\n", (int)temperatureLevelRead);
+
+        status = Hae_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevels, sizeof(selectableTemperatureLevels) / sizeof(selectableTemperatureLevels[0]));
+        status = Hae_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevelsRead);
+        printf("Target TemperatureLevel Read : { ");
+        for (i = 0; i < 7; i++) {
+            printf("%d ", (int)selectableTemperatureLevelsRead[i]);
+        }
+        printf("}\n");
+    }
+
+    {
+        uint16_t mode = 2;
+        uint16_t modeRead = 0;
+
+        const uint16_t supportedModes[3] = { 0, 1, 2 };
+        uint16_t supportedModesRead[3];
+
+        status = Hae_HvacFanModeInterfaceSetMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, mode);
+        status = Hae_HvacFanModeInterfaceGetMode(HAE_OBJECT_PATH_CONTROLLEE, &modeRead);
+        printf("HvacFanMode Mode Read : %u\n", modeRead);
+
+        status = Hae_HvacFanModeInterfaceSetSupportedModes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedModes, 3);
+        status = Hae_HvacFanModeInterfaceGetSupportedModes(HAE_OBJECT_PATH_CONTROLLEE, supportedModesRead);
+        printf("HvacFanMode SupportedModes Read\n");
+        for (i = 0; i < 3; i++) {
+            printf("%u\t", supportedModesRead[i]);
+        }
+        printf("\n");
+    }
+
+    {
+        PlugInInfo units[2] = { { HAE_OBJECT_PATH_CONTROLLEE, 1, false }, { HAE_OBJECT_PATH_CONTROLLEE, 2, true } };
+        PlugInInfo unitsRead[2];
+
+        status = Hae_PlugInUnitsInterfaceSetPlugInUnits(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, units, 2);
+        status = Hae_PlugInUnitsInterfaceGetPlugInUnits(HAE_OBJECT_PATH_CONTROLLEE, unitsRead);
+        printf("PlugInUnits Read \n");
+        for (i = 0; i < 2; i++) {
+            printf("%s, %d, %s\n", unitsRead[i].objectPath, unitsRead[i].deviceId, unitsRead[i].pluggedIn ? "true" : "false");
+        }
+    }
+
+    status = Hae_RapidModeTimedInterfaceSetMaxSetMinutes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxSetMinutes);
+    status = Hae_RapidModeTimedInterfaceGetMaxSetMinutes(HAE_OBJECT_PATH_CONTROLLEE, &minutesRead);
+    printf("MaxSetMinutes Read: %u\n", minutesRead);
+
+    status = Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, rapidModeMinutesRemaining);
+    status = Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(HAE_OBJECT_PATH_CONTROLLEE, &minutesRead);
+    printf("RapidModeMinutesRemaining Read: %u\n", minutesRead);
+
     return status;
 }
 
@@ -1821,6 +2276,8 @@ int AJ_Main(void)
     uint8_t forcedDisconnnect = FALSE;
     uint8_t rebootRequired = FALSE;
     AJ_BusAttachment busAttachment;
+    CurrentAirQualityListener currentAirQualityListener;
+    CurrentAirQualityLevelListener currentAirQualityLevelListener;
     CurrentTemperatureListener currentTemperatureListener;
     TargetTemperatureListener targetTemperatureListener;
     WindDirectionListener windDirectionListener;
@@ -1837,8 +2294,10 @@ int AJ_Main(void)
     DishWashingCyclePhaseListener dishWashingCyclePhaseListener;
     EnergyUsageListener energyUsageListener;
     FanSpeedLevelListener fanSpeedLevelListener;
+    FilterStatusListener filterStatusListener;
     HeatingZoneListener heatingZoneListener;
     LaundryCyclePhaseListener laundryCyclePhaseListener;
+    MoistureOutputLevelListener moistureOutputLevelListener;
     OffControlListener offControlListener;
     OnControlListener onControlListener;
     OnOffStatusListener onOffStatusListener;
@@ -1852,6 +2311,12 @@ int AJ_Main(void)
     SpinSpeedLevelListener spinSpeedLevelListener;
     WaterLevelListener waterLevelListener;
     TimerListener timerListener;
+    CurrentHumidityListener currentHumidityListener;
+    TargetHumidityListener targetHumidityListener;
+    TargetTemperatureLevelListener targetTemperatureLevelListener;
+    HvacFanModeListener hvacFanModeListener;
+    PlugInUnitsListener plugInUnitsListener;
+    RapidModeTimedListener rapidModeTimedListener;
 
     AJ_Initialize();
 
@@ -1863,6 +2328,29 @@ int AJ_Main(void)
     }
 
     status = Hae_Init();
+
+
+    currentAirQualityListener.OnGetContaminantType = NULL;
+    //currentAirQualityListener.OnGetContaminantType = CurrentAirQuality_OnGetContaminantType;
+    currentAirQualityListener.OnGetCurrentValue = NULL;
+    //currentAirQualityListener.OnGetCurrentValue = CurrentAirQuality_OnGetCurrentValue;
+    currentAirQualityListener.OnGetMaxValue = NULL;
+    //currentAirQualityListener.OnGetMaxValue = CurrentAirQuality_OnGetMaxValue;
+    currentAirQualityListener.OnGetMinValue = NULL;
+    //currentAirQualityListener.OnGetMinValue = CurrentAirQuality_OnGetMinValue;
+    currentAirQualityListener.OnGetPrecision = NULL;
+    //currentAirQualityListener.OnGetPrecision = CurrentAirQuality_OnGetPrecision;
+    currentAirQualityListener.OnGetUpdateMinTime = NULL;
+    //currentAirQualityListener.OnGetUpdateMinTime = CurrentAirQuality_OnGetUpdateMinTime;
+    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityListener);
+
+    currentAirQualityLevelListener.OnGetContaminantType = NULL;
+    //currentAirQualityLevelListener.OnGetContaminantType = CurrentAirQualityLevel_OnGetContaminantType;
+    currentAirQualityLevelListener.OnGetCurrentLevel = NULL;
+    //currentAirQualityLevelListener.OnGetCurrentLevel = CurrentAirQualityLevel_OnGetCurrentLevel;
+    currentAirQualityLevelListener.OnGetMaxLevel = NULL;
+    //currentAirQualityLevelListener.OnGetMaxLevel = CurrentAirQualityLevel_OnGetMaxLevel;
+    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityLevelListener);
 
     currentTemperatureListener.OnGetCurrentValue = NULL;
     //currentTemperatureListener.OnGetCurrentValue = OnGetCurrentValue;
@@ -2069,7 +2557,67 @@ int AJ_Main(void)
     timerListener.OnSetTargetTimeToStart = NULL;
     timerListener.OnSetTargetTimeToStop = NULL;
     status = Hae_CreateInterface(TIMER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &timerListener);
-    
+
+    moistureOutputLevelListener.OnGetMoistureOutputLevel = NULL;
+    //moistureOutputLevelListener.OnGetMoistureOutputLevel = OnGetMoistureOutputLevel;
+    moistureOutputLevelListener.OnSetMoistureOutputLevel = OnSetMoistureOutputLevel;
+    moistureOutputLevelListener.OnGetMaxMoistureOutputLevel = NULL;
+    //moistureOutputLevelListener.OnGetMaxMoistureOutputLevel = OnGetMaxMoistureOutputLevel;
+    moistureOutputLevelListener.OnGetAutoMode = NULL;
+    //moistureOutputLevelListener.OnGetAutoMode = OnGetAutoMode;
+    moistureOutputLevelListener.OnSetAutoMode = OnSetAutoMode;
+    status = Hae_CreateInterface(MOISTURE_OUTPUT_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &moistureOutputLevelListener);
+
+    filterStatusListener.OnGetExpectedLifeInDays = NULL;
+    //filterStatusListener.OnGetExpectedLifeInDays = OnGetExpectedLifeInDays;
+    filterStatusListener.OnGetIsCleanable = NULL;
+    //filterStatusListener.OnGetIsCleanable = OnGetIsCleanable;
+    filterStatusListener.OnGetOrderPercentage = NULL;
+    //filterStatusListener.OnGetOrderPercentage = OnGetOrderPercentage;
+    filterStatusListener.OnGetManufacturer = NULL;
+    //filterStatusListener.OnGetManufacturer = OnGetManufacturer;
+    filterStatusListener.OnGetPartNumber = NULL;
+    //filterStatusListener.OnGetPartNumber = OnGetPartNumber;
+    filterStatusListener.OnGetUrl = NULL;
+    //filterStatusListener.OnGetUrl = OnGetUrl;
+    filterStatusListener.OnGetLifeRemaining = NULL;
+    //filterStatusListener.OnGetLifeRemaining = OnGetLifeRemaining;
+    status = Hae_CreateInterface(FILTER_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &filterStatusListener);
+
+    currentHumidityListener.OnGetCurrentValue = NULL;
+    currentHumidityListener.OnGetMaxValue = NULL;
+    status = Hae_CreateInterface(CURRENT_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentHumidityListener);
+
+    targetHumidityListener.OnGetTargetValue = NULL;
+    targetHumidityListener.OnSetTargetValue = TargetHumidity_OnSetTargetValue;
+    targetHumidityListener.OnGetMinValue = NULL;
+    targetHumidityListener.OnGetMaxValue = NULL;
+    targetHumidityListener.OnGetStepValue = NULL;
+    targetHumidityListener.OnGetSelectableHumidityLevels = NULL;
+    status = Hae_CreateInterface(TARGET_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetHumidityListener);
+
+    targetTemperatureLevelListener.OnGetTargetLevel = NULL;
+    targetTemperatureLevelListener.OnSetTargetLevel = TargetTemperatureLevel_OnSetTargetLevel;
+    targetTemperatureLevelListener.OnGetMaxLevel = NULL;
+    targetTemperatureLevelListener.OnGetStepValue = NULL;
+    targetTemperatureLevelListener.OnGetSelectableTemperatureLevels = NULL;
+    status = Hae_CreateInterface(TARGET_TEMPERATURE_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetTemperatureLevelListener);
+
+    hvacFanModeListener.OnGetMode = NULL;
+    hvacFanModeListener.OnSetMode = OnSetMode;
+    hvacFanModeListener.OnGetSupportedModes = NULL;
+    status = Hae_CreateInterface(HVAC_FAN_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &hvacFanModeListener);
+
+    plugInUnitsListener.OnGetPlugInUnits = NULL;
+    status = Hae_CreateInterface(PLUG_IN_UNITS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &plugInUnitsListener);
+
+    rapidModeTimedListener.OnGetMaxSetMinutes = NULL;
+    //rapidModeTimedListener.OnGetMaxSetMinutes = OnGetMaxSetMinutes;
+    rapidModeTimedListener.OnGetRapidModeMinutesRemaining = NULL;
+    //rapidModeTimedListener.OnGetRapidModeMinutesRemaining = OnGetRapidModeMinutesRemaining;
+    rapidModeTimedListener.OnSetRapidModeMinutesRemaining = OnSetRapidModeMinutesRemaining;
+    status = Hae_CreateInterface(RAPID_MODE_TIMED_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeTimedListener);
+
     status = Hae_Start();
 
     while (TRUE) {

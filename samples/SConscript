@@ -15,7 +15,7 @@ samples_env.Append(CPPDEFINES = {
 samples_env.Append(CPPPATH = './inc')
 
 samples_env.Append(LIBPATH = ['#dist/../../../core/ajtcl/dist/lib', '#dist/../../base_tcl/dist/lib', '#dist/lib'])
-samples_env.Prepend(LIBS = ['ajtcl', 'ajtcl_services', 'ajtcl_hae'])
+samples_env.Prepend(LIBS = ['ajtcl', 'ajtcl_services', 'ajtcl_services_config', 'ajtcl_hae'])
 
 common_objs = samples_env.Object(samples_env.Glob('common/*.c'))
 
