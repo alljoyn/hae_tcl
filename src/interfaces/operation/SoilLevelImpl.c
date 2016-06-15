@@ -77,6 +77,7 @@ AJ_Status CreateSoilLevelInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(SoilLevelProperties));
 
     ((SoilLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((SoilLevelProperties*)*properties)->selectableLevels = NULL;

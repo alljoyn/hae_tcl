@@ -38,6 +38,7 @@ AJ_Status CreateClosedStatusInterface(void** properties)
     if(!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(ClosedStatusProperties));
 
     ((ClosedStatusProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

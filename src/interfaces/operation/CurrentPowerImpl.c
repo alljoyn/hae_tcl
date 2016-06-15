@@ -42,6 +42,7 @@ AJ_Status CreateCurrentPowerInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(CurrentPowerProperties));
 
     ((CurrentPowerProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

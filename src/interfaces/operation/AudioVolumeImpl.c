@@ -54,7 +54,6 @@ AJ_Status AudioVolumeCheckVolumeForValidation(const char* objPath, uint8_t volum
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
 
-
     props = (AudioVolumeProperties*)GetProperties(objPath, AUDIO_VOLUME_INTERFACE);
     if (props) {
         if (volume > props->maxVolume) {
@@ -73,6 +72,7 @@ AJ_Status CreateAudioVolumeInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(AudioVolumeProperties));
 
     ((AudioVolumeProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

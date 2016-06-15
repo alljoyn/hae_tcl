@@ -41,6 +41,7 @@ AJ_Status CreatePlugInUnitsInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(PlugInUnitsProperties));
 
     ((PlugInUnitsProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((PlugInUnitsProperties*)*properties)->units = NULL;

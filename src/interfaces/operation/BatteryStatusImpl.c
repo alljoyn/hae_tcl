@@ -40,6 +40,7 @@ AJ_Status CreateBatteryStatusInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(BatteryStatusProperties));
 
     ((BatteryStatusProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

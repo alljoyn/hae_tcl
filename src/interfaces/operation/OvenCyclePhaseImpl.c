@@ -70,6 +70,7 @@ AJ_Status CreateOvenCyclePhaseInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(OvenCyclePhaseProperties));
 
     ((OvenCyclePhaseProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((OvenCyclePhaseProperties*)*properties)->supportedCyclePhases = NULL;

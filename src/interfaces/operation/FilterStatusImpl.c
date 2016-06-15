@@ -54,6 +54,7 @@ AJ_Status CreateFilterStatusInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(FilterStatusProperties));
 
     ((FilterStatusProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((FilterStatusProperties*)*properties)->manufacturerInit = false;

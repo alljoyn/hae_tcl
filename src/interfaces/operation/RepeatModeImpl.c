@@ -39,6 +39,7 @@ AJ_Status CreateRepeatModeInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(RepeatModeProperties));
 
     ((RepeatModeProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

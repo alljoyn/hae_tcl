@@ -71,6 +71,7 @@ AJ_Status CreateHvacFanModeInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(HvacFanModeProperties));
 
     ((HvacFanModeProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((HvacFanModeProperties*)*properties)->supportedModes = NULL;

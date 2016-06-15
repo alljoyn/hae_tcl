@@ -85,6 +85,7 @@ AJ_Status CreateTargetTemperatureLevelInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(TargetTemperatureLevelProperties));
 
     ((TargetTemperatureLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

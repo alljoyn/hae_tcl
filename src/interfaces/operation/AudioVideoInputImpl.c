@@ -69,6 +69,7 @@ AJ_Status CreateAudioVideoInputInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(AudioVideoInputProperties));
 
     ((AudioVideoInputProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((AudioVideoInputProperties*)*properties)->supportedInputSources = NULL;

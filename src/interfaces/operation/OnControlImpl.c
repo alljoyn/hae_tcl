@@ -38,6 +38,7 @@ AJ_Status CreateOnControlInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(OnControlProperties));
 
     ((OnControlProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

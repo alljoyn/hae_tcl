@@ -77,6 +77,7 @@ AJ_Status CreateSpinSpeedLevelInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(SpinSpeedLevelProperties));
 
     ((SpinSpeedLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((SpinSpeedLevelProperties*)*properties)->selectableLevels = NULL;
