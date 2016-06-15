@@ -58,6 +58,7 @@ AJ_Status CreateRapidModeTimedInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(RapidModeTimedProperties));
 
     ((RapidModeTimedProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((RapidModeTimedProperties*)*properties)->maxSetMinutesInit = false;

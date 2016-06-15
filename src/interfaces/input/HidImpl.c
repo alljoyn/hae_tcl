@@ -41,6 +41,7 @@ AJ_Status CreateHidInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(HidProperties));
 
     ((HidProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((HidProperties*)*properties)->supportedEvents = NULL;

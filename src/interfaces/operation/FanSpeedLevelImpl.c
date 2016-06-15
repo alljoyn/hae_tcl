@@ -46,7 +46,6 @@ AJ_Status FanSpeedLevelValidationCheck(const char* objPath, uint8_t fanSpeedLeve
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
 
-
     props = (FanSpeedLevelProperties*)GetProperties(objPath, FAN_SPEED_LEVEL_INTERFACE);
     if (props) {
         if (fanSpeedLevel == FAN_TURNED_OFF) {
@@ -77,6 +76,7 @@ AJ_Status CreateFanSpeedLevelInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(FanSpeedLevelProperties));
 
     ((FanSpeedLevelProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
 

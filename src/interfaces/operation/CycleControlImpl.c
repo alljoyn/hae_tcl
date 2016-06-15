@@ -77,6 +77,7 @@ AJ_Status CreateCycleControlInterface(void** properties)
     if (!(*properties)) {
         return AJ_ERR_RESOURCES;
     }
+    memset(*properties, 0, sizeof(CycleControlProperties));
 
     ((CycleControlProperties*)*properties)->version = (uint16_t)INTERFACE_VERSION;
     ((CycleControlProperties*)*properties)->supportedOperationalStates = NULL;

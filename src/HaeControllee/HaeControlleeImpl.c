@@ -422,6 +422,7 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
     if (!intfInfo) {
         return AJ_ERR_RESOURCES;
     }
+    memset(intfInfo, 0, sizeof(HaeInterfaceInfo));
     intfInfo->intfType = intfType;
     intfInfo->listener = listener;
 
@@ -441,6 +442,7 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
             free(intfInfo);
             return AJ_ERR_RESOURCES;
         }
+        memset(objInfo, 0, sizeof(HaeObjectInfo));
 
         {
             HaeObjectInfo tempObj = { objPath, intfInfo, intfInfo, NULL, NULL };
@@ -495,6 +497,7 @@ AJ_Status Hae_Start()
     if (!ajObjects) {
         return AJ_ERR_RESOURCES;
     }
+    memset(ajObjects, 0, sizeof(sizeof(AJ_Object) * (numOfObjs+1)));
 
     objInfo = objInfoFirst;
     while (objInfo) {
@@ -511,6 +514,7 @@ AJ_Status Hae_Start()
             free(ajObjects);
             return AJ_ERR_RESOURCES;
         }
+        memset(objInfo->ajIntfDesc, 0, sizeof(sizeof(AJ_InterfaceDescription) * (numOfIntfs+2)));
 
         objInfo->ajIntfDesc[0] = AJ_PropertiesIface;
         intfInfo = objInfo->intfFirst;
@@ -987,6 +991,7 @@ AJ_Status Hae_RegisterVendorDefinedInterface(const char* intfName, const char* c
     if (!intfInfo) {
         return AJ_ERR_RESOURCES;
     }
+    memset(intfInfo, 0, sizeof(VendorDefinedInterfaceInfo));
 
     {
         VendorDefinedInterfaceInfo tempInfo = { intfName, UNDEFINED_INTERFACE, intfDesc, handler, NULL };
