@@ -42,6 +42,7 @@
 #include <ajtcl/hae/interfaces/environment/WindDirection.h>
 #include <ajtcl/hae/interfaces/input/Hid.h>
 #include <ajtcl/hae/interfaces/operation/AirRecirculationMode.h>
+#include <ajtcl/hae/interfaces/operation/Alerts.h>
 #include <ajtcl/hae/interfaces/operation/AudioVideoInput.h>
 #include <ajtcl/hae/interfaces/operation/AudioVolume.h>
 #include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
@@ -1288,6 +1289,52 @@ AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
+
+AlertCodesDescriptor AlertCodesDescriptorList[] = {
+    { 0x0001  , (char*)"Alert Code 1" },
+    { 0x0002  , (char*)"Alert Code 2" },
+    { 0x0003  , (char*)"Alert Code 3" },
+    { 0x0004  , (char*)"Alert Code 4" },
+    { 0x0005  , (char*)"Alert Code 5" },
+    { 0x0006  , (char*)"Alert Code 6" },
+    { 0x0007  , (char*)"Alert Code 7" },
+    { 0x0008  , (char*)"Alert Code 8" },
+};
+
+
+AJ_Status AlertsOnGetAlertCodesDescription (const char* objPath, const char* languageTag,
+    AlertCodesDescriptor** description, size_t* alertsNumber, ErrorCode* errorCode)
+{
+    printf("Alerts OnGetAlertCodesDescription : %s, %s\n", objPath, languageTag);
+
+    if(!strncmp(languageTag, "en", strlen(languageTag))) {
+        *description = &AlertCodesDescriptorList[0];
+        *alertsNumber = sizeof(AlertCodesDescriptorList) / sizeof(AlertCodesDescriptorList[0]);
+        return AJ_OK;
+    } else {
+        if (errorCode) {
+            *errorCode = LANGUAGE_NOT_SUPPORTED;
+        }
+
+        return AJ_ERR_FAILURE;
+    }
+}
+
+AJ_Status AlertsListenerOnAcknowledgeAlert (const char* objPath, const uint16_t alertCode, ErrorCode* errorCode)
+{
+    printf("Alerts OnAcknowledgeAlert : %s, %u\n", objPath, alertCode);
+
+    return AJ_OK;
+}
+
+AJ_Status AlertsListenerOnAcknowledgeAllAlerts (const char* objPath, ErrorCode* errorCode)  
+{
+    printf("Alerts OnAcknowledgeAlert : %s\n", objPath);
+
+    return AJ_OK;
+}
+
+
 AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
 {
     #define SUPPORTED_OPER_STATES_NUM   6
@@ -1745,6 +1792,48 @@ AJ_Status InitHaeTimerProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
+AJ_Status InitHaeAlertsProperties(AJ_BusAttachment* busAttachment)
+{
+    AJ_Status status = AJ_OK;
+//    AJ_Status getStatus = AJ_OK;
+//    AJ_Status setStatus = AJ_OK;
+    uint8_t i = 0;
+
+    /* array of struct */
+    const AlertRecord alertsList[] = {
+        { 0, 0x0001, true  },
+        { 1, 0x0002, true  },
+        { 2, 0x0003, false },
+        { 0, 0x0004, true  },
+        { 1, 0x0005, true  },
+        { 2, 0x0006, true  },
+        { 0, 0x0007, false },
+    };
+
+    AlertRecord alertsListRead[sizeof(alertsList)/sizeof(alertsList[0])];
+
+    printf("\n");
+
+    status = Hae_AlertsInterfaceSetAlerts(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, alertsList, sizeof(alertsList)/sizeof(alertsList[0]));
+    if (status != AJ_OK) {
+        printf("Alerts Alerts set error : %u\n", status);
+    }
+    status = Hae_AlertsInterfaceGetAlerts(HAE_OBJECT_PATH_CONTROLLEE, alertsListRead);
+    if (status != AJ_OK) {
+        printf("Alerts Alerts get error : %u\n", status);
+    } else {
+        printf("Alerts Alerts get ok :\n");
+        printf("\tseverity,\talertCode,\needAcknowledgement,\n");
+        for (i = 0; i < sizeof(alertsList)/sizeof(alertsList[0]); i++) {
+            printf("\t%u,\t%u,\t%u,\n",\
+                alertsListRead[i].severity,
+                alertsListRead[i].alertCode,\
+                alertsListRead[i].needAcknowledgement);
+        }
+    }
+    return status;
+}
+
 
 AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
 {
@@ -2143,6 +2232,8 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         status = InitHaeTimerProperties(busAttachment);
     }
 
+    status = InitHaeAlertsProperties(busAttachment);
+
     // Init CurrentHumidity
     {
         uint8_t humidity = 10;
@@ -2317,6 +2408,7 @@ int AJ_Main(void)
     HvacFanModeListener hvacFanModeListener;
     PlugInUnitsListener plugInUnitsListener;
     RapidModeTimedListener rapidModeTimedListener;
+    AlertsListener alertsListener;
 
     AJ_Initialize();
 
@@ -2617,6 +2709,13 @@ int AJ_Main(void)
     //rapidModeTimedListener.OnGetRapidModeMinutesRemaining = OnGetRapidModeMinutesRemaining;
     rapidModeTimedListener.OnSetRapidModeMinutesRemaining = OnSetRapidModeMinutesRemaining;
     status = Hae_CreateInterface(RAPID_MODE_TIMED_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeTimedListener);
+
+    alertsListener.OnGetAlerts = NULL;
+    alertsListener.OnGetAlertCodesDescription = AlertsOnGetAlertCodesDescription;
+    alertsListener.OnAcknowledgeAlert = AlertsListenerOnAcknowledgeAlert;
+    alertsListener.OnAcknowledgeAllAlerts = AlertsListenerOnAcknowledgeAllAlerts;
+    status = Hae_CreateInterface(ALERTS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &alertsListener);
+
 
     status = Hae_Start();
 
