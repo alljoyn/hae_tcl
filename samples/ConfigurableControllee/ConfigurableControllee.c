@@ -3073,6 +3073,12 @@ AJ_Status TimerListenerOnSetTargetTimeToStart(const char* objPath, const int32_t
     ErrorCode* errorCode)
 {
     printf("TimerListener OnSetTargetTimeToStart  : %s, targetTimeToStart : %i\n", objPath, targetTimeToStart);
+    if(targetTimeToStart == TIMER_FEATURE_NOT_APPLIED ||
+       targetTimeToStart == TIMER_NOT_SUPPORTED )
+    {
+        *errorCode = INVALID_VALUE;
+        return AJ_ERR_INVALID;
+    }
 
     return AJ_OK;
 }
@@ -3081,6 +3087,12 @@ AJ_Status TimerListenerOnSetTargetTimeToStop(const char* objPath, const int32_t 
     ErrorCode* errorCode)
 {
     printf("TimerListener OnSetTargetTimeToStop  : %s, targetTimeToStop : %i\n", objPath, targetTimeToStop);
+    if(targetTimeToStop == TIMER_FEATURE_NOT_APPLIED ||
+       targetTimeToStop == TIMER_NOT_SUPPORTED )
+    {
+        *errorCode = INVALID_VALUE;
+        return AJ_ERR_INVALID;
+    }
 
     return AJ_OK;
 }

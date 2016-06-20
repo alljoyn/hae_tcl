@@ -24,6 +24,10 @@
 #include <ajtcl/hae/HaeControllee.h>
 #include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
 
+#define TIMER_FEATURE_NOT_APPLIED 0x80000000
+#define TIMER_NOT_SUPPORTED 0x80000001
+
+
 /**
  * Timer interface listener
  */
