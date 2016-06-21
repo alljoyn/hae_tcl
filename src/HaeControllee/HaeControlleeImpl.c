@@ -18,6 +18,7 @@
 #include <string.h>
 #include <ajtcl/hae/HaeControllee.h>
 #include "HaeControlleeImpl.h"
+#include "../interfaces/operation/AlertsImpl.h"
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/AudioVideoInputImpl.h"
 #include "../interfaces/operation/ChannelImpl.h"
@@ -92,6 +93,7 @@ static VendorDefinedInterfaceInfo* GetVendorDefinedInterfaceInfo(HaeInterfaceTyp
 
 AJ_Status Hae_Init()
 {
+    intfDescs[ALERTS_INTERFACE] = intfDescOperationAlerts;
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
     intfDescs[AUDIO_VIDEO_INPUT_INTERFACE] = intfDescOperationAudioVideoInput;
     intfDescs[CHANNEL_INTERFACE] = intfDescOperationChannel;
@@ -134,6 +136,7 @@ AJ_Status Hae_Init()
     intfDescs[PLUG_IN_UNITS_INTERFACE] = intfDescOperationPlugInUnits;
     intfDescs[RAPID_MODE_TIMED_INTERFACE] = intfDescOperationRapidModeTimed;
 
+    intfCreator[ALERTS_INTERFACE] = CreateAlertsInterface;
     intfCreator[AUDIO_VOLUME_INTERFACE] = CreateAudioVolumeInterface;
     intfCreator[AUDIO_VIDEO_INPUT_INTERFACE] = CreateAudioVideoInputInterface;
     intfCreator[CHANNEL_INTERFACE] = CreateChannelInterface;
@@ -176,6 +179,7 @@ AJ_Status Hae_Init()
     intfCreator[PLUG_IN_UNITS_INTERFACE] = CreatePlugInUnitsInterface;
     intfCreator[RAPID_MODE_TIMED_INTERFACE] = CreateRapidModeTimedInterface;
 
+    intfDestructor[ALERTS_INTERFACE] = DestroyAlertsInterface;
     intfDestructor[AUDIO_VOLUME_INTERFACE] = DestroyAudioVolumeInterface;
     intfDestructor[AUDIO_VIDEO_INPUT_INTERFACE] = DestroyAudioVideoInputInterface;
     intfDestructor[CHANNEL_INTERFACE] = DestroyChannelInterface;
@@ -218,6 +222,7 @@ AJ_Status Hae_Init()
     intfDestructor[PLUG_IN_UNITS_INTERFACE] = DestroyPlugInUnitsInterface;
     intfDestructor[RAPID_MODE_TIMED_INTERFACE] = DestroyRapidModeTimedInterface;
 
+    onGetProperty[ALERTS_INTERFACE] = AlertsInterfaceOnGetProperty;
     onGetProperty[AUDIO_VOLUME_INTERFACE] = AudioVolumeInterfaceOnGetProperty;
     onGetProperty[AUDIO_VIDEO_INPUT_INTERFACE] = AudioVideoInputInterfaceOnGetProperty;
     onGetProperty[CHANNEL_INTERFACE] = ChannelInterfaceOnGetProperty;
@@ -297,6 +302,7 @@ AJ_Status Hae_Init()
     emitPropertiesChanged[HVAC_FAN_MODE_INTERFACE] = HvacFanModeInterfaceEmitPropertiesChanged;
     emitPropertiesChanged[RAPID_MODE_TIMED_INTERFACE] = RapidModeTimedInterfaceEmitPropertiesChanged;
 
+    onMethodHandler[ALERTS_INTERFACE] = AlertsInterfaceOnMethodHandler;
     onMethodHandler[CHANNEL_INTERFACE] = ChannelInterfaceOnMethodHandler;
     onMethodHandler[CYCLE_CONTROL_INTERFACE] = CycleControlInterfaceOnMethodHandler;
     onMethodHandler[DISH_WASHING_CYCLE_PHASE_INTERFACE] = DishWashingCyclePhaseInterfaceOnMethodHandler;
