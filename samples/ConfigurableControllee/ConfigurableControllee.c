@@ -3139,7 +3139,7 @@ AJ_Status InitHaeTimerProperties(AJ_BusAttachment* busAttachment)
     int32_t runningTimeRead;
     int32_t targetDurationRead;
 
-    const char* const interfaceName = "SpinSpeedLevel";
+    const char* const interfaceName = "TimerInterface";
     const HAE_ProprietyDescriptor proprietyDescriptor[] = {
         { "ReferenceTimer"     , 0 , 'i' , &referenceTimer     , &referenceTimerRead     , 1 },
         { "TargetTimeToStart"  , 0 , 'i' , &targetTimeToStart  , &targetTimeToStartRead  , 1 },

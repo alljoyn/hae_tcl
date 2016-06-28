@@ -756,6 +756,7 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
                     *status = AJ_BusPropGet(msg, PropGetHandler, NULL);
                 } else if (memberIndex == AJ_PROP_SET) {
                     HaePropertiesChanged propChanged;
+                    memset(&propChanged, 0 , sizeof(HaePropertiesChanged));
                     *status = AJ_BusPropSet(msg, PropSetHandler, &propChanged);
                     if (*status == AJ_OK && propChanged.changed) {
                         if (propChanged.intfType > UNDEFINED_INTERFACE && propChanged.intfType < VENDOR_DEFINED_INTERFACE) {
