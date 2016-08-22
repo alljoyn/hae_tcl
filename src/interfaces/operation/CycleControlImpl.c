@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/CycleControl.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/CycleControl.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "CycleControlImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -225,7 +225,7 @@ AJ_Status CycleControlInterfaceOnGetProperty(AJ_Message* replyMsg, const char* o
     return status;
 }
 
-AJ_Status CycleControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status CycleControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -270,7 +270,7 @@ AJ_Status CycleControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objP
 }
 
 
-AJ_Status Hae_CycleControlInterfaceGetOperationalState(const char* objPath, uint8_t* operationalState)
+AJ_Status Cdm_CycleControlInterfaceGetOperationalState(const char* objPath, uint8_t* operationalState)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -289,7 +289,7 @@ AJ_Status Hae_CycleControlInterfaceGetOperationalState(const char* objPath, uint
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t operationalState)
+AJ_Status Cdm_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t operationalState)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -318,7 +318,7 @@ AJ_Status Hae_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAtta
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalStates(const char* objPath, uint8_t* supportedOperationalStates)
+AJ_Status Cdm_CycleControlInterfaceGetSupportedOperationalStates(const char* objPath, uint8_t* supportedOperationalStates)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -340,7 +340,7 @@ AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalStates(const char* obj
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalStates, const size_t supportedModeSize)
+AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalStates, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -376,7 +376,7 @@ AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachmen
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalCommands(const char* objPath, uint8_t* supportedOperationalCommands)
+AJ_Status Cdm_CycleControlInterfaceGetSupportedOperationalCommands(const char* objPath, uint8_t* supportedOperationalCommands)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -398,7 +398,7 @@ AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalCommands(const char* o
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalCommands, const size_t supportedModeSize)
+AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalCommands, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     CycleControlProperties* props = NULL;
@@ -434,7 +434,7 @@ AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachm
     return status;
 }
 
-AJ_Status Hae_CycleControlInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath)
+AJ_Status Cdm_CycleControlInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath)
 {
     AJ_Status status = AJ_OK;
     AJ_Message msg;

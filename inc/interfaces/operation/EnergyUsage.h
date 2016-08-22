@@ -21,8 +21,8 @@
 #define ENERGYUSAGE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * EnergyUsage interface listener
@@ -67,7 +67,7 @@ typedef struct {
  * @param[out] cumulativeEnergy nsumption of the device in kWHr
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, double* cumulativeEnergy);
+AJ_Status Cdm_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, double* cumulativeEnergy);
 
 /**
  * Set cumulativeEnergy of EnergyUsage interface
@@ -76,7 +76,7 @@ AJ_Status Hae_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, doubl
  * @param[in] cumulativeEnergy nsumption of the device in kWHr
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttachment, const char* objPath, const double cumulativeEnergy);
+AJ_Status Cdm_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttachment, const char* objPath, const double cumulativeEnergy);
 
 /**
  * Get precision of EnergyUsage interface
@@ -84,7 +84,7 @@ AJ_Status Hae_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttac
  * @param[out] precision The minimum time between updates of the CumulativeEnergy property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceGetPrecision(const char* objPath, double* precision);
+AJ_Status Cdm_EnergyUsageInterfaceGetPrecision(const char* objPath, double* precision);
 
 /**
  * Set precision of EnergyUsage interface
@@ -93,7 +93,7 @@ AJ_Status Hae_EnergyUsageInterfaceGetPrecision(const char* objPath, double* prec
  * @param[in] precision The minimum time between updates of the CumulativeEnergy property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
+AJ_Status Cdm_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
 
 /**
  * Get updateMinTime of EnergyUsage interface
@@ -101,7 +101,7 @@ AJ_Status Hae_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, 
  * @param[out] updateMinTime The minimum time between updates of the CumulativeEnergy property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
+AJ_Status Cdm_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
 
 /**
  * Set updateMinTime of EnergyUsage interface
@@ -110,6 +110,6 @@ AJ_Status Hae_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t
  * @param[in] updateMinTime The minimum time between updates of the CumulativeEnergy property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnergyUsageInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
+AJ_Status Cdm_EnergyUsageInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
 
 #endif /* ENERGYUSAGE_H_ */

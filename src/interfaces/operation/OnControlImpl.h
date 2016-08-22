@@ -23,6 +23,6 @@ const char* const intfDescOperationOnControl[4];
 
 AJ_Status CreateOnControlInterface(void** properties);
 void DestroyOnControlInterface(void* properties);
-AJ_Status OnControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status OnControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* ONCONTROLIMPL_H_ */

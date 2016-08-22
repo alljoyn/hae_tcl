@@ -21,7 +21,7 @@
 #define CURRENTHUMIDITY_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * CurrentHumidity interface listener
@@ -51,7 +51,7 @@ typedef struct {
  * @param[out] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue);
+AJ_Status Cdm_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue);
 
 /**
  * Set the current value of CurrentHumidity interface
@@ -60,7 +60,7 @@ AJ_Status Hae_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8
  * @param[in] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue);
+AJ_Status Cdm_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue);
 
 /**
  * Get the maxValue of CurrentHumidity interface
@@ -68,7 +68,7 @@ AJ_Status Hae_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttac
  * @param[out] maxValue the maxValue
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue);
+AJ_Status Cdm_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue);
 
 /**
  * Set the maxValue of CurrentHumidity interface
@@ -77,6 +77,6 @@ AJ_Status Hae_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* 
  * @param[in] maxValue the maxValue
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue);
+AJ_Status Cdm_CurrentHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue);
 
 #endif /* CURRENTHUMIDITY_H_ */

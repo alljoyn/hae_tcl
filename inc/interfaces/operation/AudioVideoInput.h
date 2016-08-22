@@ -21,7 +21,7 @@
 #define AUDIOVIDEOINPUT_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * InputSource struct
@@ -70,7 +70,7 @@ typedef struct {
  * @param[out] channelId channel id
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint16_t* inputSourceId);
+AJ_Status Cdm_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint16_t* inputSourceId);
 
 /**
  * Set inputSourceId of AudioVideoInput interface
@@ -79,7 +79,7 @@ AJ_Status Hae_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint
  * @param[in] inputSourceId Activated input source id
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t inputSourceId);
+AJ_Status Cdm_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t inputSourceId);
 
 /**
  * Get InputSource of AudioVideoInput interface
@@ -87,7 +87,7 @@ AJ_Status Hae_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAtta
  * @param[out] supportedInputSources Array of supported input sources
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPath, InputSource* supportedInputSources);
+AJ_Status Cdm_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPath, InputSource* supportedInputSources);
 
 /**
  * Set InputSource of AudioVideoInput interface
@@ -97,6 +97,6 @@ AJ_Status Hae_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPa
  * @param[in] InputSourceSize InputSource List size
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVideoInputInterfaceSetSupportedInputSources(AJ_BusAttachment* busAttachment, const char* objPath, const InputSource* supportedInputSources, const size_t inputSourceListSize);
+AJ_Status Cdm_AudioVideoInputInterfaceSetSupportedInputSources(AJ_BusAttachment* busAttachment, const char* objPath, const InputSource* supportedInputSources, const size_t inputSourceListSize);
 
 #endif /* AUDIOVIDEOINPUT_H_ */

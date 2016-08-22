@@ -18,7 +18,7 @@
 
 #define INTERFACE_VERSION 1
 
-static HaeInterfaceTypes vendorDefinedInterfaceType;
+static CdmInterfaceTypes vendorDefinedInterfaceType;
 
 const char* const intfDescVendorDefined[] = {
     VENDOR_DEFINED_INTERFACE_NAME,
@@ -34,7 +34,7 @@ typedef struct {
     int32_t testProperty;
 } VendorDefinedProperties;
 
-void VendorDefinedInterfaceRegistered(HaeInterfaceTypes intfType)
+void VendorDefinedInterfaceRegistered(CdmInterfaceTypes intfType)
 {
     vendorDefinedInterfaceType = intfType;
 }
@@ -201,7 +201,7 @@ AJ_Status VendorDefinedInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
     return status;
 }
 
-AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -244,7 +244,7 @@ AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* obj
     return status;
 }
 
-AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t* testProperty)
+AJ_Status Cdm_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t* testProperty)
 {
     AJ_Status status = AJ_OK;
     VendorDefinedProperties* props = NULL;
@@ -263,7 +263,7 @@ AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t
     return status;
 }
 
-AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty)
+AJ_Status Cdm_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty)
 {
     AJ_Status status = AJ_OK;
     VendorDefinedProperties* props = NULL;
@@ -286,7 +286,7 @@ AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_VendorDefinedInterfaceEmitTestSignal(AJ_BusAttachment* busAttachment, const char* objPath, uint32_t sessionId)
+AJ_Status Cdm_VendorDefinedInterfaceEmitTestSignal(AJ_BusAttachment* busAttachment, const char* objPath, uint32_t sessionId)
 {
     AJ_Status status = AJ_OK;
     AJ_Message msg;

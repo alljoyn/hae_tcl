@@ -21,7 +21,7 @@
 #define MOISTUREOUTPUTLEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * MoistureOutputLevel interface listener
@@ -74,7 +74,7 @@ typedef struct {
  * @param[out] value moisture output level
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceGetMoistureOutputLevel(const char* objPath, uint8_t* value);
+AJ_Status Cdm_MoistureOutputLevelInterfaceGetMoistureOutputLevel(const char* objPath, uint8_t* value);
 
 /**
  * Set moisture output level of MoistureOutputLevel interface
@@ -83,7 +83,7 @@ AJ_Status Hae_MoistureOutputLevelInterfaceGetMoistureOutputLevel(const char* obj
  * @param[in] value moisture output level
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceSetMoistureOutputLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
+AJ_Status Cdm_MoistureOutputLevelInterfaceSetMoistureOutputLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
 
 /**
  * Get the maximum moisture output level of MoistureOutputLevel interface
@@ -91,7 +91,7 @@ AJ_Status Hae_MoistureOutputLevelInterfaceSetMoistureOutputLevel(AJ_BusAttachmen
  * @param[out] value the maximum moisture output level
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(const char* objPath, uint8_t* value);
+AJ_Status Cdm_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(const char* objPath, uint8_t* value);
 
 /**
  * Set the maximum moisture output level of MoistureOutputLevel interface
@@ -100,7 +100,7 @@ AJ_Status Hae_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(const char* 
  * @param[in] value the maximum moisture output level
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
+AJ_Status Cdm_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
 
 /**
  * Get auto mode of MoistureOutputLevel interface
@@ -108,7 +108,7 @@ AJ_Status Hae_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(AJ_BusAttach
  * @param[out] autoMode auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode);
+AJ_Status Cdm_MoistureOutputLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode);
 
 /**
  * Set auto mode of MoistureOutputLevel interface
@@ -117,6 +117,6 @@ AJ_Status Hae_MoistureOutputLevelInterfaceGetAutoMode(const char* objPath, uint8
  * @param[in] autoMode auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_MoistureOutputLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode);
+AJ_Status Cdm_MoistureOutputLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode);
 
 #endif /* MOISTUREOUTPUTLEVEL_H_ */

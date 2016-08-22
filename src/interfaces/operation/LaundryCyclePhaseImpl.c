@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/LaundryCyclePhase.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/LaundryCyclePhase.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "LaundryCyclePhaseImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -183,7 +183,7 @@ AJ_Status LaundryCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const ch
     return status;
 }
 
-AJ_Status LaundryCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status LaundryCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -240,7 +240,7 @@ AJ_Status LaundryCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char*
     return status;
 }
 
-AJ_Status Hae_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
+AJ_Status Cdm_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
 {
     AJ_Status status = AJ_OK;
     LaundryCyclePhaseProperties* props = NULL;
@@ -259,7 +259,7 @@ AJ_Status Hae_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8
     return status;
 }
 
-AJ_Status Hae_LaundryCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
+AJ_Status Cdm_LaundryCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
 {
     AJ_Status status = AJ_OK;
     LaundryCyclePhaseProperties* props = NULL;
@@ -288,7 +288,7 @@ AJ_Status Hae_LaundryCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttac
     return status;
 }
 
-AJ_Status Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
+AJ_Status Cdm_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
 {
     AJ_Status status = AJ_OK;
     LaundryCyclePhaseProperties* props = NULL;
@@ -312,7 +312,7 @@ AJ_Status Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objP
     return status;
 }
 
-AJ_Status Hae_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
+AJ_Status Cdm_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
 {
     AJ_Status status = AJ_OK;
     LaundryCyclePhaseProperties* props = NULL;

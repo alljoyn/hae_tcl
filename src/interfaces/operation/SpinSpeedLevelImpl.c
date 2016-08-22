@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/SpinSpeedLevel.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "SpinSpeedLevelImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -283,7 +283,7 @@ AJ_Status SpinSpeedLevelInterfaceOnSetProperty(AJ_Message* replyMsg, const char*
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;
@@ -302,7 +302,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* m
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;
@@ -325,7 +325,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel)
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;
@@ -344,7 +344,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel)
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;
@@ -373,7 +373,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels)
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;
@@ -395,7 +395,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, ui
     return status;
 }
 
-AJ_Status Hae_SpinSpeedLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t supportedModeSize)
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     SpinSpeedLevelProperties* props = NULL;

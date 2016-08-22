@@ -21,7 +21,7 @@
 #define SPINSPEEDLEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * SpinSpeedLevel interface listener
@@ -67,7 +67,7 @@ typedef struct {
  * @param[out] maxLevel max level
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
 
 /**
  * Set MaxLevel of SpinSpeedLevel interface
@@ -76,7 +76,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* m
  * @param[in] maxLevel max level
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
 
 /**
  * Get TargetLevel of SpinSpeedLevel interface
@@ -84,7 +84,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment
  * @param[out] targetLevel target level
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel);
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel);
 
 /**
  * Set TargetLevel of SpinSpeedLevel interface
@@ -93,7 +93,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetTargetLevel(const char* objPath, uint8_t
  * @param[in] targetLevel target level
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel);
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel);
 
 /**
  * Get SelectableLevels of SpinSpeedLevel interface
@@ -101,7 +101,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachm
  * @param[out] selectableLevels selectable levels
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels);
+AJ_Status Cdm_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels);
 
 /**
  * Set SelectableLevels of SpinSpeedLevel interface
@@ -111,7 +111,7 @@ AJ_Status Hae_SpinSpeedLevelInterfaceGetSelectableLevels(const char* objPath, ui
  * @param[in] selectableLevelsSize selectable levels size
  * @return AJ_OK on success
  */
-AJ_Status Hae_SpinSpeedLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t selectableLevelsSize);
+AJ_Status Cdm_SpinSpeedLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t selectableLevelsSize);
 
 
 #endif /* SPINSPEEDLEVEL_H_ */

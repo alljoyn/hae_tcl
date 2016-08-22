@@ -17,8 +17,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef HAECONTROLLEE_H_
-#define HAECONTROLLEE_H_
+#ifndef CDMCONTROLLEE_H_
+#define CDMCONTROLLEE_H_
 
 #include <ajtcl/services/ServicesCommon.h>
 #include <ajtcl/alljoyn.h>
@@ -88,12 +88,12 @@ typedef enum {
     // Vendor Defined Interface
     VENDOR_DEFINED_INTERFACE        = 0x1000,
 
-} HaeInterfaceTypes;
+} CdmInterfaceTypes;
 
 typedef struct {
     void* properties;
     uint32_t member_index_mask;
-} HaePropertiesChangedByMethod;
+} CdmPropertiesChangedByMethod;
 
 /**
  * Vendor defined interface handler
@@ -103,7 +103,7 @@ typedef struct {
      * Handler called when the interface is registered.
      * @param[in] intfType registered interface type
      */
-    void (*InterfaceRegistered)(HaeInterfaceTypes intfType);
+    void (*InterfaceRegistered)(CdmInterfaceTypes intfType);
 
     /**
      * Handler called when the interface is created.
@@ -160,19 +160,19 @@ typedef struct {
      * @param[in] propChangedByMethod includes pointer to properties belonged to the interface. The change of properties values shall be recorded to this.
      * @return AJ_OK on success
      */
-    AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+    AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 } VendorDefinedInterfaceHandler;
 
 /**
- * Initialize HAE service framework.
+ * Initialize CDM service framework.
  * @return AJ_OK on success.
  */
-AJ_Status Hae_Init();
+AJ_Status Cdm_Init();
 
 /**
- * Deinitialize HAE service framework.
+ * Deinitialize CDM service framework.
  */
-void Hae_Deinit();
+void Cdm_Deinit();
 
 /**
  * Create interface.
@@ -181,14 +181,14 @@ void Hae_Deinit();
  * @param[in] listener interface listener
  * @return AJ_OK on success
  */
-AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, void* listener);
+AJ_Status Cdm_CreateInterface(CdmInterfaceTypes intfType, const char* objPath, void* listener);
 
 /**
- * Start HAE service framework.
+ * Start CDM service framework.
  * Objects with interfaces are registered.
  * @return AJ_OK on success
  */
-AJ_Status Hae_Start();
+AJ_Status Cdm_Start();
 
 /**
  * Enable security.
@@ -198,17 +198,17 @@ AJ_Status Hae_Start();
  * @param[in] authListenerCallback the auth listener callback function
  * @return AJ_OK on success
  */
-AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, const size_t numOfSuites,
+AJ_Status Cdm_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, const size_t numOfSuites,
                              AJ_AuthListenerFunc authListenerCallback);
 
 /**
- * Function used to process HAE messages.
+ * Function used to process CDM messages.
  * @param[in] busAttachment bus attachment
  * @param[in] msg message
  * @param[out] status status
  * @return service status
  */
-AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Message* msg, AJ_Status* status);
+AJSVC_ServiceStatus Cdm_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Message* msg, AJ_Status* status);
 
 /**
  * Register vendor defined interface.
@@ -218,7 +218,7 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
  * @param[out] intfType registered interface type
  * @return AJ_OK on success
  */
-AJ_Status Hae_RegisterVendorDefinedInterface(const char* intfName, const char* const* intfDesc, VendorDefinedInterfaceHandler* handler, HaeInterfaceTypes* intfType);
+AJ_Status Cdm_RegisterVendorDefinedInterface(const char* intfName, const char* const* intfDesc, VendorDefinedInterfaceHandler* handler, CdmInterfaceTypes* intfType);
 
 /**
  * Get pointer to properties belonged to the interface
@@ -226,7 +226,7 @@ AJ_Status Hae_RegisterVendorDefinedInterface(const char* intfName, const char* c
  * @param[in] intfType interface type
  * @return pointer to properties belonged to the interface
  */
-void* GetProperties(const char* objPath, HaeInterfaceTypes intfType);
+void* GetProperties(const char* objPath, CdmInterfaceTypes intfType);
 
 /**
  * Make message identifier (mainly used for emitting signal)
@@ -236,7 +236,7 @@ void* GetProperties(const char* objPath, HaeInterfaceTypes intfType);
  * @param[out] msgId message identifier made
  * @return AJ_OK on success
  */
-AJ_Status MakeMsgId(const char* objPath, HaeInterfaceTypes intfType, uint8_t memberIndex, uint32_t* msgId);
+AJ_Status MakeMsgId(const char* objPath, CdmInterfaceTypes intfType, uint8_t memberIndex, uint32_t* msgId);
 
 /**
  * Make message identifier for PropertiesChanged signal
@@ -246,4 +246,4 @@ AJ_Status MakeMsgId(const char* objPath, HaeInterfaceTypes intfType, uint8_t mem
  */
 AJ_Status MakePropChangedId(const char* objPath, uint32_t* msgId);
 
-#endif // HAECONTROLLEE_H_
+#endif // CDMCONTROLLEE_H_

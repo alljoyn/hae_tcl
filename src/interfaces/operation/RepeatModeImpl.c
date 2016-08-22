@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/RepeatMode.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/RepeatMode.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "RepeatModeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -192,7 +192,7 @@ AJ_Status RepeatModeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* obj
     return status;
 }
 
-AJ_Status Hae_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeatMode)
+AJ_Status Cdm_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeatMode)
 {
     AJ_Status status = AJ_OK;
     RepeatModeProperties* props = NULL;
@@ -211,7 +211,7 @@ AJ_Status Hae_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeat
     return status;
 }
 
-AJ_Status Hae_RepeatModeInterfaceSetRepeatMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool repeatMode)
+AJ_Status Cdm_RepeatModeInterfaceSetRepeatMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool repeatMode)
 {
     AJ_Status status = AJ_OK;
     RepeatModeProperties* props = NULL;

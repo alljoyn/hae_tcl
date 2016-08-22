@@ -24,6 +24,6 @@ const char* const intfDescOperationTimer[11];
 AJ_Status CreateTimerInterface(void** properties);
 void DestroyTimerInterface(void* properties);
 AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status TimerInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status TimerInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* TIMER_H_ */

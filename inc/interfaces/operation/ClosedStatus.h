@@ -21,7 +21,7 @@
 #define CLOSEDSTATUS_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * ClosedStatus interface listener
@@ -43,7 +43,7 @@ typedef struct {
  * @param[out] isClosed isClosed
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClosed);
+AJ_Status Cdm_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClosed);
 
 /**
  * Set isClosed of ClosedStatus interface
@@ -52,6 +52,6 @@ AJ_Status Hae_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClos
  * @param[in] isClosed isClosed
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClosedStatusInterfaceSetIsClosed(AJ_BusAttachment* busAttachment, const char* objPath, const bool isClosed);
+AJ_Status Cdm_ClosedStatusInterfaceSetIsClosed(AJ_BusAttachment* busAttachment, const char* objPath, const bool isClosed);
 
 #endif /* CLOSEDSTATUS_H_ */

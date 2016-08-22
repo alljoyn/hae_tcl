@@ -21,7 +21,7 @@
 #define TARGETTEMPERATURELEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * TargetTemperatureLevel interface listener
@@ -75,7 +75,7 @@ typedef struct {
  * @param[out] targetLevel the target value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel);
 
 /**
  * Set the target value of TargetTemperatureLevel interface
@@ -84,7 +84,7 @@ AJ_Status Hae_TargetTemperatureLevelInterfaceGetTargetLevel(const char* objPath,
  * @param[in] targetLevel the target value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel);
 
 /**
  * Get the maximum value of TargetTemperatureLevel interface
@@ -92,7 +92,7 @@ AJ_Status Hae_TargetTemperatureLevelInterfaceSetTargetLevel(AJ_BusAttachment* bu
  * @param[out] maxLevel the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
 
 /**
  * Set the maximum value of TargetTemperatureLevel interface
@@ -101,7 +101,7 @@ AJ_Status Hae_TargetTemperatureLevelInterfaceGetMaxLevel(const char* objPath, ui
  * @param[in] maxLevel the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
 
 /**
  * Get the SelectableTemperatureLevels of TargetTemperatureLevel interface
@@ -109,7 +109,7 @@ AJ_Status Hae_TargetTemperatureLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAt
  * @param[out] temperatureLevels the selectable temperature levels
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(const char* objPath, uint8_t* temperatureLevelLevel);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(const char* objPath, uint8_t* temperatureLevelLevel);
 
 /**
  * Set the SelectableTemperatureLevels of TargetTemperatureLevel interface
@@ -119,6 +119,6 @@ AJ_Status Hae_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(cons
  * @param[in] temperatureLevelSize the size of the selectable temperature levels
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* temperatureLevels, const size_t temperatureLevelSize);
+AJ_Status Cdm_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* temperatureLevels, const size_t temperatureLevelSize);
 
 #endif /* TARGETTEMPERATURELEVEL_H_ */

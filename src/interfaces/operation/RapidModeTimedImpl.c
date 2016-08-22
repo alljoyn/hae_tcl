@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/RapidModeTimed.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/RapidModeTimed.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "RapidModeTimedImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -231,7 +231,7 @@ AJ_Status RapidModeTimedInterfaceOnSetProperty(AJ_Message* replyMsg, const char*
     return status;
 }
 
-AJ_Status Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* objPath, uint16_t* value)
+AJ_Status Cdm_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* objPath, uint16_t* value)
 {
     AJ_Status status = AJ_OK;
     RapidModeTimedProperties* props = NULL;
@@ -250,7 +250,7 @@ AJ_Status Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* ob
     return status;
 }
 
-AJ_Status Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value)
+AJ_Status Cdm_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value)
 {
     AJ_Status status = AJ_OK;
     RapidModeTimedProperties* props = NULL;
@@ -279,7 +279,7 @@ AJ_Status Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachme
     return status;
 }
 
-AJ_Status Hae_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint16_t* value)
+AJ_Status Cdm_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint16_t* value)
 {
     AJ_Status status = AJ_OK;
     RapidModeTimedProperties* props = NULL;
@@ -298,7 +298,7 @@ AJ_Status Hae_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint1
     return status;
 }
 
-AJ_Status Hae_RapidModeTimedInterfaceSetMaxSetMinutes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value)
+AJ_Status Cdm_RapidModeTimedInterfaceSetMaxSetMinutes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value)
 {
     AJ_Status status = AJ_OK;
     RapidModeTimedProperties* props = NULL;

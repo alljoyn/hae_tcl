@@ -21,7 +21,7 @@
 #define HID_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * InputEvent struct
@@ -67,7 +67,7 @@ typedef struct {
  * @param[out] supportedEvents List of supported input events by a device.
  * @return AJ_OK on success
  */
-AJ_Status Hae_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInputEvent* supportedEvents);
+AJ_Status Cdm_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInputEvent* supportedEvents);
 
 /**
  * Set displayLanguage of Hid interface
@@ -77,6 +77,6 @@ AJ_Status Hae_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInput
  * @param[in] supportedEventListSize SupportedInputEvent List size
  * @return AJ_OK on success
  */
-AJ_Status Hae_HidInterfaceSetSupportedEvents(AJ_BusAttachment* busAttachment, const char* objPath, const SupportedInputEvent* supportedEvents, const size_t supportedEventListSize);
+AJ_Status Cdm_HidInterfaceSetSupportedEvents(AJ_BusAttachment* busAttachment, const char* objPath, const SupportedInputEvent* supportedEvents, const size_t supportedEventListSize);
 
 #endif /* HID_H_ */

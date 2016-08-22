@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/environment/WindDirection.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/WindDirection.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "WindDirectionImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -454,7 +454,7 @@ AJ_Status WindDirectionInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, uint16_t* horizontalDirection)
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, uint16_t* horizontalDirection)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -473,7 +473,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, 
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalDirection)
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalDirection)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -501,7 +501,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* bus
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16_t* horizontalMax)
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16_t* horizontalMax)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -520,7 +520,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalMax)
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalMax)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -547,7 +547,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttach
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, uint8_t* horizontalAutoMode)
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, uint8_t* horizontalAutoMode)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -567,7 +567,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, u
 }
 
 
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t horizontalAutoMode)
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t horizontalAutoMode)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -594,7 +594,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busA
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetVerticalDirection(const char* objPath, uint16_t* verticalDirection)
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalDirection(const char* objPath, uint16_t* verticalDirection)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -613,7 +613,7 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalDirection(const char* objPath, ui
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalDirection)
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalDirection)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -641,7 +641,7 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAt
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t* verticalMax)
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t* verticalMax)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -660,7 +660,7 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalMax)
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalMax)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -687,7 +687,7 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachme
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uint8_t* verticalAutoMode)
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uint8_t* verticalAutoMode)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;
@@ -706,7 +706,7 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uin
     return status;
 }
 
-AJ_Status Hae_WindDirectionInterfaceSetVerticalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t verticalAutoMode)
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t verticalAutoMode)
 {
     AJ_Status status = AJ_OK;
     WindDirectionProperties* props = NULL;

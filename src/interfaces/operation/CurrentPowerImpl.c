@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/CurrentPower.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/CurrentPower.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "CurrentPowerImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -161,7 +161,7 @@ AJ_Status CurrentPowerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* o
 }
 
 
-AJ_Status Hae_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* currentPower)
+AJ_Status Cdm_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* currentPower)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;
@@ -180,7 +180,7 @@ AJ_Status Hae_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* 
     return status;
 }
 
-AJ_Status Hae_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachment, const char* objPath, const double currentPower)
+AJ_Status Cdm_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachment, const char* objPath, const double currentPower)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;
@@ -201,7 +201,7 @@ AJ_Status Hae_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachme
     return status;
 }
 
-AJ_Status Hae_CurrentPowerInterfaceGetPrecision(const char* objPath, double* precision)
+AJ_Status Cdm_CurrentPowerInterfaceGetPrecision(const char* objPath, double* precision)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;
@@ -220,7 +220,7 @@ AJ_Status Hae_CurrentPowerInterfaceGetPrecision(const char* objPath, double* pre
     return status;
 }
 
-AJ_Status Hae_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
+AJ_Status Cdm_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;
@@ -241,7 +241,7 @@ AJ_Status Hae_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment,
     return status;
 }
 
-AJ_Status Hae_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
+AJ_Status Cdm_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;
@@ -260,7 +260,7 @@ AJ_Status Hae_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_
     return status;
 }
 
-AJ_Status Hae_CurrentPowerInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
+AJ_Status Cdm_CurrentPowerInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
 {
     AJ_Status status = AJ_OK;
     CurrentPowerProperties* props = NULL;

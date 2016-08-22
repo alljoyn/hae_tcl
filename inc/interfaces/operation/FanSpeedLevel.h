@@ -21,7 +21,7 @@
 #define FANSPEEDLEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * FanSpeedLevel interface listener
@@ -75,7 +75,7 @@ typedef struct {
  * @param[out] fanSpeedLevel Fan speed level of a device
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_t* fanSpeedLevel);
+AJ_Status Cdm_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_t* fanSpeedLevel);
 
 /**
  * Set fanSpeedLevel of FanSpeedLevel interface
@@ -84,7 +84,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_
  * @param[in] fanSpeedLevel Fan speed level of a device
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t fanSpeedLevel);
+AJ_Status Cdm_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t fanSpeedLevel);
 
 /**
  * Get maxFanSpeedLevel of FanSpeedLevel interface
@@ -92,7 +92,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttach
  * @param[out] maxFanSpeedLevel target fan speed level
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uint8_t* maxFanSpeedLevel);
+AJ_Status Cdm_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uint8_t* maxFanSpeedLevel);
 
 /**
  * Set maxFanSpeedLevel of FanSpeedLevel interface
@@ -101,7 +101,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uin
  * @param[in] maxFanSpeedLevel target fan speed level
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxFanSpeedLevel);
+AJ_Status Cdm_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxFanSpeedLevel);
 
 
 /**
@@ -110,7 +110,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAtt
  * @param[out] autoMode state of the auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode);
+AJ_Status Cdm_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode);
 
 /**
  * Set autoMode of FanSpeedLevel interface
@@ -119,6 +119,6 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* au
  * @param[in] autoMode state of the auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_FanSpeedLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode);
+AJ_Status Cdm_FanSpeedLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode);
 
 #endif /* FANSPEEDLEVEL_H_ */

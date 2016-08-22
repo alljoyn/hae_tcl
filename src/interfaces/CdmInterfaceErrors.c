@@ -14,7 +14,7 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 const char* errorName[] = {
     "", //Not Error

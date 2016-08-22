@@ -21,7 +21,7 @@
 #define FILTERSTATUS_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * FilterStatus interface listener
@@ -90,7 +90,7 @@ typedef struct {
  * @param[out] value expected life in days
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetExpectedLifeInDays(const char* objPath, uint16_t* value);
+AJ_Status Cdm_FilterStatusInterfaceGetExpectedLifeInDays(const char* objPath, uint16_t* value);
 
 /**
  * Set expected life in days of FilterStatus interface
@@ -99,7 +99,7 @@ AJ_Status Hae_FilterStatusInterfaceGetExpectedLifeInDays(const char* objPath, ui
  * @param[in] value expected life in days
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetExpectedLifeInDays(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
+AJ_Status Cdm_FilterStatusInterfaceSetExpectedLifeInDays(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
 
 /**
  * Get is cleanable of FilterStatus interface
@@ -107,7 +107,7 @@ AJ_Status Hae_FilterStatusInterfaceSetExpectedLifeInDays(AJ_BusAttachment* busAt
  * @param[out] isCleanable is cleanable
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetIsCleanable(const char* objPath, bool* isCleanable);
+AJ_Status Cdm_FilterStatusInterfaceGetIsCleanable(const char* objPath, bool* isCleanable);
 
 /**
  * Set is cleanable of FilterStatus interface
@@ -116,7 +116,7 @@ AJ_Status Hae_FilterStatusInterfaceGetIsCleanable(const char* objPath, bool* isC
  * @param[in] isCleanable is cleanable
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetIsCleanable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCleanable);
+AJ_Status Cdm_FilterStatusInterfaceSetIsCleanable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCleanable);
 
 /**
  * Get order percentage of FilterStatus interface
@@ -124,7 +124,7 @@ AJ_Status Hae_FilterStatusInterfaceSetIsCleanable(AJ_BusAttachment* busAttachmen
  * @param[out] value order percentage
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetOrderPercentage(const char* objPath, uint8_t* value);
+AJ_Status Cdm_FilterStatusInterfaceGetOrderPercentage(const char* objPath, uint8_t* value);
 
 /**
  * Set order percentage of FilterStatus interface
@@ -133,7 +133,7 @@ AJ_Status Hae_FilterStatusInterfaceGetOrderPercentage(const char* objPath, uint8
  * @param[in] value order percentage
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetOrderPercentage(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
+AJ_Status Cdm_FilterStatusInterfaceSetOrderPercentage(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
 
 /**
  * Get manufacturer of FilterStatus interface
@@ -141,7 +141,7 @@ AJ_Status Hae_FilterStatusInterfaceSetOrderPercentage(AJ_BusAttachment* busAttac
  * @param[out] manufacturer manufacturer
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetManufacturer(const char* objPath, char* manufacturer);
+AJ_Status Cdm_FilterStatusInterfaceGetManufacturer(const char* objPath, char* manufacturer);
 
 /**
  * Set manufacturer of FilterStatus interface
@@ -150,7 +150,7 @@ AJ_Status Hae_FilterStatusInterfaceGetManufacturer(const char* objPath, char* ma
  * @param[in] manufacturer manufacturer
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetManufacturer(AJ_BusAttachment* busAttachment, const char* objPath, const char* manufacturer);
+AJ_Status Cdm_FilterStatusInterfaceSetManufacturer(AJ_BusAttachment* busAttachment, const char* objPath, const char* manufacturer);
 
 /**
  * Get part number of FilterStatus interface
@@ -158,7 +158,7 @@ AJ_Status Hae_FilterStatusInterfaceSetManufacturer(AJ_BusAttachment* busAttachme
  * @param[out] partNumber part number
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetPartNumber(const char* objPath, char* partNumber);
+AJ_Status Cdm_FilterStatusInterfaceGetPartNumber(const char* objPath, char* partNumber);
 
 /**
  * Set part number of FilterStatus interface
@@ -167,7 +167,7 @@ AJ_Status Hae_FilterStatusInterfaceGetPartNumber(const char* objPath, char* part
  * @param[in] partNumber part number
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetPartNumber(AJ_BusAttachment* busAttachment, const char* objPath, const char* partNumber);
+AJ_Status Cdm_FilterStatusInterfaceSetPartNumber(AJ_BusAttachment* busAttachment, const char* objPath, const char* partNumber);
 
 /**
  * Get url of FilterStatus interface
@@ -175,7 +175,7 @@ AJ_Status Hae_FilterStatusInterfaceSetPartNumber(AJ_BusAttachment* busAttachment
  * @param[out] url url
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetUrl(const char* objPath, char* url);
+AJ_Status Cdm_FilterStatusInterfaceGetUrl(const char* objPath, char* url);
 
 /**
  * Set url of FilterStatus interface
@@ -184,7 +184,7 @@ AJ_Status Hae_FilterStatusInterfaceGetUrl(const char* objPath, char* url);
  * @param[in] url url
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetUrl(AJ_BusAttachment* busAttachment, const char* objPath, const char* url);
+AJ_Status Cdm_FilterStatusInterfaceSetUrl(AJ_BusAttachment* busAttachment, const char* objPath, const char* url);
 
 /**
  * Get life remaining of FilterStatus interface
@@ -192,7 +192,7 @@ AJ_Status Hae_FilterStatusInterfaceSetUrl(AJ_BusAttachment* busAttachment, const
  * @param[out] value life remaining
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceGetLifeRemaining(const char* objPath, uint8_t* value);
+AJ_Status Cdm_FilterStatusInterfaceGetLifeRemaining(const char* objPath, uint8_t* value);
 
 /**
  * Set life remaining of FilterStatus interface
@@ -201,6 +201,6 @@ AJ_Status Hae_FilterStatusInterfaceGetLifeRemaining(const char* objPath, uint8_t
  * @param[in] value life remaining
  * @return AJ_OK on success
  */
-AJ_Status Hae_FilterStatusInterfaceSetLifeRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
+AJ_Status Cdm_FilterStatusInterfaceSetLifeRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t value);
 
 #endif /* FILTERSTATUS_H_ */

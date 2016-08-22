@@ -24,6 +24,6 @@ const char* const intfDescOperationAlerts[7];
 AJ_Status CreateAlertsInterface(void** properties);
 void DestroyAlertsInterface(void* properties);
 AJ_Status AlertsInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status AlertsInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status AlertsInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* ALERTSIMPL_H_ */

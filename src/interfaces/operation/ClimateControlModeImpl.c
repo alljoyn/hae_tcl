@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/ClimateControlMode.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "ClimateControlModeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -278,7 +278,7 @@ AJ_Status ClimateControlModeInterfaceOnSetProperty(AJ_Message* replyMsg, const c
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* mode)
+AJ_Status Cdm_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* mode)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;
@@ -297,7 +297,7 @@ AJ_Status Hae_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* 
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode)
+AJ_Status Cdm_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;
@@ -326,7 +326,7 @@ AJ_Status Hae_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes)
+AJ_Status Cdm_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;
@@ -348,7 +348,7 @@ AJ_Status Hae_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, 
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize)
+AJ_Status Cdm_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;
@@ -384,7 +384,7 @@ AJ_Status Hae_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* bus
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceGetOperationalState(const char* objPath, uint16_t* operationalState)
+AJ_Status Cdm_ClimateControlModeInterfaceGetOperationalState(const char* objPath, uint16_t* operationalState)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;
@@ -403,7 +403,7 @@ AJ_Status Hae_ClimateControlModeInterfaceGetOperationalState(const char* objPath
     return status;
 }
 
-AJ_Status Hae_ClimateControlModeInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t operationalState)
+AJ_Status Cdm_ClimateControlModeInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t operationalState)
 {
     AJ_Status status = AJ_OK;
     ClimateControlModeProperties* props = NULL;

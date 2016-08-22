@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include "HaeControlleeImpl.h"
+#include <ajtcl/cdm/CdmControllee.h>
+#include "CdmControlleeImpl.h"
 #include "../interfaces/operation/AlertsImpl.h"
 #include "../interfaces/operation/AudioVolumeImpl.h"
 #include "../interfaces/operation/AudioVideoInputImpl.h"
@@ -61,7 +61,7 @@
 #include "../interfaces/operation/PlugInUnitsImpl.h"
 #include "../interfaces/operation/RapidModeTimedImpl.h"
 
-#define HAE_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
+#define CDM_OBJECT_LIST_INDEX AJAPP_OBJECTS_LIST_INDEX
 
 static const char* const* intfDescs[MAX_BASIC_INTERFACE_TYPE];
 static InterfaceCreator intfCreator[MAX_BASIC_INTERFACE_TYPE] = { NULL, };
@@ -70,13 +70,13 @@ static OnGetProperty onGetProperty[MAX_BASIC_INTERFACE_TYPE] = { NULL, };
 static OnSetProperty onSetProperty[MAX_BASIC_INTERFACE_TYPE] = { NULL, };
 static EmitPropertiesChanged emitPropertiesChanged[MAX_BASIC_INTERFACE_TYPE] = { NULL, };
 static OnMethodHandler onMethodHandler[MAX_BASIC_INTERFACE_TYPE] = { NULL, };
-static HaeObjectInfo* objInfoFirst;
-static HaeObjectInfo* objInfoLast;
+static CdmObjectInfo* objInfoFirst;
+static CdmObjectInfo* objInfoLast;
 static AJ_Object* ajObjects;
 static VendorDefinedInterfaceInfo* vendorDefinedIntfInfoFirst;
 static VendorDefinedInterfaceInfo* vendorDefinedIntfInfoLast;
 
-static VendorDefinedInterfaceInfo* GetVendorDefinedInterfaceInfo(HaeInterfaceTypes intfType)
+static VendorDefinedInterfaceInfo* GetVendorDefinedInterfaceInfo(CdmInterfaceTypes intfType)
 {
     VendorDefinedInterfaceInfo* intfInfo = NULL;
 
@@ -91,7 +91,7 @@ static VendorDefinedInterfaceInfo* GetVendorDefinedInterfaceInfo(HaeInterfaceTyp
     return intfInfo;
 }
 
-AJ_Status Hae_Init()
+AJ_Status Cdm_Init()
 {
     intfDescs[ALERTS_INTERFACE] = intfDescOperationAlerts;
     intfDescs[AUDIO_VOLUME_INTERFACE] = intfDescOperationAudioVolume;
@@ -324,12 +324,12 @@ AJ_Status Hae_Init()
     return AJ_OK;
 }
 
-void Hae_Deinit()
+void Cdm_Deinit()
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
-    HaeObjectInfo* tempObjInfo = NULL;
-    HaeInterfaceInfo* intfInfo = NULL;
-    HaeInterfaceInfo* tempIntfInfo = NULL;
+    CdmObjectInfo* objInfo = objInfoFirst;
+    CdmObjectInfo* tempObjInfo = NULL;
+    CdmInterfaceInfo* intfInfo = NULL;
+    CdmInterfaceInfo* tempIntfInfo = NULL;
     VendorDefinedInterfaceInfo* vendorDefinedIntfInfo = NULL;
     VendorDefinedInterfaceInfo* tempVendorDefinedIntfInfo = NULL;
 
@@ -377,9 +377,9 @@ void Hae_Deinit()
     }
 }
 
-static HaeObjectInfo* FindObject(const char* objPath)
+static CdmObjectInfo* FindObject(const char* objPath)
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
+    CdmObjectInfo* objInfo = objInfoFirst;
 
     if (!objPath) {
         return NULL;
@@ -396,10 +396,10 @@ static HaeObjectInfo* FindObject(const char* objPath)
     return objInfo;
 }
 
-AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, void* listener)
+AJ_Status Cdm_CreateInterface(CdmInterfaceTypes intfType, const char* objPath, void* listener)
 {
     AJ_Status status = AJ_OK;
-    HaeObjectInfo* objInfo = NULL;
+    CdmObjectInfo* objInfo = NULL;
     VendorDefinedInterfaceHandler* vendorDefinedIntfHandler = NULL;
 
     if (!objPath) {
@@ -424,11 +424,11 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
         return AJ_ERR_INVALID;
     }
 
-    HaeInterfaceInfo* intfInfo = (HaeInterfaceInfo*)malloc(sizeof(HaeInterfaceInfo));
+    CdmInterfaceInfo* intfInfo = (CdmInterfaceInfo*)malloc(sizeof(CdmInterfaceInfo));
     if (!intfInfo) {
         return AJ_ERR_RESOURCES;
     }
-    memset(intfInfo, 0, sizeof(HaeInterfaceInfo));
+    memset(intfInfo, 0, sizeof(CdmInterfaceInfo));
     intfInfo->intfType = intfType;
     intfInfo->listener = listener;
 
@@ -443,15 +443,15 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
 
     objInfo = FindObject(objPath);
     if (!objInfo) {
-        objInfo = (HaeObjectInfo*)malloc(sizeof(HaeObjectInfo));
+        objInfo = (CdmObjectInfo*)malloc(sizeof(CdmObjectInfo));
         if (!objInfo) {
             free(intfInfo);
             return AJ_ERR_RESOURCES;
         }
-        memset(objInfo, 0, sizeof(HaeObjectInfo));
+        memset(objInfo, 0, sizeof(CdmObjectInfo));
 
         {
-            HaeObjectInfo tempObj = { objPath, intfInfo, intfInfo, NULL, NULL };
+            CdmObjectInfo tempObj = { objPath, intfInfo, intfInfo, NULL, NULL };
             memcpy(objInfo, &tempObj, sizeof(tempObj));
         }
         if (!objInfoFirst) {
@@ -470,7 +470,7 @@ AJ_Status Hae_CreateInterface(HaeInterfaceTypes intfType, const char* objPath, v
 
 static void CleanInterfaceDescs()
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
+    CdmObjectInfo* objInfo = objInfoFirst;
 
     while (objInfo) {
         if (objInfo->ajIntfDesc) {
@@ -481,12 +481,12 @@ static void CleanInterfaceDescs()
     }
 }
 
-AJ_Status Hae_Start()
+AJ_Status Cdm_Start()
 {
     int i=0, j=1;
-    HaeObjectInfo* objInfo = NULL;
+    CdmObjectInfo* objInfo = NULL;
     int numOfObjs = 1;
-    HaeInterfaceInfo* intfInfo = NULL;
+    CdmInterfaceInfo* intfInfo = NULL;
     int numOfIntfs = 0;
 
     if (!objInfoFirst || !objInfoLast) {
@@ -549,12 +549,12 @@ AJ_Status Hae_Start()
 
     AJ_PrintXML(ajObjects);
 
-    AJ_RegisterObjectList(ajObjects, HAE_OBJECT_LIST_INDEX);
+    AJ_RegisterObjectList(ajObjects, CDM_OBJECT_LIST_INDEX);
 
     return AJ_OK;
 }
 
-AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, const size_t numOfSuites,
+AJ_Status Cdm_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* suites, const size_t numOfSuites,
                              AJ_AuthListenerFunc authListenerCallback)
 {
     AJ_Status status = AJ_OK;
@@ -567,9 +567,9 @@ AJ_Status Hae_EnableSecurity(AJ_BusAttachment* busAttachment, const uint32_t* su
     return status;
 }
 
-static bool IsHaeMsg(uint32_t msgId)
+static bool IsCdmMsg(uint32_t msgId)
 {
-    if ((msgId >> 24) == HAE_OBJECT_LIST_INDEX) {
+    if ((msgId >> 24) == CDM_OBJECT_LIST_INDEX) {
         return true;
     }
 
@@ -591,9 +591,9 @@ static uint8_t GetMemberIndex(uint32_t msgId)
     return (uint8_t)(msgId & 0x0000FF);
 }
 
-static HaeObjectInfo* GetObjectInfo(uint8_t objIndex)
+static CdmObjectInfo* GetObjectInfo(uint8_t objIndex)
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
+    CdmObjectInfo* objInfo = objInfoFirst;
     uint8_t i = 0;
 
     for (i=0; i<objIndex; i++) {
@@ -607,7 +607,7 @@ static HaeObjectInfo* GetObjectInfo(uint8_t objIndex)
     return objInfo;
 }
 
-static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_t intfIndex)
+static CdmInterfaceInfo* GetInterfaceInfoOfObject(CdmObjectInfo* objInfo, uint8_t intfIndex)
 {
     uint8_t i=1;
 
@@ -619,7 +619,7 @@ static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_
         return NULL;
     }
 
-    HaeInterfaceInfo* intfInfo = objInfo->intfFirst;
+    CdmInterfaceInfo* intfInfo = objInfo->intfFirst;
 
     for (i=1; i<intfIndex; i++) {
         intfInfo = intfInfo->intfNext;
@@ -631,7 +631,7 @@ static HaeInterfaceInfo* GetInterfaceInfoOfObject(HaeObjectInfo* objInfo, uint8_
     return intfInfo;
 }
 
-static void EmitPropChangedByMethod(HaeInterfaceTypes intfType, AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint32_t mask)
+static void EmitPropChangedByMethod(CdmInterfaceTypes intfType, AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint32_t mask)
 {
     int i = 1;
     uint8_t check = 0;
@@ -657,9 +657,9 @@ static AJ_Status PropGetHandler(AJ_Message* replyMsg, uint32_t propId, void* con
     uint8_t memberIndex = GetMemberIndex(propId);
     AJ_Status status = AJ_OK;
 
-    HaeObjectInfo* objInfo = GetObjectInfo(objIndex);
+    CdmObjectInfo* objInfo = GetObjectInfo(objIndex);
     if (objInfo) {
-        HaeInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
+        CdmInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
         if (intfInfo) {
             if (intfInfo->intfType > UNDEFINED_INTERFACE && intfInfo->intfType < VENDOR_DEFINED_INTERFACE) {
                 if (onGetProperty[intfInfo->intfType]) {
@@ -698,12 +698,12 @@ static AJ_Status PropSetHandler(AJ_Message* replyMsg, uint32_t propId, void* con
     uint8_t objIndex = GetObjectIndex(propId);
     uint8_t intfIndex = GetInterfaceIndex(propId);
     uint8_t memberIndex = GetMemberIndex(propId);
-    HaePropertiesChanged* propChanged = (HaePropertiesChanged*)context;
+    CdmPropertiesChanged* propChanged = (CdmPropertiesChanged*)context;
     AJ_Status status = AJ_OK;
 
-    HaeObjectInfo* objInfo = GetObjectInfo(objIndex);
+    CdmObjectInfo* objInfo = GetObjectInfo(objIndex);
     if (objInfo) {
-        HaeInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
+        CdmInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
         if (intfInfo) {
             propChanged->intfType = intfInfo->intfType;
             propChanged->properties = intfInfo->properties;
@@ -740,23 +740,23 @@ static AJ_Status PropSetHandler(AJ_Message* replyMsg, uint32_t propId, void* con
     return status;
 }
 
-AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Message* msg, AJ_Status* status)
+AJSVC_ServiceStatus Cdm_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Message* msg, AJ_Status* status)
 {
     AJSVC_ServiceStatus serviceStatus = AJSVC_SERVICE_STATUS_HANDLED;
 
-    if (IsHaeMsg(msg->msgId)) {
+    if (IsCdmMsg(msg->msgId)) {
         uint8_t objIndex = GetObjectIndex(msg->msgId);
         uint8_t intfIndex = GetInterfaceIndex(msg->msgId);
         uint8_t memberIndex = GetMemberIndex(msg->msgId);
-        HaeObjectInfo* objInfo = GetObjectInfo(objIndex);
+        CdmObjectInfo* objInfo = GetObjectInfo(objIndex);
 
         if (objInfo) {
             if (intfIndex == (uint8_t)0) { //org.freedesktop.DBus.Properties handling
                 if (memberIndex == AJ_PROP_GET) {
                     *status = AJ_BusPropGet(msg, PropGetHandler, NULL);
                 } else if (memberIndex == AJ_PROP_SET) {
-                    HaePropertiesChanged propChanged;
-                    memset(&propChanged, 0 , sizeof(HaePropertiesChanged));
+                    CdmPropertiesChanged propChanged;
+                    memset(&propChanged, 0 , sizeof(CdmPropertiesChanged));
                     *status = AJ_BusPropSet(msg, PropSetHandler, &propChanged);
                     if (*status == AJ_OK && propChanged.changed) {
                         if (propChanged.intfType > UNDEFINED_INTERFACE && propChanged.intfType < VENDOR_DEFINED_INTERFACE) {
@@ -778,9 +778,9 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
                     *status = AJ_ERR_INVALID;
                 }
             } else { //method
-                HaeInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
+                CdmInterfaceInfo* intfInfo = GetInterfaceInfoOfObject(objInfo, intfIndex);
                 if (intfInfo) {
-                    HaePropertiesChangedByMethod propChangedByMethod;
+                    CdmPropertiesChangedByMethod propChangedByMethod;
                     propChangedByMethod.properties = intfInfo->properties;
                     propChangedByMethod.member_index_mask = 0;
                     if (intfInfo->intfType > UNDEFINED_INTERFACE && intfInfo->intfType < VENDOR_DEFINED_INTERFACE) {
@@ -827,9 +827,9 @@ AJSVC_ServiceStatus Hae_MessageProcessor(AJ_BusAttachment* busAttachment, AJ_Mes
     return serviceStatus;
 }
 
-void* GetProperties(const char* objPath, HaeInterfaceTypes intfType)
+void* GetProperties(const char* objPath, CdmInterfaceTypes intfType)
 {
-    HaeObjectInfo* objInfo = NULL;
+    CdmObjectInfo* objInfo = NULL;
 
     if (!objPath) {
         return NULL;
@@ -837,7 +837,7 @@ void* GetProperties(const char* objPath, HaeInterfaceTypes intfType)
 
     objInfo = FindObject(objPath);
     if (objInfo) {
-        HaeInterfaceInfo* intfInfo = objInfo->intfFirst;
+        CdmInterfaceInfo* intfInfo = objInfo->intfFirst;
 
         while (intfInfo) {
             if (intfInfo->intfType == intfType) {
@@ -855,10 +855,10 @@ void* GetProperties(const char* objPath, HaeInterfaceTypes intfType)
     return NULL;
 }
 
-AJ_Status MakeMsgId(const char* objPath, HaeInterfaceTypes intfType, uint8_t memberIndex, uint32_t* msgId)
+AJ_Status MakeMsgId(const char* objPath, CdmInterfaceTypes intfType, uint8_t memberIndex, uint32_t* msgId)
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
-    HaeInterfaceInfo* intfInfo = NULL;
+    CdmObjectInfo* objInfo = objInfoFirst;
+    CdmInterfaceInfo* intfInfo = NULL;
     uint8_t objIndex = -1;
     uint8_t intfIndex = 0;
 
@@ -870,7 +870,7 @@ AJ_Status MakeMsgId(const char* objPath, HaeInterfaceTypes intfType, uint8_t mem
         return AJ_ERR_INVALID;
     }
 
-    *msgId = HAE_OBJECT_LIST_INDEX << 24;
+    *msgId = CDM_OBJECT_LIST_INDEX << 24;
 
     while (objInfo) {
         objIndex++;
@@ -910,7 +910,7 @@ AJ_Status MakeMsgId(const char* objPath, HaeInterfaceTypes intfType, uint8_t mem
 
 AJ_Status MakePropChangedId(const char* objPath, uint32_t* msgId)
 {
-    HaeObjectInfo* objInfo = objInfoFirst;
+    CdmObjectInfo* objInfo = objInfoFirst;
     uint8_t objIndex = -1;
 
     if (!objPath) {
@@ -921,7 +921,7 @@ AJ_Status MakePropChangedId(const char* objPath, uint32_t* msgId)
         return AJ_ERR_INVALID;
     }
 
-    *msgId = HAE_OBJECT_LIST_INDEX << 24;
+    *msgId = CDM_OBJECT_LIST_INDEX << 24;
 
     while (objInfo) {
         objIndex++;
@@ -976,7 +976,7 @@ static int GetNumOfVendorInterfaces()
     return numOfIntfs;
 }
 
-AJ_Status Hae_RegisterVendorDefinedInterface(const char* intfName, const char* const* intfDesc, VendorDefinedInterfaceHandler* handler, HaeInterfaceTypes* intfType)
+AJ_Status Cdm_RegisterVendorDefinedInterface(const char* intfName, const char* const* intfDesc, VendorDefinedInterfaceHandler* handler, CdmInterfaceTypes* intfType)
 {
     if (!intfName || !intfDesc) {
         return AJ_ERR_INVALID;

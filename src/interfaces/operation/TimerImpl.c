@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/Timer.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/Timer.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "TimerImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -197,7 +197,7 @@ AJ_Status TimerInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath,
     return status;
 }
 
-AJ_Status TimerInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status TimerInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -264,7 +264,7 @@ AJ_Status TimerInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, ui
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* referenceTimer)
+AJ_Status Cdm_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* referenceTimer)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -283,7 +283,7 @@ AJ_Status Hae_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* refe
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t referenceTimer)
+AJ_Status Cdm_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t referenceTimer)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -304,7 +304,7 @@ AJ_Status Hae_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, c
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* targetTimeToStart)
+AJ_Status Cdm_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* targetTimeToStart)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -323,7 +323,7 @@ AJ_Status Hae_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* t
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStart)
+AJ_Status Cdm_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStart)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -344,7 +344,7 @@ AJ_Status Hae_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* targetTimeToStop)
+AJ_Status Cdm_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* targetTimeToStop)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -363,7 +363,7 @@ AJ_Status Hae_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* ta
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStop)
+AJ_Status Cdm_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStop)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -384,7 +384,7 @@ AJ_Status Hae_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment,
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* estimatedTimeToEnd)
+AJ_Status Cdm_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* estimatedTimeToEnd)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -403,7 +403,7 @@ AJ_Status Hae_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* 
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t estimatedTimeToEnd)
+AJ_Status Cdm_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t estimatedTimeToEnd)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -424,7 +424,7 @@ AJ_Status Hae_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachmen
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetRunningTime(const char* objPath, int32_t* runningTime)
+AJ_Status Cdm_TimerInterfaceGetRunningTime(const char* objPath, int32_t* runningTime)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -443,7 +443,7 @@ AJ_Status Hae_TimerInterfaceGetRunningTime(const char* objPath, int32_t* running
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t runningTime)
+AJ_Status Cdm_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t runningTime)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -464,7 +464,7 @@ AJ_Status Hae_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, cons
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targetDuration)
+AJ_Status Cdm_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targetDuration)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;
@@ -483,7 +483,7 @@ AJ_Status Hae_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targ
     return status;
 }
 
-AJ_Status Hae_TimerInterfaceSetTargetDuration(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetDuration)
+AJ_Status Cdm_TimerInterfaceSetTargetDuration(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetDuration)
 {
     AJ_Status status = AJ_OK;
     TimerProperties* props = NULL;

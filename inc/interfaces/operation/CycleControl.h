@@ -21,8 +21,8 @@
 #define CYCLECONTROL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * CycleControl interface listener
@@ -68,7 +68,7 @@ typedef struct {
  * @param[out] operationalState operational state
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceGetOperationalState(const char* objPath, uint8_t* operationalState);
+AJ_Status Cdm_CycleControlInterfaceGetOperationalState(const char* objPath, uint8_t* operationalState);
 
 /**
  * Set OperationalState of CycleControl interface
@@ -77,7 +77,7 @@ AJ_Status Hae_CycleControlInterfaceGetOperationalState(const char* objPath, uint
  * @param[in] operationalState number of heating zones
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t operationalState);
+AJ_Status Cdm_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t operationalState);
 
 /**
  * Get SupportedOperationalStates of CycleControl interface
@@ -85,7 +85,7 @@ AJ_Status Hae_CycleControlInterfaceSetOperationalState(AJ_BusAttachment* busAtta
  * @param[out] supportedOperationalStates supported operational states
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalStates(const char* objPath, uint8_t* supportedOperationalStates);
+AJ_Status Cdm_CycleControlInterfaceGetSupportedOperationalStates(const char* objPath, uint8_t* supportedOperationalStates);
 
 /**
  * Set SupportedOperationalStates of CycleControl interface
@@ -95,7 +95,7 @@ AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalStates(const char* obj
  * @param[in] supportedOperationalStatesSize supported operational states size
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalStates, const size_t supportedOperationalStatesSize);
+AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalStates, const size_t supportedOperationalStatesSize);
 
 /**
  * Get SupportedOperationalCommands of CycleControl interface
@@ -103,7 +103,7 @@ AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalStates(AJ_BusAttachmen
  * @param[out] supportedOperationalCommands supported operational commands
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalCommands(const char* objPath, uint8_t* supportedOperationalCommands);
+AJ_Status Cdm_CycleControlInterfaceGetSupportedOperationalCommands(const char* objPath, uint8_t* supportedOperationalCommands);
 
 /**
  * Set SupportedOperationalCommands of CycleControl interface
@@ -113,7 +113,7 @@ AJ_Status Hae_CycleControlInterfaceGetSupportedOperationalCommands(const char* o
  * @param[in] supportedOperationalCommandsSize supported operational commands size
  * @return AJ_OK on success
  */
-AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalCommands, const size_t supportedOperationalCommandsSize);
+AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalCommands, const size_t supportedOperationalCommandsSize);
 
 /**
  * Emit ChannelListChanged signal of Channel interface
@@ -122,6 +122,6 @@ AJ_Status Hae_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachm
  * @param[in] sessionId session id
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
+AJ_Status Cdm_ChannelInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
 
 #endif /* CYCLECONTROL_H_ */

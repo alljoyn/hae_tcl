@@ -21,7 +21,7 @@
 #define AUDIOVOLUME_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * AudioVolume interface listener
@@ -74,7 +74,7 @@ typedef struct {
  * @param[out] volume volume
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume);
+AJ_Status Cdm_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume);
 
 /**
  * Set volume of AudioVolume interface
@@ -83,7 +83,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume
  * @param[in] volume volume
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t volume);
+AJ_Status Cdm_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t volume);
 
 /**
  * Get the maximum volume of AudioVolume interface
@@ -91,7 +91,7 @@ AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, con
  * @param[out] maxVolume the maximum volume
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume);
+AJ_Status Cdm_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume);
 
 /**
  * Set the maximum volume of AudioVolume interface
@@ -100,7 +100,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* max
  * @param[in] maxVolume the maximum volume
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxVolume);
+AJ_Status Cdm_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxVolume);
 
 /**
  * Get mute of AudioVolume interface
@@ -108,7 +108,7 @@ AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, 
  * @param[out] mute mute
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute);
+AJ_Status Cdm_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute);
 
 /**
  * Set mute of AudioVolume interface
@@ -117,6 +117,6 @@ AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute);
  * @param[in] mute mute
  * @return AJ_OK on success
  */
-AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, const bool mute);
+AJ_Status Cdm_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, const bool mute);
 
 #endif /* AUDIOVOLUME_H_ */

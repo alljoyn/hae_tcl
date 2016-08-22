@@ -21,7 +21,7 @@
 #define BATTERYSTATUS_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * BatteryStatus interface listener
@@ -51,7 +51,7 @@ typedef struct  {
  * @param[out] currentValue remaining battery value
  * @return AJ_OK on success
  */
-AJ_Status Hae_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue);
+AJ_Status Cdm_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue);
 
 /**
  * Set currentValue of BatteryStatus interface
@@ -60,7 +60,7 @@ AJ_Status Hae_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t
  * @param[in] currentValue remaining battery value
  * @return AJ_OK on success
  */
-AJ_Status Hae_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue);
+AJ_Status Cdm_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue);
 
 /**
  * Get isCharging of BatteryStatus interface
@@ -68,7 +68,7 @@ AJ_Status Hae_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachm
  * @param[out] isCharging Charging status
  * @return AJ_OK on success
  */
-AJ_Status Hae_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isCharging);
+AJ_Status Cdm_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isCharging);
 
 /**
  * Set isCharging of BatteryStatus interface
@@ -77,6 +77,6 @@ AJ_Status Hae_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isC
  * @param[in] isCharging Charging status
  * @return AJ_OK on success
  */
-AJ_Status Hae_BatteryStatusInterfaceSetIsCharging(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCharging);
+AJ_Status Cdm_BatteryStatusInterfaceSetIsCharging(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCharging);
 
 #endif /* BATTERYSTATUS_H_ */

@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/environment/CurrentHumidity.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/CurrentHumidity.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "CurrentHumidityImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -139,7 +139,7 @@ AJ_Status CurrentHumidityInterfaceOnGetProperty(AJ_Message* replyMsg, const char
     return status;
 }
 
-AJ_Status Hae_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue)
+AJ_Status Cdm_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue)
 {
     AJ_Status status = AJ_OK;
     CurrentHumidityProperties* props = NULL;
@@ -158,7 +158,7 @@ AJ_Status Hae_CurrentHumidityInterfaceGetCurrentValue(const char* objPath, uint8
     return status;
 }
 
-AJ_Status Hae_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue)
+AJ_Status Cdm_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue)
 {
     AJ_Status status = AJ_OK;
     CurrentHumidityProperties* props = NULL;
@@ -181,7 +181,7 @@ AJ_Status Hae_CurrentHumidityInterfaceSetCurrentValue(AJ_BusAttachment* busAttac
     return status;
 }
 
-AJ_Status Hae_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue)
+AJ_Status Cdm_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue)
 {
     AJ_Status status = AJ_OK;
     CurrentHumidityProperties* props = NULL;
@@ -200,7 +200,7 @@ AJ_Status Hae_CurrentHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* 
     return status;
 }
 
-AJ_Status Hae_CurrentHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue)
+AJ_Status Cdm_CurrentHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue)
 {
     AJ_Status status = AJ_OK;
     CurrentHumidityProperties* props = NULL;

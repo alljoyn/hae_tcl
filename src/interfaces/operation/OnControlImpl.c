@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/OnControl.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/OnControl.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "OnControlImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -54,7 +54,7 @@ void DestroyOnControlInterface(void* properties)
     }
 }
 
-AJ_Status OnControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status OnControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 

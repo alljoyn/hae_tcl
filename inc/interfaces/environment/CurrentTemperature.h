@@ -21,7 +21,7 @@
 #define CURRENTTEMPERATURE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * CurrentTemperature interface listener
@@ -59,7 +59,7 @@ typedef struct {
  * @param[out] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, double* currentValue);
+AJ_Status Cdm_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, double* currentValue);
 
 /**
  * Set the current value of CurrentTemperature interface
@@ -68,7 +68,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, do
  * @param[in] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue);
+AJ_Status Cdm_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue);
 
 /**
  * Get the precision of CurrentTemperature interface
@@ -76,7 +76,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAt
  * @param[out] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceGetPrecision(const char* objPath, double* precision);
+AJ_Status Cdm_CurrentTemperatureInterfaceGetPrecision(const char* objPath, double* precision);
 
 /**
  * Set the precision of CurrentTemperature interface
@@ -85,7 +85,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetPrecision(const char* objPath, doubl
  * @param[in] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
+AJ_Status Cdm_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
 
 /**
  * Get the update minimum time of CurrentTemperature interface
@@ -93,7 +93,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttac
  * @param[out] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
+AJ_Status Cdm_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
 
 /**
  * Set the update minimum time of CurrentTemperature interface
@@ -102,6 +102,6 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, u
  * @param[in] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentTemperatureInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
+AJ_Status Cdm_CurrentTemperatureInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
 
 #endif /* CURRENTTEMPERATURE_H_ */

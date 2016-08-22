@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/PlugInUnits.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/PlugInUnits.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "PlugInUnitsImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -182,7 +182,7 @@ AJ_Status PlugInUnitsInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status Hae_PlugInUnitsInterfaceGetPlugInUnits(const char* objPath, PlugInInfo* units)
+AJ_Status Cdm_PlugInUnitsInterfaceGetPlugInUnits(const char* objPath, PlugInInfo* units)
 {
     AJ_Status status = AJ_OK;
     PlugInUnitsProperties* props = NULL;
@@ -207,7 +207,7 @@ AJ_Status Hae_PlugInUnitsInterfaceGetPlugInUnits(const char* objPath, PlugInInfo
     return status;
 }
 
-AJ_Status Hae_PlugInUnitsInterfaceSetPlugInUnits(AJ_BusAttachment* busAttachment, const char* objPath, const PlugInInfo* units, const size_t plugInInfoSize)
+AJ_Status Cdm_PlugInUnitsInterfaceSetPlugInUnits(AJ_BusAttachment* busAttachment, const char* objPath, const PlugInInfo* units, const size_t plugInInfoSize)
 {
     AJ_Status status = AJ_OK;
     PlugInUnitsProperties* props = NULL;

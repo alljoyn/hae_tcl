@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/SoilLevel.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/SoilLevel.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "SoilLevelImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -283,7 +283,7 @@ AJ_Status SoilLevelInterfaceOnSetProperty(AJ_Message* replyMsg, const char* objP
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
+AJ_Status Cdm_SoilLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;
@@ -302,7 +302,7 @@ AJ_Status Hae_SoilLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLev
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
+AJ_Status Cdm_SoilLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;
@@ -325,7 +325,7 @@ AJ_Status Hae_SoilLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, con
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel)
+AJ_Status Cdm_SoilLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* targetLevel)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;
@@ -344,7 +344,7 @@ AJ_Status Hae_SoilLevelInterfaceGetTargetLevel(const char* objPath, uint8_t* tar
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel)
+AJ_Status Cdm_SoilLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetLevel)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;
@@ -373,7 +373,7 @@ AJ_Status Hae_SoilLevelInterfaceSetTargetLevel(AJ_BusAttachment* busAttachment, 
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels)
+AJ_Status Cdm_SoilLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t* selectableLevels)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;
@@ -395,7 +395,7 @@ AJ_Status Hae_SoilLevelInterfaceGetSelectableLevels(const char* objPath, uint8_t
     return status;
 }
 
-AJ_Status Hae_SoilLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t supportedModeSize)
+AJ_Status Cdm_SoilLevelInterfaceSetSelectableLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* selectableLevels, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     SoilLevelProperties* props = NULL;

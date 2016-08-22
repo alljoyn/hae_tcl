@@ -21,7 +21,7 @@
 #define CLIMATECONTROLMODE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * ClimateControlMode interface listener
@@ -67,7 +67,7 @@ typedef struct {
  * @param[out] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* mode);
+AJ_Status Cdm_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* mode);
 
 /**
  * Set mode of ClimateControlMode interface
@@ -76,7 +76,7 @@ AJ_Status Hae_ClimateControlModeInterfaceGetMode(const char* objPath, uint16_t* 
  * @param[in] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode);
+AJ_Status Cdm_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode);
 
 /**
  * Get supportedModes of ClimateControlMode interface
@@ -84,7 +84,7 @@ AJ_Status Hae_ClimateControlModeInterfaceSetMode(AJ_BusAttachment* busAttachment
  * @param[out] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes);
+AJ_Status Cdm_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes);
 
 /**
  * Set supportedModes of ClimateControlMode interface
@@ -93,7 +93,7 @@ AJ_Status Hae_ClimateControlModeInterfaceGetSupportedModes(const char* objPath, 
  * @param[in] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize);
+AJ_Status Cdm_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize);
 
 /**
  * Get operationalState of ClimateControlMode interface
@@ -101,7 +101,7 @@ AJ_Status Hae_ClimateControlModeInterfaceSetSupportedModes(AJ_BusAttachment* bus
  * @param[out] operationalState status of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceGetOperationalState(const char* objPath, uint16_t* operationalState);
+AJ_Status Cdm_ClimateControlModeInterfaceGetOperationalState(const char* objPath, uint16_t* operationalState);
 
 /**
  * Set operationalState of ClimateControlMode interface
@@ -110,6 +110,6 @@ AJ_Status Hae_ClimateControlModeInterfaceGetOperationalState(const char* objPath
  * @param[in] operationalState status of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ClimateControlModeInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t operationalState);
+AJ_Status Cdm_ClimateControlModeInterfaceSetOperationalState(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t operationalState);
 
 #endif /* CLIMATECONTROLMODE_H_ */

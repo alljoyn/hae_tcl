@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/OnOffStatus.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "OnOffStatusImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -125,7 +125,7 @@ AJ_Status OnOffStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status Hae_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
+AJ_Status Cdm_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
 {
     AJ_Status status = AJ_OK;
     OnOffStatusProperties* props = NULL;
@@ -144,7 +144,7 @@ AJ_Status Hae_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
     return status;
 }
 
-AJ_Status Hae_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff)
+AJ_Status Cdm_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff)
 {
     AJ_Status status = AJ_OK;
     OnOffStatusProperties* props = NULL;

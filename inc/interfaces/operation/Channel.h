@@ -21,8 +21,8 @@
 #define CHANNEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * ChannelInfoRecord struct
@@ -81,7 +81,7 @@ typedef struct {
  * @param[out] channelId channel id
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceGetChannelId(const char* objPath, char* channelId);
+AJ_Status Cdm_ChannelInterfaceGetChannelId(const char* objPath, char* channelId);
 
 /**
  * Set channel id of Channel interface
@@ -90,7 +90,7 @@ AJ_Status Hae_ChannelInterfaceGetChannelId(const char* objPath, char* channelId)
  * @param[in] channelId channel id
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, const char* objPath, const char* channelId);
+AJ_Status Cdm_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, const char* objPath, const char* channelId);
 
 /**
  * Get total number of channels of Channel interface
@@ -98,7 +98,7 @@ AJ_Status Hae_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, cons
  * @param[out] totalNumberOfChannels total number of channels
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels);
+AJ_Status Cdm_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels);
 
 /**
  * Set total number of channels of Channel interface
@@ -107,7 +107,7 @@ AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint
  * @param[in] totalNumberOfChannels total number of channels
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t totalNumberOfChannels);
+AJ_Status Cdm_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t totalNumberOfChannels);
 
 /**
  * Emit ChannelListChanged signal of Channel interface
@@ -116,6 +116,6 @@ AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAtta
  * @param[in] sessionId session id
  * @return AJ_OK on success
  */
-AJ_Status Hae_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
+AJ_Status Cdm_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
 
 #endif /* CHANNEL_H_ */

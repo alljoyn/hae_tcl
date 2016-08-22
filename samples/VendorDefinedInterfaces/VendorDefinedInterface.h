@@ -21,7 +21,7 @@
 #define VENDORDEFINEDINTERFACE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 #define VENDOR_DEFINED_INTERFACE_NAME "com.foo.bar.test"
 
@@ -55,13 +55,13 @@ typedef struct {
     AJ_Status (*OnTestMethod) (const char* objPath, int32_t arg1);
 } VendorDefinedListener;
 
-void VendorDefinedInterfaceRegistered(HaeInterfaceTypes intfType);
+void VendorDefinedInterfaceRegistered(CdmInterfaceTypes intfType);
 AJ_Status CreateVendorDefinedInterface(void** properties);
 void DestroyVendorDefinedInterface(void* properties);
 AJ_Status VendorDefinedInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
 AJ_Status VendorDefinedInterfaceOnSetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener, bool* propChanged);
 AJ_Status VendorDefinedInterfaceEmitPropertiesChanged(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex);
-AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 /**
  * Get TestProperty of VendorDefined interface
@@ -69,7 +69,7 @@ AJ_Status VendorDefinedInterfaceOnMethodHandler(AJ_Message* msg, const char* obj
  * @param[out] testProperty testProperty
  * @return AJ_OK on success
  */
-AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t* testProperty);
+AJ_Status Cdm_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t* testProperty);
 
 /**
  * Set TestProperty of VendorDefined interface
@@ -78,7 +78,7 @@ AJ_Status Hae_VendorDefinedInterfaceGetTestProperty(const char* objPath, int32_t
  * @param[in] testProperty testProperty
  * @return AJ_OK on success
  */
-AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty);
+AJ_Status Cdm_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachment, const char* objPath, int32_t testProperty);
 
 /**
  * Emit TestSignal signal of VendorDefined interface
@@ -87,6 +87,6 @@ AJ_Status Hae_VendorDefinedInterfaceSetTestProperty(AJ_BusAttachment* busAttachm
  * @param[in] sessionId session id
  * @return AJ_OK on success
  */
-AJ_Status Hae_VendorDefinedInterfaceEmitTestSignal(AJ_BusAttachment* busAttachment, const char* objPath, uint32_t sessionId);
+AJ_Status Cdm_VendorDefinedInterfaceEmitTestSignal(AJ_BusAttachment* busAttachment, const char* objPath, uint32_t sessionId);
 
 #endif /* VENDORDEFINEDINTERFACE_H_ */

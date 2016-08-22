@@ -22,6 +22,6 @@ const char* const intfDescInputHid[5];
 AJ_Status CreateHidInterface(void** properties);
 void DestroyHidInterface(void* properties);
 AJ_Status HidInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* HIDIMPL_H_ */

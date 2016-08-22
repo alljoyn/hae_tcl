@@ -24,6 +24,6 @@ const char* const intfDescOperationCycleControl[8];
 AJ_Status CreateCycleControlInterface(void** properties);
 void DestroyCycleControlInterface(void* properties);
 AJ_Status CycleControlInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status CycleControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status CycleControlInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif // CYCLECONTROLIMPL_H_

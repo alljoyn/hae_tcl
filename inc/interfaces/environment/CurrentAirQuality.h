@@ -21,7 +21,7 @@
 #define CURRENTAIRQUALITY_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * CurrentAirQuality interface listener
@@ -83,7 +83,7 @@ typedef struct {
  * @param[out] contaminantType the contaminant type
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetContaminantType(const char* objPath, uint8_t* contaminantType);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetContaminantType(const char* objPath, uint8_t* contaminantType);
 
 /**
  * Set the contaminant type of CurrentAirQuality interface
@@ -92,7 +92,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetContaminantType(const char* objPath, 
  * @param[in] contaminantType the contaminant type
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetContaminantType(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t contaminantType);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetContaminantType(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t contaminantType);
 
 /**
  * Get the current value of CurrentAirQuality interface
@@ -100,7 +100,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceSetContaminantType(AJ_BusAttachment* bus
  * @param[out] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetCurrentValue(const char* objPath, double* currentValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetCurrentValue(const char* objPath, double* currentValue);
 
 /**
  * Set the current value of CurrentAirQuality interface
@@ -109,7 +109,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetCurrentValue(const char* objPath, dou
  * @param[in] currentValue the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue);
 
 /**
  * Get the maximum value of CurrentAirQuality interface
@@ -117,7 +117,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceSetCurrentValue(AJ_BusAttachment* busAtt
  * @param[out] maxValue the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetMaxValue(const char* objPath, double* maxValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetMaxValue(const char* objPath, double* maxValue);
 
 /**
  * Set the maximum value of CurrentAirQuality interface
@@ -126,7 +126,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetMaxValue(const char* objPath, double*
  * @param[in] maxValue the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue);
 
 /**
  * Get the minimum value of CurrentAirQuality interface
@@ -134,7 +134,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceSetMaxValue(AJ_BusAttachment* busAttachm
  * @param[out] minValue the minimum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetMinValue(const char* objPath, double* minValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetMinValue(const char* objPath, double* minValue);
 
 /**
  * Set the minimum value of CurrentAirQuality interface
@@ -143,7 +143,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetMinValue(const char* objPath, double*
  * @param[in] minValue the minimum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue);
 
 /**
  * Get the precision of CurrentAirQuality interface
@@ -151,7 +151,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceSetMinValue(AJ_BusAttachment* busAttachm
  * @param[out] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetPrecision(const char* objPath, double* precision);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetPrecision(const char* objPath, double* precision);
 
 /**
  * Set the precision of CurrentAirQuality interface
@@ -160,7 +160,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetPrecision(const char* objPath, double
  * @param[in] precision the precision
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
 
 /**
  * Get the update minimum time of CurrentAirQuality interface
@@ -168,7 +168,7 @@ AJ_Status Hae_CurrentAirQualityInterfaceSetPrecision(AJ_BusAttachment* busAttach
  * @param[out] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
+AJ_Status Cdm_CurrentAirQualityInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
 
 /**
  * Set the update minimum time of CurrentAirQuality interface
@@ -177,6 +177,6 @@ AJ_Status Hae_CurrentAirQualityInterfaceGetUpdateMinTime(const char* objPath, ui
  * @param[in] updateMinTime the update minimum time
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
+AJ_Status Cdm_CurrentAirQualityInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
 
 #endif /* CURRENTAIRQUALITY_H_*/

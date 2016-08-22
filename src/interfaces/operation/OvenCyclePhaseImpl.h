@@ -24,6 +24,6 @@ const char* const intfDescOperationOvenCyclePhase[6];
 AJ_Status CreateOvenCyclePhaseInterface(void** properties);
 void DestroyOvenCyclePhaseInterface(void* properties);
 AJ_Status OvenCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status OvenCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status OvenCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* OVENCYCLEPHASEIMPL_H_ */

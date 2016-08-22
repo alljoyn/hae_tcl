@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/AudioVolume.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/AudioVolume.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "AudioVolumeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -282,7 +282,7 @@ AJ_Status AudioVolumeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume)
+AJ_Status Cdm_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -301,7 +301,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetVolume(const char* objPath, uint8_t* volume
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t volume)
+AJ_Status Cdm_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t volume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -330,7 +330,7 @@ AJ_Status Hae_AudioVolumeInterfaceSetVolume(AJ_BusAttachment* busAttachment, con
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume)
+AJ_Status Cdm_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* maxVolume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -349,7 +349,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetMaxVolume(const char* objPath, uint8_t* max
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxVolume)
+AJ_Status Cdm_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxVolume)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -370,7 +370,7 @@ AJ_Status Hae_AudioVolumeInterfaceSetMaxVolume(AJ_BusAttachment* busAttachment, 
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute)
+AJ_Status Cdm_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;
@@ -389,7 +389,7 @@ AJ_Status Hae_AudioVolumeInterfaceGetMute(const char* objPath, bool* mute)
     return status;
 }
 
-AJ_Status Hae_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, const bool mute)
+AJ_Status Cdm_AudioVolumeInterfaceSetMute(AJ_BusAttachment* busAttachment, const char* objPath, const bool mute)
 {
     AJ_Status status = AJ_OK;
     AudioVolumeProperties* props = NULL;

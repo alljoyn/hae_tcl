@@ -21,8 +21,8 @@
 #define DISHWASHINGCYCLEPHASE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * DishWashingCyclePhaseCyclePhaseDescriptor struct
@@ -72,7 +72,7 @@ typedef struct {
  * @param[out] cyclePhase Current cycle phase
  * @return AJ_OK on success
  */
-AJ_Status Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
 
 /**
  * Set cyclePhase of DishWashingCyclePhase interface
@@ -82,14 +82,14 @@ AJ_Status Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, u
  * @return AJ_OK on success
  */
 
-AJ_Status Hae_DishWashingCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
 /**
  * Get supportedCyclePhases of DishWashingCyclePhase interface
  * @param[in] objPath the object path including the interface
  * @param[out] supportedCyclePhases List of supported cycle phases
  * @return AJ_OK on success
  */
-AJ_Status Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
 
 /**
  * Set supportedCyclePhases of DishWashingCyclePhase interface
@@ -99,6 +99,6 @@ AJ_Status Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* 
  * @param[in] supportedCyclePhasesListSize SupportedCyclePhases size
  * @return AJ_OK on success
  */
-AJ_Status Hae_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
 
 #endif /* DISHWASHINGCYCLEPHASE_H_ */

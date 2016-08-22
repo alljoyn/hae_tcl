@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/HvacFanMode.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/HvacFanMode.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "HvacFanModeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -262,7 +262,7 @@ AJ_Status HvacFanModeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status Hae_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode)
+AJ_Status Cdm_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode)
 {
     AJ_Status status = AJ_OK;
     HvacFanModeProperties* props = NULL;
@@ -281,7 +281,7 @@ AJ_Status Hae_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode)
     return status;
 }
 
-AJ_Status Hae_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode)
+AJ_Status Cdm_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode)
 {
     AJ_Status status = AJ_OK;
     HvacFanModeProperties* props = NULL;
@@ -310,7 +310,7 @@ AJ_Status Hae_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const
     return status;
 }
 
-AJ_Status Hae_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes)
+AJ_Status Cdm_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes)
 {
     AJ_Status status = AJ_OK;
     HvacFanModeProperties* props = NULL;
@@ -332,7 +332,7 @@ AJ_Status Hae_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_
     return status;
 }
 
-AJ_Status Hae_HvacFanModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize)
+AJ_Status Cdm_HvacFanModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize)
 {
     AJ_Status status = AJ_OK;
     HvacFanModeProperties* props = NULL;

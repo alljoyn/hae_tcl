@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <math.h>
-#include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/TargetTemperature.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "TargetTemperatureImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -282,7 +282,7 @@ AJ_Status TargetTemperatureInterfaceOnSetProperty(AJ_Message* replyMsg, const ch
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceGetTargetValue(const char* objPath, double* targetValue)
+AJ_Status Cdm_TargetTemperatureInterfaceGetTargetValue(const char* objPath, double* targetValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -301,7 +301,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetTargetValue(const char* objPath, doub
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const double targetValue)
+AJ_Status Cdm_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const double targetValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -329,7 +329,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAtta
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceGetMinValue(const char* objPath, double* minValue)
+AJ_Status Cdm_TargetTemperatureInterfaceGetMinValue(const char* objPath, double* minValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -348,7 +348,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetMinValue(const char* objPath, double*
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue)
+AJ_Status Cdm_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -371,7 +371,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double* maxValue)
+AJ_Status Cdm_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double* maxValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -390,7 +390,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double*
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue)
+AJ_Status Cdm_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -413,7 +413,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceGetStepValue(const char* objPath, double* stepValue)
+AJ_Status Cdm_TargetTemperatureInterfaceGetStepValue(const char* objPath, double* stepValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;
@@ -432,7 +432,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetStepValue(const char* objPath, double
     return status;
 }
 
-AJ_Status Hae_TargetTemperatureInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const double stepValue)
+AJ_Status Cdm_TargetTemperatureInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const double stepValue)
 {
     AJ_Status status = AJ_OK;
     TargetTemperatureProperties* props = NULL;

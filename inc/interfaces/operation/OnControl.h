@@ -21,8 +21,8 @@
 #define ONCONTROL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * OnControl interface listener

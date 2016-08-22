@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/OvenCyclePhase.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/OvenCyclePhase.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "OvenCyclePhaseImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -183,7 +183,7 @@ AJ_Status OvenCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char*
     return status;
 }
 
-AJ_Status OvenCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status OvenCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -240,7 +240,7 @@ AJ_Status OvenCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* ob
     return status;
 }
 
-AJ_Status Hae_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
+AJ_Status Cdm_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
 {
     AJ_Status status = AJ_OK;
     OvenCyclePhaseProperties* props = NULL;
@@ -259,7 +259,7 @@ AJ_Status Hae_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t*
     return status;
 }
 
-AJ_Status Hae_OvenCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
+AJ_Status Cdm_OvenCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
 {
     AJ_Status status = AJ_OK;
     OvenCyclePhaseProperties* props = NULL;
@@ -288,7 +288,7 @@ AJ_Status Hae_OvenCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachme
     return status;
 }
 
-AJ_Status Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
+AJ_Status Cdm_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
 {
     AJ_Status status = AJ_OK;
     OvenCyclePhaseProperties* props = NULL;
@@ -312,7 +312,7 @@ AJ_Status Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath
     return status;
 }
 
-AJ_Status Hae_OvenCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
+AJ_Status Cdm_OvenCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
 {
     AJ_Status status = AJ_OK;
     OvenCyclePhaseProperties* props = NULL;

@@ -15,9 +15,9 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/EnergyUsage.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "EnergyUsageImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -194,7 +194,7 @@ AJ_Status EnergyUsageInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -239,7 +239,7 @@ AJ_Status EnergyUsageInterfaceOnMethodHandler(AJ_Message* msg, const char* objPa
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, double* cumulativeEnergy)
+AJ_Status Cdm_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, double* cumulativeEnergy)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;
@@ -254,7 +254,7 @@ AJ_Status Hae_EnergyUsageInterfaceGetCumulativeEnergy(const char* objPath, doubl
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttachment, const char* objPath, const double cumulativeEnergy)
+AJ_Status Cdm_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttachment, const char* objPath, const double cumulativeEnergy)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;
@@ -277,7 +277,7 @@ AJ_Status Hae_EnergyUsageInterfaceSetCumulativeEnergy(AJ_BusAttachment* busAttac
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceGetPrecision(const char* objPath, double* precision)
+AJ_Status Cdm_EnergyUsageInterfaceGetPrecision(const char* objPath, double* precision)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;
@@ -292,7 +292,7 @@ AJ_Status Hae_EnergyUsageInterfaceGetPrecision(const char* objPath, double* prec
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
+AJ_Status Cdm_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;
@@ -315,7 +315,7 @@ AJ_Status Hae_EnergyUsageInterfaceSetPrecision(AJ_BusAttachment* busAttachment, 
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
+AJ_Status Cdm_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;
@@ -330,7 +330,7 @@ AJ_Status Hae_EnergyUsageInterfaceGetUpdateMinTime(const char* objPath, uint16_t
     return status;
 }
 
-AJ_Status Hae_EnergyUsageInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
+AJ_Status Cdm_EnergyUsageInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
 {
     AJ_Status status = AJ_OK;
     EnergyUsageProperties* props = NULL;

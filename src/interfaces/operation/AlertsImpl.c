@@ -15,9 +15,9 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/Alerts.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/Alerts.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "AlertsImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -180,7 +180,7 @@ AJ_Status AlertsInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath
     return status;
 }
 
-AJ_Status AlertsInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status AlertsInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -279,7 +279,7 @@ AJ_Status AlertsInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, u
     return status;
 }
 
-AJ_Status Hae_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts)
+AJ_Status Cdm_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts)
 {
     AJ_Status status = AJ_OK;
 
@@ -303,7 +303,7 @@ AJ_Status Hae_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts)
     return status;
 }
 
-AJ_Status Hae_AlertsInterfaceSetAlerts(AJ_BusAttachment* busAttachment, const char* objPath, const AlertRecord* alerts, const size_t alertsNumber)
+AJ_Status Cdm_AlertsInterfaceSetAlerts(AJ_BusAttachment* busAttachment, const char* objPath, const AlertRecord* alerts, const size_t alertsNumber)
 {
     AJ_Status status = AJ_OK;
 

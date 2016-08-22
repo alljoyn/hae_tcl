@@ -21,7 +21,7 @@
 #define REMOTECONTROLLABILITY_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * RemoteControllability interface listener
@@ -43,7 +43,7 @@ typedef struct {
  * @param[out] isControllable isControllable
  * @return AJ_OK on success
  */
-AJ_Status Hae_RemoteControllabilityInterfaceGetIsControllable(const char* objPath, bool* isControllable);
+AJ_Status Cdm_RemoteControllabilityInterfaceGetIsControllable(const char* objPath, bool* isControllable);
 
 /**
  * Set isControllable of RemoteControllability interface
@@ -52,6 +52,6 @@ AJ_Status Hae_RemoteControllabilityInterfaceGetIsControllable(const char* objPat
  * @param[in] isControllable isControllable
  * @return AJ_OK on success
  */
-AJ_Status Hae_RemoteControllabilityInterfaceSetIsControllable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isControllable);
+AJ_Status Cdm_RemoteControllabilityInterfaceSetIsControllable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isControllable);
 
 #endif /* REMOTECONTROLLABILITY_H_ */

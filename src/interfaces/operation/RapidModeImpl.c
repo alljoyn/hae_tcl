@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/RapidMode.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/RapidMode.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "RapidModeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -192,7 +192,7 @@ AJ_Status RapidModeInterfaceOnSetProperty(AJ_Message* replyMsg, const char* objP
     return status;
 }
 
-AJ_Status Hae_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMode)
+AJ_Status Cdm_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMode)
 {
     AJ_Status status = AJ_OK;
     RapidModeProperties* props = NULL;
@@ -211,7 +211,7 @@ AJ_Status Hae_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMod
     return status;
 }
 
-AJ_Status Hae_RapidModeInterfaceSetRapidMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool rapidMode)
+AJ_Status Cdm_RapidModeInterfaceSetRapidMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool rapidMode)
 {
     AJ_Status status = AJ_OK;
     RapidModeProperties* props = NULL;

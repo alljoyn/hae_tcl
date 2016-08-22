@@ -21,7 +21,7 @@
 #define RAPIDMODETIMED_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * RapidModeTimed interface listener
@@ -58,7 +58,7 @@ typedef struct {
  * @param[out] value time remaining in rapid mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* objPath, uint16_t* value);
+AJ_Status Cdm_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* objPath, uint16_t* value);
 
 /**
  * Set time remaining in rapid mode of RapidModeTimed interface
@@ -67,7 +67,7 @@ AJ_Status Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(const char* ob
  * @param[in] value time remaining in rapid mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
+AJ_Status Cdm_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
 
 /**
  * Get the maximum rapid mode set time of RapidModeTimed interface
@@ -75,7 +75,7 @@ AJ_Status Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(AJ_BusAttachme
  * @param[out] value the maximum rapid mode set time
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint16_t* value);
+AJ_Status Cdm_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint16_t* value);
 
 /**
  * Set the maximum rapid mode set time of RapidModeTimed interface
@@ -84,6 +84,6 @@ AJ_Status Hae_RapidModeTimedInterfaceGetMaxSetMinutes(const char* objPath, uint1
  * @param[in] value the maximum rapid mode set time
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeTimedInterfaceSetMaxSetMinutes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
+AJ_Status Cdm_RapidModeTimedInterfaceSetMaxSetMinutes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t value);
 
 #endif /* RAPIDMODETIMED_H_ */

@@ -21,7 +21,7 @@
 #define WINDDIRECTION_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * WindDirection interface listener
@@ -116,7 +116,7 @@ typedef struct {
  * @param[out] horizontalDirection the horizontal direction
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, uint16_t* horizontalDirection);
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, uint16_t* horizontalDirection);
 
 /**
  * Set the horizontal direction of WindDirection interface
@@ -125,7 +125,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalDirection(const char* objPath, 
  * @param[in] horizontalDirection the horizontal direction
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalDirection);
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalDirection);
 
 /**
  * Get the horizontal maximum of WindDirection interface
@@ -133,7 +133,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalDirection(AJ_BusAttachment* bus
  * @param[out] horizontalMax the horizontal maximum
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16_t* horizontalMax);
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16_t* horizontalMax);
 
 /**
  * Set the horizontal maximum of WindDirection interface
@@ -142,7 +142,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalMax(const char* objPath, uint16
  * @param[in] horizontalMax the horizontal maximum
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalMax);
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t horizontalMax);
 
 /**
  * Get the horizontal auto mode of WindDirection interface
@@ -150,7 +150,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalMax(AJ_BusAttachment* busAttach
  * @param[out] horizontalAutoMode the horizontal auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, uint8_t* horizontalAutoMode);
+AJ_Status Cdm_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, uint8_t* horizontalAutoMode);
 
 /**
  * Set the horizontal auto mode of WindDirection interface
@@ -159,7 +159,7 @@ AJ_Status Hae_WindDirectionInterfaceGetHorizontalAutoMode(const char* objPath, u
  * @param[in] horizontalAutoMode the horizontal auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t horizontalAutoMode);
+AJ_Status Cdm_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t horizontalAutoMode);
 
 /**
  * Get the vertical direction of WindDirection interface
@@ -167,7 +167,7 @@ AJ_Status Hae_WindDirectionInterfaceSetHorizontalAutoMode(AJ_BusAttachment* busA
  * @param[out] verticalDirection the vertical direction
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetVerticalDirection(const char* objPath, uint16_t* verticalDirection);
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalDirection(const char* objPath, uint16_t* verticalDirection);
 
 /**
  * Set the vertical direction of WindDirection interface
@@ -176,7 +176,7 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalDirection(const char* objPath, ui
  * @param[in] verticalDirection the vertical direction
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalDirection);
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalDirection);
 
 /**
  * Get the vertical maximum of WindDirection interface
@@ -184,7 +184,7 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalDirection(AJ_BusAttachment* busAt
  * @param[out] verticalMax the vertical maximum
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t* verticalMax);
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t* verticalMax);
 
 /**
  * Set the vertical maximum of WindDirection interface
@@ -193,7 +193,7 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalMax(const char* objPath, uint16_t
  * @param[in] verticalMax the vertical maximum
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalMax);
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t verticalMax);
 
 /**
  * Get the vertical auto mode of WindDirection interface
@@ -201,7 +201,7 @@ AJ_Status Hae_WindDirectionInterfaceSetVerticalMax(AJ_BusAttachment* busAttachme
  * @param[out] verticalAutoMode the vertical auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uint8_t* verticalAutoMode);
+AJ_Status Cdm_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uint8_t* verticalAutoMode);
 
 /**
  * Set the vertical auto mode of WindDirection interface
@@ -210,6 +210,6 @@ AJ_Status Hae_WindDirectionInterfaceGetVerticalAutoMode(const char* objPath, uin
  * @param[in] verticalAutoMode the vertical auto mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_WindDirectionInterfaceSetVerticalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t verticalAutoMode);
+AJ_Status Cdm_WindDirectionInterfaceSetVerticalAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t verticalAutoMode);
 
 #endif /* WINDDIRECTION_H_ */

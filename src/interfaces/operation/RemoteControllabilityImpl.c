@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/RemoteControllability.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "RemoteControllabilityImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -124,7 +124,7 @@ AJ_Status RemoteControllabilityInterfaceOnGetProperty(AJ_Message* replyMsg, cons
     return status;
 }
 
-AJ_Status Hae_RemoteControllabilityInterfaceGetIsControllable(const char* objPath, bool* isControllable)
+AJ_Status Cdm_RemoteControllabilityInterfaceGetIsControllable(const char* objPath, bool* isControllable)
 {
     AJ_Status status = AJ_OK;
     RemoteControllabilityProperties* props = NULL;
@@ -143,7 +143,7 @@ AJ_Status Hae_RemoteControllabilityInterfaceGetIsControllable(const char* objPat
     return status;
 }
 
-AJ_Status Hae_RemoteControllabilityInterfaceSetIsControllable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isControllable)
+AJ_Status Cdm_RemoteControllabilityInterfaceSetIsControllable(AJ_BusAttachment* busAttachment, const char* objPath, const bool isControllable)
 {
     AJ_Status status = AJ_OK;
     RemoteControllabilityProperties* props = NULL;

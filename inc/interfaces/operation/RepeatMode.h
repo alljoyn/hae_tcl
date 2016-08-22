@@ -21,7 +21,7 @@
 #define REPEATMODE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * RepeatMode interface listener
@@ -50,7 +50,7 @@ typedef struct {
  * @param[out] repeatMode True if the device works in repeat mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeatMode);
+AJ_Status Cdm_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeatMode);
 
 /**
  * Set repeatMode of RepeatMode interface
@@ -59,6 +59,6 @@ AJ_Status Hae_RepeatModeInterfaceGetRepeatMode(const char* objPath, bool* repeat
  * @param[in] repeatMode True if the device works in repeat mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RepeatModeInterfaceSetRepeatMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool repeatMode);
+AJ_Status Cdm_RepeatModeInterfaceSetRepeatMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool repeatMode);
 
 #endif /* REPEATMODE_H_ */

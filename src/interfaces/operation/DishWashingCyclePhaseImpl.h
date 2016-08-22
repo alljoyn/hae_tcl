@@ -24,6 +24,6 @@ const char* const intfDescOperationDishWashingCyclePhase[6];
 AJ_Status CreateDishWashingCyclePhaseInterface(void** properties);
 void DestroyDishWashingCyclePhaseInterface(void* properties);
 AJ_Status DishWashingCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status DishWashingCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status DishWashingCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* DISHWASHINGCYCLEPHASEIMPL_H_ */

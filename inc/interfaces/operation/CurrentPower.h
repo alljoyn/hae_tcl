@@ -21,7 +21,7 @@
 #define CURRENTPOWER_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * CurrentPower interface listener
@@ -60,7 +60,7 @@ typedef struct {
  * @param[out] currentPower power consumption of the device in watts (W)
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* currentPower);
+AJ_Status Cdm_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* currentPower);
 
 /**
  * Set currentPower of CurrentPower of CurrentPower interface
@@ -69,7 +69,7 @@ AJ_Status Hae_CurrentPowerInterfaceGetCurrentPower(const char* objPath, double* 
  * @param[in] currentPower power consumption of the device in watts (W)
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachment, const char* objPath, const double currentPower);
+AJ_Status Cdm_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachment, const char* objPath, const double currentPower);
 
 /**
  * Get precision of CurrentPower interface
@@ -78,7 +78,7 @@ AJ_Status Hae_CurrentPowerInterfaceSetCurrentPower(AJ_BusAttachment* busAttachme
                 actual power consumption must change before CurrentPower is updated
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceGetPrecision(const char* objPath, double* precision);
+AJ_Status Cdm_CurrentPowerInterfaceGetPrecision(const char* objPath, double* precision);
 
 /**
  * Set precision of Precision of CurrentPower interface
@@ -88,7 +88,7 @@ AJ_Status Hae_CurrentPowerInterfaceGetPrecision(const char* objPath, double* pre
                 actual power consumption must change before CurrentPower is updated
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
+AJ_Status Cdm_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision);
 
 /**
  * Get updateMinTime of CurrentPower interface
@@ -96,7 +96,7 @@ AJ_Status Hae_CurrentPowerInterfaceSetPrecision(AJ_BusAttachment* busAttachment,
  * @param[out] updateMinTime The minimum time between updates of the CurrentPower property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
+AJ_Status Cdm_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime);
 
 /**
  * Set updateMinTime of UpdateMinTime of CurrentPower interface
@@ -105,6 +105,6 @@ AJ_Status Hae_CurrentPowerInterfaceGetUpdateMinTime(const char* objPath, uint16_
  * @param[in] updateMinTime The minimum time between updates of the CurrentPower property in milliseconds
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentPowerInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
+AJ_Status Cdm_CurrentPowerInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime);
 
 #endif /* CURRENTPOWER_H_ */

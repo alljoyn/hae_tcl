@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/BatteryStatus.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "BatteryStatusImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -140,7 +140,7 @@ AJ_Status BatteryStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* 
     return status;
 }
 
-AJ_Status Hae_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue)
+AJ_Status Cdm_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t* currentValue)
 {
     AJ_Status status = AJ_OK;
     BatteryStatusProperties* props = NULL;
@@ -159,7 +159,7 @@ AJ_Status Hae_BatteryStatusInterfaceGetCurrentValue(const char* objPath, uint8_t
     return status;
 }
 
-AJ_Status Hae_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue)
+AJ_Status Cdm_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentValue)
 {
     AJ_Status status = AJ_OK;
     BatteryStatusProperties* props = NULL;
@@ -185,7 +185,7 @@ AJ_Status Hae_BatteryStatusInterfaceSetCurrentValue(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isCharging)
+AJ_Status Cdm_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isCharging)
 {
     AJ_Status status = AJ_OK;
     BatteryStatusProperties* props = NULL;
@@ -204,7 +204,7 @@ AJ_Status Hae_BatteryStatusInterfaceGetIsCharging(const char* objPath, bool* isC
     return status;
 }
 
-AJ_Status Hae_BatteryStatusInterfaceSetIsCharging(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCharging)
+AJ_Status Cdm_BatteryStatusInterfaceSetIsCharging(AJ_BusAttachment* busAttachment, const char* objPath, const bool isCharging)
 {
     AJ_Status status = AJ_OK;
     BatteryStatusProperties* props = NULL;

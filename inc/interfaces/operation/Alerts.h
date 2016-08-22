@@ -21,8 +21,8 @@
 #define ALERTS_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * AlertRecord struct
@@ -90,7 +90,7 @@ typedef struct {
  * @param[out] alerts List of current pending alerts
  * @return AJ_OK on success
  */
-AJ_Status Hae_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts);
+AJ_Status Cdm_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts);
 
 /**
  * Set Alerts of Alerts interface
@@ -100,7 +100,7 @@ AJ_Status Hae_AlertsInterfaceGetAlerts(const char* objPath, AlertRecord* alerts)
  * @param[in] alertsNumber Alerts number
  * @return AJ_OK on success
  */
-AJ_Status Hae_AlertsInterfaceSetAlerts(AJ_BusAttachment* busAttachment, const char* objPath,
+AJ_Status Cdm_AlertsInterfaceSetAlerts(AJ_BusAttachment* busAttachment, const char* objPath,
     const AlertRecord* alerts, const size_t alertsNumber);
 
 

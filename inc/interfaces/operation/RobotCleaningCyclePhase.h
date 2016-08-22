@@ -21,8 +21,8 @@
 #define ROBOTCLEANINGCYCLEPHASE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * CyclePhaseDescriptor struct
@@ -72,7 +72,7 @@ typedef struct {
  * @param[out] cyclePhase Current cycle phase
  * @return AJ_OK on success
  */
-AJ_Status Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
+AJ_Status Cdm_RobotCleaningCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
 
 /**
  * Set cyclePhase of RobotCleaningCyclePhase interface
@@ -81,7 +81,7 @@ AJ_Status Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(const char* objPath,
  * @param[in] cyclePhase Current cycle phase
  * @return AJ_OK on success
  */
-AJ_Status Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
+AJ_Status Cdm_RobotCleaningCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
 
 /**
  * Get supportedCyclePhases of RobotCleaningCyclePhase interface
@@ -89,7 +89,7 @@ AJ_Status Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* bu
  * @param[out] supportedCyclePhases List of supported cycle phases
  * @return AJ_OK on success
  */
-AJ_Status Hae_RobotCleaningCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
+AJ_Status Cdm_RobotCleaningCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
 
 /**
  * Set supportedCyclePhases of RobotCleaningCyclePhase interface
@@ -99,6 +99,6 @@ AJ_Status Hae_RobotCleaningCyclePhaseInterfaceGetSupportedCyclePhases(const char
  * @param[in] supportedCyclePhasesListSize SupportedCyclePhases size
  * @return AJ_OK on success
  */
-AJ_Status Hae_RobotCleaningCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
+AJ_Status Cdm_RobotCleaningCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
 
 #endif /* ROBOTCLEANINGCYCLEPHASE_H_ */

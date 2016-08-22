@@ -14,37 +14,37 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef HAECONTROLLEEIMPL_H_
-#define HAECONTROLLEEIMPL_H_
+#ifndef CDMCONTROLLEEIMPL_H_
+#define CDMCONTROLLEEIMPL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
-typedef struct haeIntfInfo {
-    HaeInterfaceTypes intfType;
+typedef struct cdmIntfInfo {
+    CdmInterfaceTypes intfType;
     void* properties;
     void* listener;
-    struct haeIntfInfo* intfNext;
-} HaeInterfaceInfo;
+    struct cdmIntfInfo* intfNext;
+} CdmInterfaceInfo;
 
-typedef struct haeObjInfo {
+typedef struct cdmObjInfo {
     const char* path;
-    HaeInterfaceInfo* intfFirst;
-    HaeInterfaceInfo* intfLast;
+    CdmInterfaceInfo* intfFirst;
+    CdmInterfaceInfo* intfLast;
     AJ_InterfaceDescription* ajIntfDesc;
-    struct haeObjInfo* objNext;
-} HaeObjectInfo;
+    struct cdmObjInfo* objNext;
+} CdmObjectInfo;
 
 typedef struct {
-    HaeInterfaceTypes intfType;
+    CdmInterfaceTypes intfType;
     void* properties;
     uint8_t member_index;
     bool changed;
-} HaePropertiesChanged;
+} CdmPropertiesChanged;
 
 typedef struct vendorDefinedIntfInfo {
     const char* intfName;
-    HaeInterfaceTypes intfType;
+    CdmInterfaceTypes intfType;
     const char* const* intfDesc;
     VendorDefinedInterfaceHandler* handler;
     struct vendorDefinedIntfInfo* intfNext;
@@ -55,6 +55,6 @@ typedef void (*InterfaceDestructor)(void* properties);
 typedef AJ_Status (*OnGetProperty)(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
 typedef AJ_Status (*OnSetProperty)(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener, bool* propChanged);
 typedef AJ_Status (*EmitPropertiesChanged)(AJ_BusAttachment* busAttachment, const char* objPath, void* properties, uint8_t memberIndex);
-typedef AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+typedef AJ_Status (*OnMethodHandler)(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
-#endif /* HAECONTROLLEEIMPL_H_ */
+#endif /* CDMCONTROLLEEIMPL_H_ */

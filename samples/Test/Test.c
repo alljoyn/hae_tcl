@@ -33,9 +33,9 @@
 #include <ajtcl/services/ServicesCommon.h>
 #include <ajtcl/services/ServicesHandlers.h>
 #include <ajtcl/services/Common/AllJoynLogo.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/operation/AudioVolume.h>
-#include <ajtcl/hae/interfaces/operation/Channel.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/operation/AudioVolume.h>
+#include <ajtcl/cdm/interfaces/operation/Channel.h>
 #include "../VendorDefinedInterfaces/VendorDefinedInterface.h"
 /*
  * Logger definition
@@ -67,7 +67,7 @@ AJ_EXPORT uint8_t dbgAJSVCAPP = ER_DEBUG_AJSVCAPP;
 static uint8_t isBusConnected = FALSE;
 #define AJ_ABOUT_SERVICE_PORT 900
 
-#define HAE_OBJECT_PATH_TV "/Hae/Tv"
+#define CDM_OBJECT_PATH_TV "/Cdm/Tv"
 
 /**
  * Application handlers
@@ -84,7 +84,7 @@ typedef enum {
 
 static enum_init_state_t currentServicesInitializationState = INIT_START;
 static enum_init_state_t nextServicesInitializationState = INIT_START;
-static bool haeInitState = false;
+static bool cdmInitState = false;
 
 static AJ_Status AJApp_ConnectedHandler(AJ_BusAttachment* busAttachment)
 {
@@ -264,7 +264,7 @@ const char** propertyStoreDefaultValues[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS+5] =
  * Array of DeviceTypeDescription (DeviceType, ObjectPath)
  */
 DeviceTypeDescription deviceTypeDescription[] = {
-    {TELEVISION, HAE_OBJECT_PATH_TV},
+    {TELEVISION, CDM_OBJECT_PATH_TV},
 };
 
 /**
@@ -468,7 +468,7 @@ AJ_Status OnTestMethod(const char* objPath, int32_t arg1)
     return AJ_OK;
 }
 
-AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
     uint8_t vol = 8;
@@ -479,17 +479,17 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     int32_t testProperty = 3;
     int32_t testPropertyRead = 0;
 
-    status = Hae_AudioVolumeInterfaceSetVolume(busAttachment, HAE_OBJECT_PATH_TV, vol);
-    status = Hae_AudioVolumeInterfaceGetVolume(HAE_OBJECT_PATH_TV, &volRead);
+    status = Cdm_AudioVolumeInterfaceSetVolume(busAttachment, CDM_OBJECT_PATH_TV, vol);
+    status = Cdm_AudioVolumeInterfaceGetVolume(CDM_OBJECT_PATH_TV, &volRead);
     printf("volume : %u\n", volRead);
 
-    status = Hae_ChannelInterfaceSetChannelId(busAttachment, HAE_OBJECT_PATH_TV, channelId);
-    status = Hae_ChannelInterfaceGetChannelId(HAE_OBJECT_PATH_TV, channelIdBuf);
+    status = Cdm_ChannelInterfaceSetChannelId(busAttachment, CDM_OBJECT_PATH_TV, channelId);
+    status = Cdm_ChannelInterfaceGetChannelId(CDM_OBJECT_PATH_TV, channelIdBuf);
     printf("channelId : %s\n", channelIdBuf);
-    status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_TV, numOfChannels);
+    status = Cdm_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, CDM_OBJECT_PATH_TV, numOfChannels);
 
-    status = Hae_VendorDefinedInterfaceSetTestProperty(busAttachment, HAE_OBJECT_PATH_TV, testProperty);
-    status = Hae_VendorDefinedInterfaceGetTestProperty(HAE_OBJECT_PATH_TV, &testPropertyRead);
+    status = Cdm_VendorDefinedInterfaceSetTestProperty(busAttachment, CDM_OBJECT_PATH_TV, testProperty);
+    status = Cdm_VendorDefinedInterfaceGetTestProperty(CDM_OBJECT_PATH_TV, &testPropertyRead);
     printf("testProperty : %d\n", testPropertyRead);
 
     return status;
@@ -511,7 +511,7 @@ int AJ_Main(void)
     AudioVolumeListener audioVolumeListener;
     ChannelListener channelListener;
     VendorDefinedInterfaceHandler vendorDefinedIntfHandler;
-    HaeInterfaceTypes vendorDefinedIntfType;
+    CdmInterfaceTypes vendorDefinedIntfType;
     VendorDefinedListener vendorDefinedListener;
 
     AJ_Initialize();
@@ -523,7 +523,7 @@ int AJ_Main(void)
         goto Exit;
     }
 
-    status = Hae_Init();
+    status = Cdm_Init();
 
     audioVolumeListener.OnGetVolume = NULL;
     audioVolumeListener.OnSetVolume = OnSetVolume;
@@ -535,8 +535,8 @@ int AJ_Main(void)
     channelListener.OnGetTotalNumberOfChannels = NULL;
     channelListener.OnGetChannelList = OnGetChannelList;
 
-    status = Hae_CreateInterface(AUDIO_VOLUME_INTERFACE, HAE_OBJECT_PATH_TV, &audioVolumeListener);
-    status = Hae_CreateInterface(CHANNEL_INTERFACE, HAE_OBJECT_PATH_TV, &channelListener);
+    status = Cdm_CreateInterface(AUDIO_VOLUME_INTERFACE, CDM_OBJECT_PATH_TV, &audioVolumeListener);
+    status = Cdm_CreateInterface(CHANNEL_INTERFACE, CDM_OBJECT_PATH_TV, &channelListener);
 
     vendorDefinedIntfHandler.InterfaceRegistered = VendorDefinedInterfaceRegistered;
     vendorDefinedIntfHandler.InterfaceCreator = CreateVendorDefinedInterface;
@@ -545,15 +545,15 @@ int AJ_Main(void)
     vendorDefinedIntfHandler.OnSetProperty = VendorDefinedInterfaceOnSetProperty;
     vendorDefinedIntfHandler.EmitPropertiesChanged = VendorDefinedInterfaceEmitPropertiesChanged;
     vendorDefinedIntfHandler.OnMethodHandler = VendorDefinedInterfaceOnMethodHandler;
-    status = Hae_RegisterVendorDefinedInterface(VENDOR_DEFINED_INTERFACE_NAME, intfDescVendorDefined, &vendorDefinedIntfHandler, &vendorDefinedIntfType);
+    status = Cdm_RegisterVendorDefinedInterface(VENDOR_DEFINED_INTERFACE_NAME, intfDescVendorDefined, &vendorDefinedIntfHandler, &vendorDefinedIntfType);
     if (status == AJ_OK) {
         vendorDefinedListener.OnGetTestProperty = NULL;
         vendorDefinedListener.OnSetTestProperty = OnSetTestProperty;
         vendorDefinedListener.OnTestMethod = OnTestMethod;
-        status = Hae_CreateInterface(vendorDefinedIntfType, HAE_OBJECT_PATH_TV, &vendorDefinedListener);
+        status = Cdm_CreateInterface(vendorDefinedIntfType, CDM_OBJECT_PATH_TV, &vendorDefinedListener);
     }
 
-    status = Hae_Start();
+    status = Cdm_Start();
 
     while (TRUE) {
         status = AJ_OK;
@@ -565,7 +565,7 @@ int AJ_Main(void)
                 continue; // Retry establishing connection to Routing Node.
             }
 
-            status = Hae_EnableSecurity(&busAttachment, suites, numsuites, AuthListenerCallback);
+            status = Cdm_EnableSecurity(&busAttachment, suites, numsuites, AuthListenerCallback);
             if (status != AJ_OK) {
                 AJSVC_RoutingNodeDisconnect(&busAttachment, 1, AJAPP_SLEEP_TIME, AJAPP_SLEEP_TIME, &isBusConnected);
                 break;
@@ -573,10 +573,10 @@ int AJ_Main(void)
         }
 
         status = AJApp_ConnectedHandler(&busAttachment);
-        if (!haeInitState) {
-            status = InitHaeProperties(&busAttachment);
+        if (!cdmInitState) {
+            status = InitCdmProperties(&busAttachment);
             if (status == AJ_OK) {
-                haeInitState = true;
+                cdmInitState = true;
             }
         }
 
@@ -592,7 +592,7 @@ int AJ_Main(void)
 
             if (isUnmarshalingSuccessful) {
                 if (serviceStatus == AJSVC_SERVICE_STATUS_NOT_HANDLED) {
-                    serviceStatus = Hae_MessageProcessor(&busAttachment, &msg, &status);
+                    serviceStatus = Cdm_MessageProcessor(&busAttachment, &msg, &status);
                 }
                 if (serviceStatus == AJSVC_SERVICE_STATUS_NOT_HANDLED) {
                     serviceStatus = AJApp_MessageProcessor(&busAttachment, &msg, &status);
@@ -621,7 +621,7 @@ int AJ_Main(void)
         }
     }     // while (TRUE)
 
-    Hae_Deinit();
+    Cdm_Deinit();
 
     return 0;
 

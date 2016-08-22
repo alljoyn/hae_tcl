@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/FanSpeedLevel.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "FanSpeedLevelImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -288,7 +288,7 @@ AJ_Status FanSpeedLevelInterfaceOnSetProperty(AJ_Message* replyMsg, const char* 
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_t* fanSpeedLevel)
+AJ_Status Cdm_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_t* fanSpeedLevel)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
@@ -307,7 +307,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetFanSpeedLevel(const char* objPath, uint8_
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t fanSpeedLevel)
+AJ_Status Cdm_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t fanSpeedLevel)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
@@ -335,7 +335,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceSetFanSpeedLevel(AJ_BusAttachment* busAttach
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uint8_t* maxFanSpeedLevel)
+AJ_Status Cdm_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uint8_t* maxFanSpeedLevel)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
@@ -354,7 +354,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(const char* objPath, uin
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxFanSpeedLevel)
+AJ_Status Cdm_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxFanSpeedLevel)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
@@ -376,7 +376,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(AJ_BusAttachment* busAtt
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode)
+AJ_Status Cdm_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* autoMode)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;
@@ -395,7 +395,7 @@ AJ_Status Hae_FanSpeedLevelInterfaceGetAutoMode(const char* objPath, uint8_t* au
     return status;
 }
 
-AJ_Status Hae_FanSpeedLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode)
+AJ_Status Cdm_FanSpeedLevelInterfaceSetAutoMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t autoMode)
 {
     AJ_Status status = AJ_OK;
     FanSpeedLevelProperties* props = NULL;

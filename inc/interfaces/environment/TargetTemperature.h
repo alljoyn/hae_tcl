@@ -21,7 +21,7 @@
 #define TARGETTEMPERATURE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * TargetTemperature interface listener
@@ -76,7 +76,7 @@ typedef struct {
  * @param[out] targetValue the target value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceGetTargetValue(const char* objPath, double* targetValue);
+AJ_Status Cdm_TargetTemperatureInterfaceGetTargetValue(const char* objPath, double* targetValue);
 
 /**
  * Set the target value of TargetTemperature interface
@@ -85,7 +85,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetTargetValue(const char* objPath, doub
  * @param[in] targetValue the target value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const double targetValue);
+AJ_Status Cdm_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const double targetValue);
 
 /**
  * Get the minimum value of TargetTemperature interface
@@ -93,7 +93,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetTargetValue(AJ_BusAttachment* busAtta
  * @param[out] minValue the minimum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceGetMinValue(const char* objPath, double* minValue);
+AJ_Status Cdm_TargetTemperatureInterfaceGetMinValue(const char* objPath, double* minValue);
 
 /**
  * Set the minimum value of TargetTemperature interface
@@ -102,7 +102,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetMinValue(const char* objPath, double*
  * @param[in] minValue the minimum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue);
+AJ_Status Cdm_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const double minValue);
 
 /**
  * Get the maximum value of TargetTemperature interface
@@ -110,7 +110,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetMinValue(AJ_BusAttachment* busAttachm
  * @param[out] maxValue the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double* maxValue);
+AJ_Status Cdm_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double* maxValue);
 
 /**
  * Set the maximum value of TargetTemperature interface
@@ -119,7 +119,7 @@ AJ_Status Hae_TargetTemperatureInterfaceGetMaxValue(const char* objPath, double*
  * @param[in] maxValue the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue);
+AJ_Status Cdm_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const double maxValue);
 
 /**
  * Get the step value of TargetTemperature interface
@@ -127,7 +127,7 @@ AJ_Status Hae_TargetTemperatureInterfaceSetMaxValue(AJ_BusAttachment* busAttachm
  * @param[out] stepValue the step value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceGetStepValue(const char* objPath, double* stepValue);
+AJ_Status Cdm_TargetTemperatureInterfaceGetStepValue(const char* objPath, double* stepValue);
 
 /**
  * Set the step value of TargetTemperature interface
@@ -136,6 +136,6 @@ AJ_Status Hae_TargetTemperatureInterfaceGetStepValue(const char* objPath, double
  * @param[in] stepValue the step value
  * @return AJ_OK on success
  */
-AJ_Status Hae_TargetTemperatureInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const double stepValue);
+AJ_Status Cdm_TargetTemperatureInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const double stepValue);
 
 #endif /* TARGETTEMPERATURE_H_ */

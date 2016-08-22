@@ -21,7 +21,7 @@
 #define ONOFFSTATUS_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * OnOffStatus interface listener
@@ -43,7 +43,7 @@ typedef struct {
  * @param[out] onOff Current on/off state of the appliance
  * @return AJ_OK on success
  */
-AJ_Status Hae_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff);
+AJ_Status Cdm_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff);
 
 /**
  * Set onOff of OnOff of OnOffStatus interface
@@ -52,6 +52,6 @@ AJ_Status Hae_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff);
  * @param[in] onOff Current on/off state of the appliance
  * @return AJ_OK on success
  */
-AJ_Status Hae_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff);
+AJ_Status Cdm_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff);
 
 #endif /* ONOFFSTATUS_H_ */

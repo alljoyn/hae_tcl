@@ -21,7 +21,7 @@
 #define WATERLEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * WaterLevel interface listener
@@ -59,7 +59,7 @@ typedef struct {
  * @param[out] supplySource water supply source
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* supplySource);
+AJ_Status Cdm_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* supplySource);
 
 /**
  * Set supplySource of WaterLevel interface
@@ -68,7 +68,7 @@ AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* s
  * @param[in] supplySource water supply source
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t supplySource);
+AJ_Status Cdm_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t supplySource);
 
 /**
  * Get currentLevel of WaterLevel interface
@@ -76,7 +76,7 @@ AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment
  * @param[out] currentLevel current water level
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel);
+AJ_Status Cdm_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel);
 
 /**
  * Set currentLevel of WaterLevel interface
@@ -85,7 +85,7 @@ AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* c
  * @param[in] currentLevel current water level
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel);
+AJ_Status Cdm_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel);
 
 /**
  * Get maxLevel of WaterLevel interface
@@ -93,7 +93,7 @@ AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment
  * @param[out] maxLevel max water level
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
+AJ_Status Cdm_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
 
 /**
  * Set maxLevel of WaterLevel interface
@@ -102,7 +102,7 @@ AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLe
  * @param[in] maxLevel max water level
  * @return AJ_OK on success
  */
-AJ_Status Hae_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
+AJ_Status Cdm_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
 
 
 #endif /* WATERLEVEL_H_ */

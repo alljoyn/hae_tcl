@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/AudioVideoInput.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/AudioVideoInput.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "AudioVideoInputImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -299,7 +299,7 @@ AJ_Status AudioVideoInputInterfaceOnSetProperty(AJ_Message* replyMsg, const char
     return status;
 }
 
-AJ_Status Hae_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint16_t* inputSourceId)
+AJ_Status Cdm_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint16_t* inputSourceId)
 {
     AJ_Status status = AJ_OK;
     AudioVideoInputProperties* props = NULL;
@@ -318,7 +318,7 @@ AJ_Status Hae_AudioVideoInputInterfaceGetInputSourceId(const char* objPath, uint
     return status;
 }
 
-AJ_Status Hae_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t inputSourceId)
+AJ_Status Cdm_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t inputSourceId)
 {
     AJ_Status status = AJ_OK;
     AudioVideoInputProperties* props = NULL;
@@ -346,7 +346,7 @@ AJ_Status Hae_AudioVideoInputInterfaceSetInputSourceId(AJ_BusAttachment* busAtta
     return status;
 }
 
-AJ_Status Hae_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPath, InputSource* inputSource)
+AJ_Status Cdm_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPath, InputSource* inputSource)
 {
     AJ_Status status = AJ_OK;
     AudioVideoInputProperties* props = NULL;
@@ -371,7 +371,7 @@ AJ_Status Hae_AudioVideoInputInterfaceGetSupportedInputSources(const char* objPa
     return status;
 }
 
-AJ_Status Hae_AudioVideoInputInterfaceSetSupportedInputSources(AJ_BusAttachment* busAttachment, const char* objPath, const InputSource* supportedInputSources, const size_t inputSourceListSize)
+AJ_Status Cdm_AudioVideoInputInterfaceSetSupportedInputSources(AJ_BusAttachment* busAttachment, const char* objPath, const InputSource* supportedInputSources, const size_t inputSourceListSize)
 {
     AJ_Status status = AJ_OK;
     AudioVideoInputProperties* props = NULL;

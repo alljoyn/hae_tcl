@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/AirRecirculationMode.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/AirRecirculationMode.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "AirRecirculationModeImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -191,7 +191,7 @@ AJ_Status AirRecirculationModeInterfaceOnSetProperty(AJ_Message* replyMsg, const
     return status;
 }
 
-AJ_Status Hae_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPath, bool* isRecirculating)
+AJ_Status Cdm_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPath, bool* isRecirculating)
 {
     AJ_Status status = AJ_OK;
     AirRecirculationModeProperties* props = NULL;
@@ -210,7 +210,7 @@ AJ_Status Hae_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPat
     return status;
 }
 
-AJ_Status Hae_AirRecirculationModeInterfaceSetIsRecirculating(AJ_BusAttachment* busAttachment, const char* objPath, const bool isRecirculating)
+AJ_Status Cdm_AirRecirculationModeInterfaceSetIsRecirculating(AJ_BusAttachment* busAttachment, const char* objPath, const bool isRecirculating)
 {
     AJ_Status status = AJ_OK;
     AirRecirculationModeProperties* props = NULL;

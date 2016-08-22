@@ -21,8 +21,8 @@
 #define OVENCYCLEPHASE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * OvenCyclePhaseCyclePhaseDescriptor struct
@@ -72,7 +72,7 @@ typedef struct {
  * @param[out] cyclePhase Current cycle phase
  * @return AJ_OK on success
  */
-AJ_Status Hae_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
+AJ_Status Cdm_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
 
 /**
  * Set cyclePhase of OvenCyclePhase interface
@@ -82,14 +82,14 @@ AJ_Status Hae_OvenCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t*
  * @return AJ_OK on success
  */
 
-AJ_Status Hae_OvenCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
+AJ_Status Cdm_OvenCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
 /**
  * Get supportedCyclePhases of OvenCyclePhase interface
  * @param[in] objPath the object path including the interface
  * @param[out] supportedCyclePhases List of supported cycle phases
  * @return AJ_OK on success
  */
-AJ_Status Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
+AJ_Status Cdm_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
 
 /**
  * Set supportedCyclePhases of OvenCyclePhase interface
@@ -99,6 +99,6 @@ AJ_Status Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath
  * @param[in] supportedCyclePhasesListSize SupportedCyclePhases size
  * @return AJ_OK on success
  */
-AJ_Status Hae_OvenCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
+AJ_Status Cdm_OvenCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
 
 #endif /* OVENCYCLEPHASE_H_ */

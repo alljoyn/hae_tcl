@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/ClosedStatus.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "ClosedStatusImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -124,7 +124,7 @@ AJ_Status ClosedStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* o
     return status;
 }
 
-AJ_Status Hae_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClosed)
+AJ_Status Cdm_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClosed)
 {
     AJ_Status status = AJ_OK;
     ClosedStatusProperties* props = NULL;
@@ -143,7 +143,7 @@ AJ_Status Hae_ClosedStatusInterfaceGetIsClosed(const char* objPath, bool* isClos
     return status;
 }
 
-AJ_Status Hae_ClosedStatusInterfaceSetIsClosed(AJ_BusAttachment* busAttachment, const char* objPath, const bool isClosed)
+AJ_Status Cdm_ClosedStatusInterfaceSetIsClosed(AJ_BusAttachment* busAttachment, const char* objPath, const bool isClosed)
 {
     AJ_Status status = AJ_OK;
     ClosedStatusProperties* props = NULL;

@@ -33,49 +33,49 @@
 #include <ajtcl/services/ServicesCommon.h>
 #include <ajtcl/services/ServicesHandlers.h>
 #include <ajtcl/services/Common/AllJoynLogo.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/environment/CurrentAirQuality.h>
-#include <ajtcl/hae/interfaces/environment/CurrentAirQualityLevel.h>
-#include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
-#include <ajtcl/hae/interfaces/environment/TargetTemperature.h>
-#include <ajtcl/hae/interfaces/environment/WaterLevel.h>
-#include <ajtcl/hae/interfaces/environment/WindDirection.h>
-#include <ajtcl/hae/interfaces/input/Hid.h>
-#include <ajtcl/hae/interfaces/operation/AirRecirculationMode.h>
-#include <ajtcl/hae/interfaces/operation/Alerts.h>
-#include <ajtcl/hae/interfaces/operation/AudioVideoInput.h>
-#include <ajtcl/hae/interfaces/operation/AudioVolume.h>
-#include <ajtcl/hae/interfaces/operation/BatteryStatus.h>
-#include <ajtcl/hae/interfaces/operation/Channel.h>
-#include <ajtcl/hae/interfaces/operation/ClimateControlMode.h>
-#include <ajtcl/hae/interfaces/operation/ClosedStatus.h>
-#include <ajtcl/hae/interfaces/operation/CurrentPower.h>
-#include <ajtcl/hae/interfaces/operation/CycleControl.h>
-#include <ajtcl/hae/interfaces/operation/DishWashingCyclePhase.h>
-#include <ajtcl/hae/interfaces/operation/EnergyUsage.h>
-#include <ajtcl/hae/interfaces/operation/FanSpeedLevel.h>
-#include <ajtcl/hae/interfaces/operation/HeatingZone.h>
-#include <ajtcl/hae/interfaces/operation/LaundryCyclePhase.h>
-#include <ajtcl/hae/interfaces/operation/MoistureOutputLevel.h>
-#include <ajtcl/hae/interfaces/operation/OffControl.h>
-#include <ajtcl/hae/interfaces/operation/OnControl.h>
-#include <ajtcl/hae/interfaces/operation/OnOffStatus.h>
-#include <ajtcl/hae/interfaces/operation/OvenCyclePhase.h>
-#include <ajtcl/hae/interfaces/operation/RapidMode.h>
-#include <ajtcl/hae/interfaces/operation/RemoteControllability.h>
-#include <ajtcl/hae/interfaces/operation/RepeatMode.h>
-#include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
-#include <ajtcl/hae/interfaces/operation/RobotCleaningCyclePhase.h>
-#include <ajtcl/hae/interfaces/operation/SoilLevel.h>
-#include <ajtcl/hae/interfaces/operation/SpinSpeedLevel.h>
-#include <ajtcl/hae/interfaces/operation/Timer.h>
-#include <ajtcl/hae/interfaces/operation/FilterStatus.h>
-#include <ajtcl/hae/interfaces/environment/CurrentHumidity.h>
-#include <ajtcl/hae/interfaces/environment/TargetHumidity.h>
-#include <ajtcl/hae/interfaces/environment/TargetTemperatureLevel.h>
-#include <ajtcl/hae/interfaces/operation/HvacFanMode.h>
-#include <ajtcl/hae/interfaces/operation/PlugInUnits.h>
-#include <ajtcl/hae/interfaces/operation/RapidModeTimed.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/environment/CurrentAirQuality.h>
+#include <ajtcl/cdm/interfaces/environment/CurrentAirQualityLevel.h>
+#include <ajtcl/cdm/interfaces/environment/CurrentTemperature.h>
+#include <ajtcl/cdm/interfaces/environment/TargetTemperature.h>
+#include <ajtcl/cdm/interfaces/environment/WaterLevel.h>
+#include <ajtcl/cdm/interfaces/environment/WindDirection.h>
+#include <ajtcl/cdm/interfaces/input/Hid.h>
+#include <ajtcl/cdm/interfaces/operation/AirRecirculationMode.h>
+#include <ajtcl/cdm/interfaces/operation/Alerts.h>
+#include <ajtcl/cdm/interfaces/operation/AudioVideoInput.h>
+#include <ajtcl/cdm/interfaces/operation/AudioVolume.h>
+#include <ajtcl/cdm/interfaces/operation/BatteryStatus.h>
+#include <ajtcl/cdm/interfaces/operation/Channel.h>
+#include <ajtcl/cdm/interfaces/operation/ClimateControlMode.h>
+#include <ajtcl/cdm/interfaces/operation/ClosedStatus.h>
+#include <ajtcl/cdm/interfaces/operation/CurrentPower.h>
+#include <ajtcl/cdm/interfaces/operation/CycleControl.h>
+#include <ajtcl/cdm/interfaces/operation/DishWashingCyclePhase.h>
+#include <ajtcl/cdm/interfaces/operation/EnergyUsage.h>
+#include <ajtcl/cdm/interfaces/operation/FanSpeedLevel.h>
+#include <ajtcl/cdm/interfaces/operation/HeatingZone.h>
+#include <ajtcl/cdm/interfaces/operation/LaundryCyclePhase.h>
+#include <ajtcl/cdm/interfaces/operation/MoistureOutputLevel.h>
+#include <ajtcl/cdm/interfaces/operation/OffControl.h>
+#include <ajtcl/cdm/interfaces/operation/OnControl.h>
+#include <ajtcl/cdm/interfaces/operation/OnOffStatus.h>
+#include <ajtcl/cdm/interfaces/operation/OvenCyclePhase.h>
+#include <ajtcl/cdm/interfaces/operation/RapidMode.h>
+#include <ajtcl/cdm/interfaces/operation/RemoteControllability.h>
+#include <ajtcl/cdm/interfaces/operation/RepeatMode.h>
+#include <ajtcl/cdm/interfaces/operation/ResourceSaving.h>
+#include <ajtcl/cdm/interfaces/operation/RobotCleaningCyclePhase.h>
+#include <ajtcl/cdm/interfaces/operation/SoilLevel.h>
+#include <ajtcl/cdm/interfaces/operation/SpinSpeedLevel.h>
+#include <ajtcl/cdm/interfaces/operation/Timer.h>
+#include <ajtcl/cdm/interfaces/operation/FilterStatus.h>
+#include <ajtcl/cdm/interfaces/environment/CurrentHumidity.h>
+#include <ajtcl/cdm/interfaces/environment/TargetHumidity.h>
+#include <ajtcl/cdm/interfaces/environment/TargetTemperatureLevel.h>
+#include <ajtcl/cdm/interfaces/operation/HvacFanMode.h>
+#include <ajtcl/cdm/interfaces/operation/PlugInUnits.h>
+#include <ajtcl/cdm/interfaces/operation/RapidModeTimed.h>
 
 /*
  * Logger definition
@@ -107,7 +107,7 @@ AJ_EXPORT uint8_t dbgAJSVCAPP = ER_DEBUG_AJSVCAPP;
 static uint8_t isBusConnected = FALSE;
 #define AJ_ABOUT_SERVICE_PORT 900
 
-#define HAE_OBJECT_PATH_CONTROLLEE "/Hae/IntegratedControllee"
+#define CDM_OBJECT_PATH_CONTROLLEE "/Cdm/IntegratedControllee"
 
 /**
  * Application handlers
@@ -124,7 +124,7 @@ typedef enum {
 
 static enum_init_state_t currentServicesInitializationState = INIT_START;
 static enum_init_state_t nextServicesInitializationState = INIT_START;
-static bool haeInitState = false;
+static bool cdmInitState = false;
 
 static AJ_Status AJApp_ConnectedHandler(AJ_BusAttachment* busAttachment)
 {
@@ -304,7 +304,7 @@ const char** propertyStoreDefaultValues[AJSVC_PROPERTY_STORE_NUMBER_OF_KEYS+5] =
  * Array of DeviceTypeDescription (DeviceType, ObjectPath)
  */
 DeviceTypeDescription deviceTypeDescription[] = {
-    {OTHER, HAE_OBJECT_PATH_CONTROLLEE},
+    {OTHER, CDM_OBJECT_PATH_CONTROLLEE},
 };
 
 /**
@@ -1269,7 +1269,7 @@ AJ_Status TargetTemperatureLevel_OnSetTargetLevel(const char* objPath, const uin
     return AJ_OK;
 }
 
-AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmClosedStatusProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
@@ -1278,11 +1278,11 @@ AJ_Status InitHaeClosedStatusProperties(AJ_BusAttachment* busAttachment)
     bool isClosedRead;
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_ClosedStatusInterfaceSetIsClosed(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isClosed);
+        status = Cdm_ClosedStatusInterfaceSetIsClosed(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, isClosed);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_ClosedStatusInterfaceGetIsClosed(HAE_OBJECT_PATH_CONTROLLEE, &isClosedRead);
+        status = Cdm_ClosedStatusInterfaceGetIsClosed(CDM_OBJECT_PATH_CONTROLLEE, &isClosedRead);
         printf("ClosedStatus IsClosed : %d\n", isClosedRead);
     }
 
@@ -1335,7 +1335,7 @@ AJ_Status AlertsListenerOnAcknowledgeAllAlerts (const char* objPath, ErrorCode* 
 }
 
 
-AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmCycleControlProperties(AJ_BusAttachment* busAttachment)
 {
     #define SUPPORTED_OPER_STATES_NUM   6
     #define SUPPORTED_OPER_COMMANDS_NUM 4
@@ -1353,21 +1353,21 @@ AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (operational state as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceSetOperationalState(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, operationalState);
+        status = Cdm_CycleControlInterfaceSetOperationalState(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, operationalState);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceSetSupportedOperationalStates(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalStates, SUPPORTED_OPER_STATES_NUM);
+        status = Cdm_CycleControlInterfaceSetSupportedOperationalStates(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedOperationalStates, SUPPORTED_OPER_STATES_NUM);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceSetSupportedOperationalCommands(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalCommands, SUPPORTED_OPER_COMMANDS_NUM);
+        status = Cdm_CycleControlInterfaceSetSupportedOperationalCommands(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedOperationalCommands, SUPPORTED_OPER_COMMANDS_NUM);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceGetOperationalState(HAE_OBJECT_PATH_CONTROLLEE, &operationalStateRead);
+        status = Cdm_CycleControlInterfaceGetOperationalState(CDM_OBJECT_PATH_CONTROLLEE, &operationalStateRead);
         printf("CycleControl OperationalState: %u\n", operationalStateRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceGetSupportedOperationalStates(HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalStatesRead);
+        status = Cdm_CycleControlInterfaceGetSupportedOperationalStates(CDM_OBJECT_PATH_CONTROLLEE, supportedOperationalStatesRead);
         printf("CycleControl SupportedOperationalStates : \n");
         for (i = 0; i < SUPPORTED_OPER_STATES_NUM; i++) {
             printf("%u\t", supportedOperationalStatesRead[i]);
@@ -1375,7 +1375,7 @@ AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
         printf("\n");
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_CycleControlInterfaceGetSupportedOperationalCommands(HAE_OBJECT_PATH_CONTROLLEE, supportedOperationalCommandsRead);
+        status = Cdm_CycleControlInterfaceGetSupportedOperationalCommands(CDM_OBJECT_PATH_CONTROLLEE, supportedOperationalCommandsRead);
         printf("CycleControl SupportedOperationalCommands : \n");
         for (i = 0; i < SUPPORTED_OPER_COMMANDS_NUM; i++) {
             printf("%u\t", supportedOperationalCommandsRead[i]);
@@ -1389,7 +1389,7 @@ AJ_Status InitHaeCycleControlProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeDishWashingCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmDishWashingCyclePhaseProperties(AJ_BusAttachment* busAttachment)
 {
     #define DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM   5
 
@@ -1404,18 +1404,18 @@ AJ_Status InitHaeDishWashingCyclePhaseProperties(AJ_BusAttachment* busAttachment
 
     /* write in this order (cycle phase as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM);
+        status = Cdm_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_DishWashingCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+        status = Cdm_DishWashingCyclePhaseInterfaceSetCyclePhase(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, cyclePhase);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        status = Cdm_DishWashingCyclePhaseInterfaceGetCyclePhase(CDM_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
         printf("DishWashingCyclePhase CyclePhase: %u\n", cyclePhaseRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        status = Cdm_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
         printf("DishWashingCyclePhase SupportedCyclePhases : \n");
         for (i = 0; i < DISH_WASHING_SUPPORTED_CYCLEPHASE_NUM; i++) {
             printf("%u\t", supportedCyclePhasesRead[i]);
@@ -1428,7 +1428,7 @@ AJ_Status InitHaeDishWashingCyclePhaseProperties(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status InitHaeLaundryCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmLaundryCyclePhaseProperties(AJ_BusAttachment* busAttachment)
 {
     #define LAUNDRY_SUPPORTED_CYCLEPHASE_NUM   9
 
@@ -1443,18 +1443,18 @@ AJ_Status InitHaeLaundryCyclePhaseProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (cycle phase as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, LAUNDRY_SUPPORTED_CYCLEPHASE_NUM);
+        status = Cdm_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, LAUNDRY_SUPPORTED_CYCLEPHASE_NUM);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_LaundryCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+        status = Cdm_LaundryCyclePhaseInterfaceSetCyclePhase(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, cyclePhase);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_LaundryCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        status = Cdm_LaundryCyclePhaseInterfaceGetCyclePhase(CDM_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
         printf("LaundryCyclePhase CyclePhase: %u\n", cyclePhaseRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        status = Cdm_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
         printf("LaundryCyclePhase SupportedCyclePhases : \n");
         for (i = 0; i < LAUNDRY_SUPPORTED_CYCLEPHASE_NUM; i++) {
             printf("%u\t", supportedCyclePhasesRead[i]);
@@ -1467,7 +1467,7 @@ AJ_Status InitHaeLaundryCyclePhaseProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeOvenCyclePhaseProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmOvenCyclePhaseProperties(AJ_BusAttachment* busAttachment)
 {
     #define OVEN_SUPPORTED_CYCLEPHASE_NUM   4
 
@@ -1482,18 +1482,18 @@ AJ_Status InitHaeOvenCyclePhaseProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (cycle phase as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_OvenCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, OVEN_SUPPORTED_CYCLEPHASE_NUM);
+        status = Cdm_OvenCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, OVEN_SUPPORTED_CYCLEPHASE_NUM);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_OvenCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
+        status = Cdm_OvenCyclePhaseInterfaceSetCyclePhase(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, cyclePhase);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_OvenCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+        status = Cdm_OvenCyclePhaseInterfaceGetCyclePhase(CDM_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
         printf("OvenCyclePhase CyclePhase: %u\n", cyclePhaseRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_OvenCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+        status = Cdm_OvenCyclePhaseInterfaceGetSupportedCyclePhases(CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
         printf("OvenCyclePhase SupportedCyclePhases : \n");
         for (i = 0; i < OVEN_SUPPORTED_CYCLEPHASE_NUM; i++) {
             printf("%u\t", supportedCyclePhasesRead[i]);
@@ -1506,7 +1506,7 @@ AJ_Status InitHaeOvenCyclePhaseProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmHeatingZoneProperties(AJ_BusAttachment* busAttachment)
 {
     #define HEATING_ZONES_NUM 5
 
@@ -1524,22 +1524,22 @@ AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (heating levels as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, numberOfHeatingZones);
+        status = Cdm_HeatingZoneInterfaceSetNumberOfHeatingZones(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, numberOfHeatingZones);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceSetMaxHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevels, HEATING_ZONES_NUM);
-    }
-
-    /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceSetHeatingLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, heatingLevels, HEATING_ZONES_NUM);
+        status = Cdm_HeatingZoneInterfaceSetMaxHeatingLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxHeatingLevels, HEATING_ZONES_NUM);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(HAE_OBJECT_PATH_CONTROLLEE, &numberOfHeatingZonesRead);
+        status = Cdm_HeatingZoneInterfaceSetHeatingLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, heatingLevels, HEATING_ZONES_NUM);
+    }
+
+    /*if (status == AJ_OK)*/ {
+        status = Cdm_HeatingZoneInterfaceGetNumberOfHeatingZones(CDM_OBJECT_PATH_CONTROLLEE, &numberOfHeatingZonesRead);
         printf("HeatingZone NumberOfHeatingZonesRead: %u\n", numberOfHeatingZonesRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceGetMaxHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, maxHeatingLevelsRead);
+        status = Cdm_HeatingZoneInterfaceGetMaxHeatingLevels(CDM_OBJECT_PATH_CONTROLLEE, maxHeatingLevelsRead);
         printf("HeatingZone MaxHeatingLevels : \n");
         for (i = 0; i < HEATING_ZONES_NUM; i++) {
             printf("%u\t", maxHeatingLevelsRead[i]);
@@ -1547,7 +1547,7 @@ AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
         printf("\n");
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_HeatingZoneInterfaceGetHeatingLevels(HAE_OBJECT_PATH_CONTROLLEE, heatingLevelsRead);
+        status = Cdm_HeatingZoneInterfaceGetHeatingLevels(CDM_OBJECT_PATH_CONTROLLEE, heatingLevelsRead);
         printf("HeatingZone HeatingLevels : \n");
         for (i = 0; i < HEATING_ZONES_NUM; i++) {
             printf("%u\t", heatingLevelsRead[i]);
@@ -1560,7 +1560,7 @@ AJ_Status InitHaeHeatingZoneProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmRapidModeProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
@@ -1569,18 +1569,18 @@ AJ_Status InitHaeRapidModeProperties(AJ_BusAttachment* busAttachment)
     bool rapidModeRead;
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_RapidModeInterfaceSetRapidMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, rapidMode);
+        status = Cdm_RapidModeInterfaceSetRapidMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, rapidMode);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_RapidModeInterfaceGetRapidMode(HAE_OBJECT_PATH_CONTROLLEE, &rapidModeRead);
+        status = Cdm_RapidModeInterfaceGetRapidMode(CDM_OBJECT_PATH_CONTROLLEE, &rapidModeRead);
         printf("RapidMode : %d\n", rapidModeRead);
     }
 
     return status;
 }
 
-AJ_Status InitHaeRemoteControllabilityProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmRemoteControllabilityProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
@@ -1589,18 +1589,18 @@ AJ_Status InitHaeRemoteControllabilityProperties(AJ_BusAttachment* busAttachment
     bool isControllableRead;
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_RemoteControllabilityInterfaceSetIsControllable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isControllable);
+        status = Cdm_RemoteControllabilityInterfaceSetIsControllable(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, isControllable);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_RemoteControllabilityInterfaceGetIsControllable(HAE_OBJECT_PATH_CONTROLLEE, &isControllableRead);
+        status = Cdm_RemoteControllabilityInterfaceGetIsControllable(CDM_OBJECT_PATH_CONTROLLEE, &isControllableRead);
         printf("RemoteControllability IsClosed : %d\n", isControllableRead);
     }
 
     return status;
 }
 
-AJ_Status InitHaeSoilLevelProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmSoilLevelProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
     int i = 0;
@@ -1615,25 +1615,25 @@ AJ_Status InitHaeSoilLevelProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (target level as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
+        status = Cdm_SoilLevelInterfaceSetMaxLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
+        status = Cdm_SoilLevelInterfaceSetSelectableLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
+        status = Cdm_SoilLevelInterfaceSetTargetLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, targetLevel);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
+        status = Cdm_SoilLevelInterfaceGetMaxLevel(CDM_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("SoilLevel MaxLevel: %u\n", maxLevelRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
+        status = Cdm_SoilLevelInterfaceGetTargetLevel(CDM_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
         printf("SoilLevel TargetLevel : %u\n", targetLevelRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SoilLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
+        status = Cdm_SoilLevelInterfaceGetSelectableLevels(CDM_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
         printf("SoilLevel SelectableLevels : \n");
         for (i = 0; i < 3; i++) {
             printf("%u\t", selectableLevelsRead[i]);
@@ -1644,7 +1644,7 @@ AJ_Status InitHaeSoilLevelProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
     int i = 0;
@@ -1659,25 +1659,25 @@ AJ_Status InitHaeSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (target level as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
+        status = Cdm_SpinSpeedLevelInterfaceSetMaxLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceSetSelectableLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
+        status = Cdm_SpinSpeedLevelInterfaceSetSelectableLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, selectableLevels, 3);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetLevel);
+        status = Cdm_SpinSpeedLevelInterfaceSetTargetLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, targetLevel);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
+        status = Cdm_SpinSpeedLevelInterfaceGetMaxLevel(CDM_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("SpinSpeedLevel MaxLevel: %u\n", maxLevelRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
+        status = Cdm_SpinSpeedLevelInterfaceGetTargetLevel(CDM_OBJECT_PATH_CONTROLLEE, &targetLevelRead);
         printf("SpinSpeedLevel TargetLevel : %u\n", targetLevelRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_SpinSpeedLevelInterfaceGetSelectableLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
+        status = Cdm_SpinSpeedLevelInterfaceGetSelectableLevels(CDM_OBJECT_PATH_CONTROLLEE, selectableLevelsRead);
         printf("SpinSpeedLevel SelectableLevels : \n");
         for (i = 0; i < 3; i++) {
             printf("%u\t", selectableLevelsRead[i]);
@@ -1688,7 +1688,7 @@ AJ_Status InitHaeSpinSpeedLevelProperties(AJ_BusAttachment* busAttachment)
     return status;
 }
 
-AJ_Status InitHaeWaterLevelProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmWaterLevelProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
@@ -1702,32 +1702,32 @@ AJ_Status InitHaeWaterLevelProperties(AJ_BusAttachment* busAttachment)
 
     /* write in this order (current level as last) to pass the validation */
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceSetSupplySource(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supplySource);
+        status = Cdm_WaterLevelInterfaceSetSupplySource(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supplySource);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxLevel);
+        status = Cdm_WaterLevelInterfaceSetMaxLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxLevel);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, currentLevel);
+        status = Cdm_WaterLevelInterfaceSetCurrentLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, currentLevel);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceGetSupplySource(HAE_OBJECT_PATH_CONTROLLEE, &supplySourceRead);
+        status = Cdm_WaterLevelInterfaceGetSupplySource(CDM_OBJECT_PATH_CONTROLLEE, &supplySourceRead);
         printf("Water Supply Source: %u\n", supplySourceRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &currentLevelRead);
+        status = Cdm_WaterLevelInterfaceGetCurrentLevel(CDM_OBJECT_PATH_CONTROLLEE, &currentLevelRead);
         printf("Water Current Level: %u\n", currentLevelRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_WaterLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
+        status = Cdm_WaterLevelInterfaceGetMaxLevel(CDM_OBJECT_PATH_CONTROLLEE, &maxLevelRead);
         printf("Water Max Level : %u\n", maxLevelRead);
     }
 
     return status;
 }
 
-AJ_Status InitHaeTimerProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmTimerProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 
@@ -1746,53 +1746,53 @@ AJ_Status InitHaeTimerProperties(AJ_BusAttachment* busAttachment)
     int32_t targetDurationRead;
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetReferenceTimer(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, referenceTimer);
+        status = Cdm_TimerInterfaceSetReferenceTimer(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, referenceTimer);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetTargetTimeToStart(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetTimeToStart);
+        status = Cdm_TimerInterfaceSetTargetTimeToStart(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, targetTimeToStart);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetTargetTimeToStop(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetTimeToStop);
+        status = Cdm_TimerInterfaceSetTargetTimeToStop(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, targetTimeToStop);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetEstimatedTimeToEnd(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, estimatedTimeToEnd);
+        status = Cdm_TimerInterfaceSetEstimatedTimeToEnd(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, estimatedTimeToEnd);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetRunningTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, runningTime);
+        status = Cdm_TimerInterfaceSetRunningTime(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, runningTime);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceSetTargetDuration(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, targetDuration);
+        status = Cdm_TimerInterfaceSetTargetDuration(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, targetDuration);
     }
 
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetReferenceTimer(HAE_OBJECT_PATH_CONTROLLEE, &referenceTimerRead);
+        status = Cdm_TimerInterfaceGetReferenceTimer(CDM_OBJECT_PATH_CONTROLLEE, &referenceTimerRead);
         printf("Timer ReferenceTimer : %i\n", referenceTimerRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetTargetTimeToStart(HAE_OBJECT_PATH_CONTROLLEE, &targetTimeToStartRead);
+        status = Cdm_TimerInterfaceGetTargetTimeToStart(CDM_OBJECT_PATH_CONTROLLEE, &targetTimeToStartRead);
         printf("Timer TargetTimeToStart : %i\n", targetTimeToStartRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetTargetTimeToStop(HAE_OBJECT_PATH_CONTROLLEE, &targetTimeToStopRead);
+        status = Cdm_TimerInterfaceGetTargetTimeToStop(CDM_OBJECT_PATH_CONTROLLEE, &targetTimeToStopRead);
         printf("Timer TargetTimeToStop : %i\n", targetTimeToStopRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetEstimatedTimeToEnd(HAE_OBJECT_PATH_CONTROLLEE, &estimatedTimeToEndRead);
+        status = Cdm_TimerInterfaceGetEstimatedTimeToEnd(CDM_OBJECT_PATH_CONTROLLEE, &estimatedTimeToEndRead);
         printf("Timer EstimatedTimeToEnd : %i\n", estimatedTimeToEndRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetRunningTime(HAE_OBJECT_PATH_CONTROLLEE, &runningTimeRead);
+        status = Cdm_TimerInterfaceGetRunningTime(CDM_OBJECT_PATH_CONTROLLEE, &runningTimeRead);
         printf("Timer RunningTime : %i\n", runningTimeRead);
     }
     /*if (status == AJ_OK)*/ {
-        status = Hae_TimerInterfaceGetTargetDuration(HAE_OBJECT_PATH_CONTROLLEE, &targetDurationRead);
+        status = Cdm_TimerInterfaceGetTargetDuration(CDM_OBJECT_PATH_CONTROLLEE, &targetDurationRead);
         printf("Timer TargetDuration : %i\n", targetDurationRead);
     }
 
     return status;
 }
 
-AJ_Status InitHaeAlertsProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmAlertsProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
 //    AJ_Status getStatus = AJ_OK;
@@ -1814,11 +1814,11 @@ AJ_Status InitHaeAlertsProperties(AJ_BusAttachment* busAttachment)
 
     printf("\n");
 
-    status = Hae_AlertsInterfaceSetAlerts(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, alertsList, sizeof(alertsList)/sizeof(alertsList[0]));
+    status = Cdm_AlertsInterfaceSetAlerts(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, alertsList, sizeof(alertsList)/sizeof(alertsList[0]));
     if (status != AJ_OK) {
         printf("Alerts Alerts set error : %u\n", status);
     }
-    status = Hae_AlertsInterfaceGetAlerts(HAE_OBJECT_PATH_CONTROLLEE, alertsListRead);
+    status = Cdm_AlertsInterfaceGetAlerts(CDM_OBJECT_PATH_CONTROLLEE, alertsListRead);
     if (status != AJ_OK) {
         printf("Alerts Alerts get error : %u\n", status);
     } else {
@@ -1835,7 +1835,7 @@ AJ_Status InitHaeAlertsProperties(AJ_BusAttachment* busAttachment)
 }
 
 
-AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
+AJ_Status InitCdmProperties(AJ_BusAttachment* busAttachment)
 {
     AJ_Status status = AJ_OK;
     int i = 0;
@@ -1903,7 +1903,7 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     bool isCleanable = true;
     uint8_t orderPercentage = 10;
     uint8_t orderPercentageRead = 0;
-    char manufacturer[10] = "HAE";
+    char manufacturer[10] = "CDM";
     char partNumber[10] = "A1";
     char url[10] = "http://";
     char strBuf[10];
@@ -1929,310 +1929,310 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     uint16_t maxSetMinutes = 60;
     uint16_t minutesRead = 0;
 
-    status = Hae_CurrentAirQualityInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
-    status = Hae_CurrentAirQualityInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
+    status = Cdm_CurrentAirQualityInterfaceSetContaminantType(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
+    status = Cdm_CurrentAirQualityInterfaceGetContaminantType(CDM_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
     printf("Current Air Quality Contaminant Type Read : %d\n", (int)aq_contaminantTypeRead);
 
-    status = Hae_CurrentAirQualityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_currentValue);
-    status = Hae_CurrentAirQualityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_currentValueRead);
+    status = Cdm_CurrentAirQualityInterfaceSetCurrentValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_currentValue);
+    status = Cdm_CurrentAirQualityInterfaceGetCurrentValue(CDM_OBJECT_PATH_CONTROLLEE, &aq_currentValueRead);
     printf("Current Air Quality Current Value Read : %f\n", aq_currentValueRead);
 
-    status = Hae_CurrentAirQualityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_maxValue);
-    status = Hae_CurrentAirQualityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_maxValueRead);
+    status = Cdm_CurrentAirQualityInterfaceSetMaxValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_maxValue);
+    status = Cdm_CurrentAirQualityInterfaceGetMaxValue(CDM_OBJECT_PATH_CONTROLLEE, &aq_maxValueRead);
     printf("Current Air Quality Max Value Read : %f\n", aq_maxValueRead);
 
-    status = Hae_CurrentAirQualityInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_minValue);
-    status = Hae_CurrentAirQualityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, &aq_minValueRead);
+    status = Cdm_CurrentAirQualityInterfaceSetMinValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_minValue);
+    status = Cdm_CurrentAirQualityInterfaceGetMinValue(CDM_OBJECT_PATH_CONTROLLEE, &aq_minValueRead);
     printf("Current Air Quality Min Value Read : %f\n", aq_minValueRead);
 
-    status = Hae_CurrentAirQualityInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_precision);
-    status = Hae_CurrentAirQualityInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, &aq_precisionRead);
+    status = Cdm_CurrentAirQualityInterfaceSetPrecision(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_precision);
+    status = Cdm_CurrentAirQualityInterfaceGetPrecision(CDM_OBJECT_PATH_CONTROLLEE, &aq_precisionRead);
     printf("Precision Read : %f\n", aq_precisionRead);
 
-    status = Hae_CurrentAirQualityInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_updateMinTime);
-    status = Hae_CurrentAirQualityInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, &aq_updateMinTimeRead);
+    status = Cdm_CurrentAirQualityInterfaceSetUpdateMinTime(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_updateMinTime);
+    status = Cdm_CurrentAirQualityInterfaceGetUpdateMinTime(CDM_OBJECT_PATH_CONTROLLEE, &aq_updateMinTimeRead);
     printf("UpdateMinTime Read : %u\n", aq_updateMinTimeRead);
 
-    status = Hae_CurrentAirQualityLevelInterfaceSetContaminantType(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
-    status = Hae_CurrentAirQualityLevelInterfaceGetContaminantType(HAE_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
+    status = Cdm_CurrentAirQualityLevelInterfaceSetContaminantType(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aq_contaminantType);
+    status = Cdm_CurrentAirQualityLevelInterfaceGetContaminantType(CDM_OBJECT_PATH_CONTROLLEE, &aq_contaminantTypeRead);
     printf("Current Air Quality Level Contaminant Type Read : %d\n", (int)aq_contaminantTypeRead);
 
-    status = Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aql_currentLevel);
-    status = Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(HAE_OBJECT_PATH_CONTROLLEE, &aql_currentLevelRead);
+    status = Cdm_CurrentAirQualityLevelInterfaceSetCurrentLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aql_currentLevel);
+    status = Cdm_CurrentAirQualityLevelInterfaceGetCurrentLevel(CDM_OBJECT_PATH_CONTROLLEE, &aql_currentLevelRead);
     printf("Current Air Quality Level Current Value Read : %d\n", (int)aql_currentLevelRead);
 
-    status = Hae_CurrentAirQualityLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, aql_maxLevel);
-    status = Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &aql_maxLevelRead);
+    status = Cdm_CurrentAirQualityLevelInterfaceSetMaxLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, aql_maxLevel);
+    status = Cdm_CurrentAirQualityLevelInterfaceGetMaxLevel(CDM_OBJECT_PATH_CONTROLLEE, &aql_maxLevelRead);
     printf("Current Air Quality Level Max Value Read : %d\n", (int)aql_maxLevelRead);
 
-    status = Hae_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature);
-    status = Hae_CurrentTemperatureInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
+    status = Cdm_CurrentTemperatureInterfaceSetCurrentValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperature);
+    status = Cdm_CurrentTemperatureInterfaceGetCurrentValue(CDM_OBJECT_PATH_CONTROLLEE, &temperatureRead);
     printf("Current Temperature Read : %f\n", temperatureRead);
 
-    status = Hae_CurrentTemperatureInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, precision);
-    status = Hae_CurrentTemperatureInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, &precisionRead);
+    status = Cdm_CurrentTemperatureInterfaceSetPrecision(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, precision);
+    status = Cdm_CurrentTemperatureInterfaceGetPrecision(CDM_OBJECT_PATH_CONTROLLEE, &precisionRead);
     printf("Precision Read : %f\n", precisionRead);
 
-    status = Hae_CurrentTemperatureInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, updateMinTime);
-    status = Hae_CurrentTemperatureInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
+    status = Cdm_CurrentTemperatureInterfaceSetUpdateMinTime(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, updateMinTime);
+    status = Cdm_CurrentTemperatureInterfaceGetUpdateMinTime(CDM_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
     printf("UpdateMinTime Read : %u\n", updateMinTimeRead);
 
-    status = Hae_TargetTemperatureInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureMin);
-    status = Hae_TargetTemperatureInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
+    status = Cdm_TargetTemperatureInterfaceSetMinValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperatureMin);
+    status = Cdm_TargetTemperatureInterfaceGetMinValue(CDM_OBJECT_PATH_CONTROLLEE, &temperatureRead);
     printf("Target Temperature Min Read : %f\n", temperatureRead);
 
-    status = Hae_TargetTemperatureInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureMax);
-    status = Hae_TargetTemperatureInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
+    status = Cdm_TargetTemperatureInterfaceSetMaxValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperatureMax);
+    status = Cdm_TargetTemperatureInterfaceGetMaxValue(CDM_OBJECT_PATH_CONTROLLEE, &temperatureRead);
     printf("Target Temperature Max Read : %f\n", temperatureRead);
 
-    status = Hae_TargetTemperatureInterfaceSetStepValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureStep);
-    status = Hae_TargetTemperatureInterfaceGetStepValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
+    status = Cdm_TargetTemperatureInterfaceSetStepValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperatureStep);
+    status = Cdm_TargetTemperatureInterfaceGetStepValue(CDM_OBJECT_PATH_CONTROLLEE, &temperatureRead);
     printf("Target Temperature Step Read : %f\n", temperatureRead);
 
-    status = Hae_TargetTemperatureInterfaceSetTargetValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperature+1.0);
-    status = Hae_TargetTemperatureInterfaceGetTargetValue(HAE_OBJECT_PATH_CONTROLLEE, &temperatureRead);
+    status = Cdm_TargetTemperatureInterfaceSetTargetValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperature+1.0);
+    status = Cdm_TargetTemperatureInterfaceGetTargetValue(CDM_OBJECT_PATH_CONTROLLEE, &temperatureRead);
     printf("Target Temperature Read : %f\n", temperatureRead);
 
-    status = Hae_WindDirectionInterfaceSetHorizontalMax(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, horizontalMax);
-    status = Hae_WindDirectionInterfaceGetHorizontalMax(HAE_OBJECT_PATH_CONTROLLEE, &directionRead);
+    status = Cdm_WindDirectionInterfaceSetHorizontalMax(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, horizontalMax);
+    status = Cdm_WindDirectionInterfaceGetHorizontalMax(CDM_OBJECT_PATH_CONTROLLEE, &directionRead);
     printf("Horizontal Max Read : %u\n", directionRead);
 
-    status = Hae_WindDirectionInterfaceSetHorizontalDirection(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, horizontalDirection);
-    status = Hae_WindDirectionInterfaceGetHorizontalDirection(HAE_OBJECT_PATH_CONTROLLEE, &directionRead);
+    status = Cdm_WindDirectionInterfaceSetHorizontalDirection(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, horizontalDirection);
+    status = Cdm_WindDirectionInterfaceGetHorizontalDirection(CDM_OBJECT_PATH_CONTROLLEE, &directionRead);
     printf("Horizontal Direction Read : %u\n", directionRead);
 
-    status = Hae_WindDirectionInterfaceSetHorizontalAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, autoMode);
-    status = Hae_WindDirectionInterfaceGetHorizontalAutoMode(HAE_OBJECT_PATH_CONTROLLEE, &autoModeRead);
+    status = Cdm_WindDirectionInterfaceSetHorizontalAutoMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, autoMode);
+    status = Cdm_WindDirectionInterfaceGetHorizontalAutoMode(CDM_OBJECT_PATH_CONTROLLEE, &autoModeRead);
     printf("Horizontal AutoMode Read : %u\n", autoModeRead);
 
-    status = Hae_WindDirectionInterfaceSetVerticalMax(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, verticalMax);
-    status = Hae_WindDirectionInterfaceGetVerticalMax(HAE_OBJECT_PATH_CONTROLLEE, &directionRead);
+    status = Cdm_WindDirectionInterfaceSetVerticalMax(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, verticalMax);
+    status = Cdm_WindDirectionInterfaceGetVerticalMax(CDM_OBJECT_PATH_CONTROLLEE, &directionRead);
     printf("Vertical Max Read : %u\n", directionRead);
 
-    status = Hae_WindDirectionInterfaceSetVerticalDirection(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, verticalDirection);
-    status = Hae_WindDirectionInterfaceGetVerticalDirection(HAE_OBJECT_PATH_CONTROLLEE, &directionRead);
+    status = Cdm_WindDirectionInterfaceSetVerticalDirection(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, verticalDirection);
+    status = Cdm_WindDirectionInterfaceGetVerticalDirection(CDM_OBJECT_PATH_CONTROLLEE, &directionRead);
     printf("Vertical Direction Read : %u\n", directionRead);
 
-    status = Hae_WindDirectionInterfaceSetVerticalAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, autoMode);
-    status = Hae_WindDirectionInterfaceGetVerticalAutoMode(HAE_OBJECT_PATH_CONTROLLEE, &autoModeRead);
+    status = Cdm_WindDirectionInterfaceSetVerticalAutoMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, autoMode);
+    status = Cdm_WindDirectionInterfaceGetVerticalAutoMode(CDM_OBJECT_PATH_CONTROLLEE, &autoModeRead);
     printf("Vertical AutoMode Read : %u\n", autoModeRead);
 
-    status = Hae_HidInterfaceSetSupportedEvents(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, events, 3);
-    status = Hae_HidInterfaceGetSupportedEvents(HAE_OBJECT_PATH_CONTROLLEE, eventsRead);
+    status = Cdm_HidInterfaceSetSupportedEvents(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, events, 3);
+    status = Cdm_HidInterfaceGetSupportedEvents(CDM_OBJECT_PATH_CONTROLLEE, eventsRead);
     printf("Hid SupportedEvents Read\n");
     for (i = 0; i < 3; i++) {
         printf("%u %u %i %i\n", eventsRead[i].type, eventsRead[i].code, eventsRead[i].min, eventsRead[i].max);
     }
 
-    status = Hae_AirRecirculationModeInterfaceSetIsRecirculating(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_AirRecirculationModeInterfaceGetIsRecirculating(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_AirRecirculationModeInterfaceSetIsRecirculating(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_AirRecirculationModeInterfaceGetIsRecirculating(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("IsRecirculatingRead : %d\n", boolRead);
 
-    status = Hae_AudioVideoInputInterfaceSetSupportedInputSources(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, inputs, 2);
-    status = Hae_AudioVideoInputInterfaceGetSupportedInputSources(HAE_OBJECT_PATH_CONTROLLEE, inputsRead);
+    status = Cdm_AudioVideoInputInterfaceSetSupportedInputSources(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, inputs, 2);
+    status = Cdm_AudioVideoInputInterfaceGetSupportedInputSources(CDM_OBJECT_PATH_CONTROLLEE, inputsRead);
     printf("SupportedInputs Read\n");
     for (i = 0; i < 2; i++) {
         printf("%u %u %u %u %s\n", inputsRead[i].id, inputsRead[i].sourceType, inputsRead[i].detectedState,
                                    inputsRead[i].portNumber, inputsRead[i].friendlyName);
     }
 
-    status = Hae_AudioVideoInputInterfaceSetInputSourceId(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, inputSourceId);
-    status = Hae_AudioVideoInputInterfaceGetInputSourceId(HAE_OBJECT_PATH_CONTROLLEE, &inputSourceIdRead);
+    status = Cdm_AudioVideoInputInterfaceSetInputSourceId(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, inputSourceId);
+    status = Cdm_AudioVideoInputInterfaceGetInputSourceId(CDM_OBJECT_PATH_CONTROLLEE, &inputSourceIdRead);
     printf("inputSourceId Read : %u\n", inputSourceIdRead);
 
-    status = Hae_AudioVolumeInterfaceSetMaxVolume(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, volMax);
-    status = Hae_AudioVolumeInterfaceGetMaxVolume(HAE_OBJECT_PATH_CONTROLLEE, &volRead);
+    status = Cdm_AudioVolumeInterfaceSetMaxVolume(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, volMax);
+    status = Cdm_AudioVolumeInterfaceGetMaxVolume(CDM_OBJECT_PATH_CONTROLLEE, &volRead);
     printf("VolumeMax Read: %u\n", volRead);
 
-    status = Hae_AudioVolumeInterfaceSetVolume(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, vol);
-    status = Hae_AudioVolumeInterfaceGetVolume(HAE_OBJECT_PATH_CONTROLLEE, &volRead);
+    status = Cdm_AudioVolumeInterfaceSetVolume(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, vol);
+    status = Cdm_AudioVolumeInterfaceGetVolume(CDM_OBJECT_PATH_CONTROLLEE, &volRead);
     printf("Volume Read: %u\n", volRead);
 
-    status = Hae_AudioVolumeInterfaceSetMute(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_AudioVolumeInterfaceGetMute(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_AudioVolumeInterfaceSetMute(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_AudioVolumeInterfaceGetMute(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("Mute Read: %d\n", boolRead);
 
-    status = Hae_BatteryStatusInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, battery);
-    status = Hae_BatteryStatusInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &batteryRead);
+    status = Cdm_BatteryStatusInterfaceSetCurrentValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, battery);
+    status = Cdm_BatteryStatusInterfaceGetCurrentValue(CDM_OBJECT_PATH_CONTROLLEE, &batteryRead);
     printf("Battery CurrentValue Read: %u\n", batteryRead);
 
-    status = Hae_BatteryStatusInterfaceSetIsCharging(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_BatteryStatusInterfaceGetIsCharging(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_BatteryStatusInterfaceSetIsCharging(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_BatteryStatusInterfaceGetIsCharging(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("IsCharing Read: %d\n", boolRead);
 
-    status = Hae_ChannelInterfaceSetChannelId(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, channelId);
-    status = Hae_ChannelInterfaceGetChannelId(HAE_OBJECT_PATH_CONTROLLEE, channelIdBuf);
+    status = Cdm_ChannelInterfaceSetChannelId(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, channelId);
+    status = Cdm_ChannelInterfaceGetChannelId(CDM_OBJECT_PATH_CONTROLLEE, channelIdBuf);
     printf("ChannelId Read : %s\n", channelIdBuf);
 
-    status = Hae_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, numOfChannels);
-    status = Hae_ChannelInterfaceGetTotalNumberOfChannels(HAE_OBJECT_PATH_CONTROLLEE, &numOfChannelsRead);
+    status = Cdm_ChannelInterfaceSetTotalNumberOfChannels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, numOfChannels);
+    status = Cdm_ChannelInterfaceGetTotalNumberOfChannels(CDM_OBJECT_PATH_CONTROLLEE, &numOfChannelsRead);
     printf("NumOfChannels Read : %u\n", numOfChannelsRead);
 
-    status = Hae_ClimateControlModeInterfaceSetSupportedModes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedModes, 3);
-    status = Hae_ClimateControlModeInterfaceGetSupportedModes(HAE_OBJECT_PATH_CONTROLLEE, supportedModesRead);
+    status = Cdm_ClimateControlModeInterfaceSetSupportedModes(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedModes, 3);
+    status = Cdm_ClimateControlModeInterfaceGetSupportedModes(CDM_OBJECT_PATH_CONTROLLEE, supportedModesRead);
     printf("ClimateControlMode SupportedModes Read\n");
     for (i = 0; i < 3; i++) {
         printf("%u\t", supportedModesRead[i]);
     }
     printf("\n");
 
-    status = Hae_ClimateControlModeInterfaceSetMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, mode);
-    status = Hae_ClimateControlModeInterfaceGetMode(HAE_OBJECT_PATH_CONTROLLEE, &modeRead);
+    status = Cdm_ClimateControlModeInterfaceSetMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, mode);
+    status = Cdm_ClimateControlModeInterfaceGetMode(CDM_OBJECT_PATH_CONTROLLEE, &modeRead);
     printf("ClimateControlMode Mode Read : %u\n", modeRead);
 
-    status = Hae_ClimateControlModeInterfaceSetOperationalState(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, operState);
-    status = Hae_ClimateControlModeInterfaceGetOperationalState(HAE_OBJECT_PATH_CONTROLLEE, &operStateRead);
+    status = Cdm_ClimateControlModeInterfaceSetOperationalState(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, operState);
+    status = Cdm_ClimateControlModeInterfaceGetOperationalState(CDM_OBJECT_PATH_CONTROLLEE, &operStateRead);
     printf("ClimateControlMode OperationalState Read : %u\n", operStateRead);
 
-    status = Hae_CurrentPowerInterfaceSetCurrentPower(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, currentPower);
-    status = Hae_CurrentPowerInterfaceGetCurrentPower(HAE_OBJECT_PATH_CONTROLLEE, &currentPowerRead);
+    status = Cdm_CurrentPowerInterfaceSetCurrentPower(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, currentPower);
+    status = Cdm_CurrentPowerInterfaceGetCurrentPower(CDM_OBJECT_PATH_CONTROLLEE, &currentPowerRead);
     printf("CurrentPower Read : %f\n", currentPowerRead);
 
-    status = Hae_CurrentPowerInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, precision);
-    status = Hae_CurrentPowerInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, &precisionRead);
+    status = Cdm_CurrentPowerInterfaceSetPrecision(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, precision);
+    status = Cdm_CurrentPowerInterfaceGetPrecision(CDM_OBJECT_PATH_CONTROLLEE, &precisionRead);
     printf("Precision Read : %f\n", precisionRead);
 
-    status = Hae_CurrentPowerInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, updateMinTime);
-    status = Hae_CurrentPowerInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
+    status = Cdm_CurrentPowerInterfaceSetUpdateMinTime(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, updateMinTime);
+    status = Cdm_CurrentPowerInterfaceGetUpdateMinTime(CDM_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
     printf("UpdateMinTime Read : %u\n", updateMinTimeRead);
 
-    status = Hae_EnergyUsageInterfaceSetCumulativeEnergy(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cumulativeEnergy);
-    status = Hae_EnergyUsageInterfaceGetCumulativeEnergy(HAE_OBJECT_PATH_CONTROLLEE, &cumulativeEnergyRead);
+    status = Cdm_EnergyUsageInterfaceSetCumulativeEnergy(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, cumulativeEnergy);
+    status = Cdm_EnergyUsageInterfaceGetCumulativeEnergy(CDM_OBJECT_PATH_CONTROLLEE, &cumulativeEnergyRead);
     printf("CumulativeEnergy Read : %f\n", cumulativeEnergyRead);
 
-    status = Hae_EnergyUsageInterfaceSetPrecision(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, precision);
-    status = Hae_EnergyUsageInterfaceGetPrecision(HAE_OBJECT_PATH_CONTROLLEE, &precisionRead);
+    status = Cdm_EnergyUsageInterfaceSetPrecision(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, precision);
+    status = Cdm_EnergyUsageInterfaceGetPrecision(CDM_OBJECT_PATH_CONTROLLEE, &precisionRead);
     printf("Precision Read : %f\n", precisionRead);
 
-    status = Hae_EnergyUsageInterfaceSetUpdateMinTime(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, updateMinTime);
-    status = Hae_EnergyUsageInterfaceGetUpdateMinTime(HAE_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
+    status = Cdm_EnergyUsageInterfaceSetUpdateMinTime(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, updateMinTime);
+    status = Cdm_EnergyUsageInterfaceGetUpdateMinTime(CDM_OBJECT_PATH_CONTROLLEE, &updateMinTimeRead);
     printf("UpdateMinTime Read : %u\n", updateMinTimeRead);
 
-    status = Hae_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxFanSpeedLevel);
-    status = Hae_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(HAE_OBJECT_PATH_CONTROLLEE, &levelRead);
+    status = Cdm_FanSpeedLevelInterfaceSetMaxFanSpeedLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxFanSpeedLevel);
+    status = Cdm_FanSpeedLevelInterfaceGetMaxFanSpeedLevel(CDM_OBJECT_PATH_CONTROLLEE, &levelRead);
     printf("MaxFanSpeedLevel Read : %u\n", levelRead);
 
-    status = Hae_FanSpeedLevelInterfaceSetFanSpeedLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, fanSpeedLevel);
-    status = Hae_FanSpeedLevelInterfaceGetFanSpeedLevel(HAE_OBJECT_PATH_CONTROLLEE, &levelRead);
+    status = Cdm_FanSpeedLevelInterfaceSetFanSpeedLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, fanSpeedLevel);
+    status = Cdm_FanSpeedLevelInterfaceGetFanSpeedLevel(CDM_OBJECT_PATH_CONTROLLEE, &levelRead);
     printf("FanSpeedLevel Read : %u\n", levelRead);
 
-    status = Hae_FanSpeedLevelInterfaceSetAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, autoMode);
-    status = Hae_FanSpeedLevelInterfaceGetAutoMode(HAE_OBJECT_PATH_CONTROLLEE, &autoModeRead);
+    status = Cdm_FanSpeedLevelInterfaceSetAutoMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, autoMode);
+    status = Cdm_FanSpeedLevelInterfaceGetAutoMode(CDM_OBJECT_PATH_CONTROLLEE, &autoModeRead);
     printf("AutoMode Read : %u\n", autoModeRead);
 
-    status = Hae_OnOffStatusInterfaceSetOnOff(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_OnOffStatusInterfaceGetOnOff(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_OnOffStatusInterfaceSetOnOff(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_OnOffStatusInterfaceGetOnOff(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
 
-    status = Hae_RepeatModeInterfaceSetRepeatMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_RepeatModeInterfaceGetRepeatMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_RepeatModeInterfaceSetRepeatMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_RepeatModeInterfaceGetRepeatMode(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("RepeatMode Read : %d\n", boolRead);
 
-    status = Hae_ResourceSavingInterfaceSetResourceSavingMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_ResourceSavingInterfaceGetResourceSavingMode(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_ResourceSavingInterfaceSetResourceSavingMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_ResourceSavingInterfaceGetResourceSavingMode(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("ResourceSavingMode Read : %d\n", boolRead);
 
-    status = Hae_RobotCleaningCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, 4);
-    status = Hae_RobotCleaningCyclePhaseInterfaceGetSupportedCyclePhases(HAE_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
+    status = Cdm_RobotCleaningCyclePhaseInterfaceSetSupportedCyclePhases(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhases, 4);
+    status = Cdm_RobotCleaningCyclePhaseInterfaceGetSupportedCyclePhases(CDM_OBJECT_PATH_CONTROLLEE, supportedCyclePhasesRead);
     printf("RobotCleaningCyclePhase SupportedCyclePhases Read\n");
     for (i = 0; i < 4; i++) {
         printf("%u\t", supportedCyclePhasesRead[i]);
     }
     printf("\n");
 
-    status = Hae_RobotCleaningCyclePhaseInterfaceSetCyclePhase(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, cyclePhase);
-    status = Hae_RobotCleaningCyclePhaseInterfaceGetCyclePhase(HAE_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
+    status = Cdm_RobotCleaningCyclePhaseInterfaceSetCyclePhase(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, cyclePhase);
+    status = Cdm_RobotCleaningCyclePhaseInterfaceGetCyclePhase(CDM_OBJECT_PATH_CONTROLLEE, &cyclePhaseRead);
     printf("RobotCleaningCyclePhase CyclePhase Read : %u\n", cyclePhaseRead);
 
-    status = Hae_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxMoisture);
-    status = Hae_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, &moistureRead);
+    status = Cdm_MoistureOutputLevelInterfaceSetMaxMoistureOutputLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxMoisture);
+    status = Cdm_MoistureOutputLevelInterfaceGetMaxMoistureOutputLevel(CDM_OBJECT_PATH_CONTROLLEE, &moistureRead);
     printf("MaxMoistureOutputLevel Read: %u\n", moistureRead);
 
-    status = Hae_MoistureOutputLevelInterfaceSetMoistureOutputLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, moisture);
-    status = Hae_MoistureOutputLevelInterfaceGetMoistureOutputLevel(HAE_OBJECT_PATH_CONTROLLEE, &moistureRead);
+    status = Cdm_MoistureOutputLevelInterfaceSetMoistureOutputLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, moisture);
+    status = Cdm_MoistureOutputLevelInterfaceGetMoistureOutputLevel(CDM_OBJECT_PATH_CONTROLLEE, &moistureRead);
     printf("MoistureOutputLevel Read: %u\n", moistureRead);
 
-    status = Hae_MoistureOutputLevelInterfaceSetAutoMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, true);
-    status = Hae_MoistureOutputLevelInterfaceGetAutoMode(HAE_OBJECT_PATH_CONTROLLEE, &autoModeRead);
+    status = Cdm_MoistureOutputLevelInterfaceSetAutoMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_MoistureOutputLevelInterfaceGetAutoMode(CDM_OBJECT_PATH_CONTROLLEE, &autoModeRead);
     printf("AutoMode Read: %u\n", autoModeRead);
 
-    status = Hae_FilterStatusInterfaceSetExpectedLifeInDays(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, expectedLife);
-    status = Hae_FilterStatusInterfaceGetExpectedLifeInDays(HAE_OBJECT_PATH_CONTROLLEE, &expectedLifeRead);
+    status = Cdm_FilterStatusInterfaceSetExpectedLifeInDays(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, expectedLife);
+    status = Cdm_FilterStatusInterfaceGetExpectedLifeInDays(CDM_OBJECT_PATH_CONTROLLEE, &expectedLifeRead);
     printf("ExpectedLifeInDays Read: %u\n", expectedLifeRead);
 
-    status = Hae_FilterStatusInterfaceSetIsCleanable(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, isCleanable);
-    status = Hae_FilterStatusInterfaceGetIsCleanable(HAE_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_FilterStatusInterfaceSetIsCleanable(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, isCleanable);
+    status = Cdm_FilterStatusInterfaceGetIsCleanable(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("IsCleanable Read: %d\n", boolRead);
 
-    status = Hae_FilterStatusInterfaceSetOrderPercentage(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, orderPercentage);
-    status = Hae_FilterStatusInterfaceGetOrderPercentage(HAE_OBJECT_PATH_CONTROLLEE, &orderPercentageRead);
+    status = Cdm_FilterStatusInterfaceSetOrderPercentage(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, orderPercentage);
+    status = Cdm_FilterStatusInterfaceGetOrderPercentage(CDM_OBJECT_PATH_CONTROLLEE, &orderPercentageRead);
     printf("OrderPercentage Read : %u\n", orderPercentageRead);
 
-    status = Hae_FilterStatusInterfaceSetManufacturer(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, manufacturer);
-    status = Hae_FilterStatusInterfaceGetManufacturer(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    status = Cdm_FilterStatusInterfaceSetManufacturer(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, manufacturer);
+    status = Cdm_FilterStatusInterfaceGetManufacturer(CDM_OBJECT_PATH_CONTROLLEE, strBuf);
     printf("Manufacturer Read : %s\n", strBuf);
 
-    status = Hae_FilterStatusInterfaceSetPartNumber(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, partNumber);
-    status = Hae_FilterStatusInterfaceGetPartNumber(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    status = Cdm_FilterStatusInterfaceSetPartNumber(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, partNumber);
+    status = Cdm_FilterStatusInterfaceGetPartNumber(CDM_OBJECT_PATH_CONTROLLEE, strBuf);
     printf("PartNumber Read : %s\n", strBuf);
 
-    status = Hae_FilterStatusInterfaceSetUrl(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, url);
-    status = Hae_FilterStatusInterfaceGetUrl(HAE_OBJECT_PATH_CONTROLLEE, strBuf);
+    status = Cdm_FilterStatusInterfaceSetUrl(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, url);
+    status = Cdm_FilterStatusInterfaceGetUrl(CDM_OBJECT_PATH_CONTROLLEE, strBuf);
     printf("Url Read : %s\n", strBuf);
 
-    status = Hae_FilterStatusInterfaceSetLifeRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, lifeRemaining);
-    status = Hae_FilterStatusInterfaceGetLifeRemaining(HAE_OBJECT_PATH_CONTROLLEE, &lifeRemainingRead);
+    status = Cdm_FilterStatusInterfaceSetLifeRemaining(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, lifeRemaining);
+    status = Cdm_FilterStatusInterfaceGetLifeRemaining(CDM_OBJECT_PATH_CONTROLLEE, &lifeRemainingRead);
     printf("LifeRemaining Read : %u\n", lifeRemainingRead);
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeClosedStatusProperties(busAttachment);
+        status = InitCdmClosedStatusProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeCycleControlProperties(busAttachment);
+        status = InitCdmCycleControlProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeDishWashingCyclePhaseProperties(busAttachment);
+        status = InitCdmDishWashingCyclePhaseProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeLaundryCyclePhaseProperties(busAttachment);
+        status = InitCdmLaundryCyclePhaseProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeOvenCyclePhaseProperties(busAttachment);
+        status = InitCdmOvenCyclePhaseProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeHeatingZoneProperties(busAttachment);
+        status = InitCdmHeatingZoneProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeRapidModeProperties(busAttachment);
+        status = InitCdmRapidModeProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeRemoteControllabilityProperties(busAttachment);
+        status = InitCdmRemoteControllabilityProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeSoilLevelProperties(busAttachment);
+        status = InitCdmSoilLevelProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeSpinSpeedLevelProperties(busAttachment);
+        status = InitCdmSpinSpeedLevelProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeWaterLevelProperties(busAttachment);
+        status = InitCdmWaterLevelProperties(busAttachment);
     }
 
     /* if (status == AJ_OK) */ {
-        status = InitHaeTimerProperties(busAttachment);
+        status = InitCdmTimerProperties(busAttachment);
     }
 
-    status = InitHaeAlertsProperties(busAttachment);
+    status = InitCdmAlertsProperties(busAttachment);
 
     // Init CurrentHumidity
     {
@@ -2240,12 +2240,12 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         uint8_t maxValue = 90;
         uint8_t humidityRead = 0;
 
-        status = Hae_CurrentHumidityInterfaceSetCurrentValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidity);
-        status = Hae_CurrentHumidityInterfaceGetCurrentValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_CurrentHumidityInterfaceSetCurrentValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, humidity);
+        status = Cdm_CurrentHumidityInterfaceGetCurrentValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("Current Humidity Read : %d\n", (int)humidityRead);
 
-        status = Hae_CurrentHumidityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxValue);
-        status = Hae_CurrentHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_CurrentHumidityInterfaceSetMaxValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxValue);
+        status = Cdm_CurrentHumidityInterfaceGetMaxValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("MaxValue Read : %d\n", (int)humidityRead);
     }
 
@@ -2260,24 +2260,24 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         const uint8_t selectableHumidityLevels[] = { 10, 20, 30, 40, 50, 60, 70 };
         uint8_t selectableHumidityLevelsRead[7];
 
-        status = Hae_TargetHumidityInterfaceSetMinValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityMin);
-        status = Hae_TargetHumidityInterfaceGetMinValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_TargetHumidityInterfaceSetMinValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, humidityMin);
+        status = Cdm_TargetHumidityInterfaceGetMinValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("Target Humidity Min Read : %d\n", (int)humidityRead);
 
-        status = Hae_TargetHumidityInterfaceSetMaxValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityMax);
-        status = Hae_TargetHumidityInterfaceGetMaxValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_TargetHumidityInterfaceSetMaxValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, humidityMax);
+        status = Cdm_TargetHumidityInterfaceGetMaxValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("Target Humidity Max Read : %d\n", (int)humidityRead);
 
-        status = Hae_TargetHumidityInterfaceSetStepValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidityStep);
-        status = Hae_TargetHumidityInterfaceGetStepValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_TargetHumidityInterfaceSetStepValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, humidityStep);
+        status = Cdm_TargetHumidityInterfaceGetStepValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("Target Humidity Step Read : %d\n", (int)humidityRead);
 
-        status = Hae_TargetHumidityInterfaceSetTargetValue(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, humidity);
-        status = Hae_TargetHumidityInterfaceGetTargetValue(HAE_OBJECT_PATH_CONTROLLEE, &humidityRead);
+        status = Cdm_TargetHumidityInterfaceSetTargetValue(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, humidity);
+        status = Cdm_TargetHumidityInterfaceGetTargetValue(CDM_OBJECT_PATH_CONTROLLEE, &humidityRead);
         printf("Target Humidity Read : %d\n", (int)humidityRead);
 
-        status = Hae_TargetHumidityInterfaceSetSelectableHumidityLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableHumidityLevels, sizeof(selectableHumidityLevels) / sizeof(selectableHumidityLevels[0]));
-        status = Hae_TargetHumidityInterfaceGetSelectableHumidityLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableHumidityLevelsRead);
+        status = Cdm_TargetHumidityInterfaceSetSelectableHumidityLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, selectableHumidityLevels, sizeof(selectableHumidityLevels) / sizeof(selectableHumidityLevels[0]));
+        status = Cdm_TargetHumidityInterfaceGetSelectableHumidityLevels(CDM_OBJECT_PATH_CONTROLLEE, selectableHumidityLevelsRead);
         printf("Target Humidity Read : { ");
         for (i = 0; i < 7; i++) {
             printf("%d ", (int)selectableHumidityLevelsRead[i]);
@@ -2294,16 +2294,16 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         const uint8_t selectableTemperatureLevels[] = { 10, 20, 30, 40, 50, 60, 70 };
         uint8_t selectableTemperatureLevelsRead[7];
 
-        status = Hae_TargetTemperatureLevelInterfaceSetMaxLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureLevelMax);
-        status = Hae_TargetTemperatureLevelInterfaceGetMaxLevel(HAE_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
+        status = Cdm_TargetTemperatureLevelInterfaceSetMaxLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperatureLevelMax);
+        status = Cdm_TargetTemperatureLevelInterfaceGetMaxLevel(CDM_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
         printf("Target TemperatureLevel Max Read : %d\n", (int)temperatureLevelRead);
 
-        status = Hae_TargetTemperatureLevelInterfaceSetTargetLevel(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, temperatureLevel);
-        status = Hae_TargetTemperatureLevelInterfaceGetTargetLevel(HAE_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
+        status = Cdm_TargetTemperatureLevelInterfaceSetTargetLevel(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, temperatureLevel);
+        status = Cdm_TargetTemperatureLevelInterfaceGetTargetLevel(CDM_OBJECT_PATH_CONTROLLEE, &temperatureLevelRead);
         printf("Target TemperatureLevel Read : %d\n", (int)temperatureLevelRead);
 
-        status = Hae_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevels, sizeof(selectableTemperatureLevels) / sizeof(selectableTemperatureLevels[0]));
-        status = Hae_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(HAE_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevelsRead);
+        status = Cdm_TargetTemperatureLevelInterfaceSetSelectableTemperatureLevels(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevels, sizeof(selectableTemperatureLevels) / sizeof(selectableTemperatureLevels[0]));
+        status = Cdm_TargetTemperatureLevelInterfaceGetSelectableTemperatureLevels(CDM_OBJECT_PATH_CONTROLLEE, selectableTemperatureLevelsRead);
         printf("Target TemperatureLevel Read : { ");
         for (i = 0; i < 7; i++) {
             printf("%d ", (int)selectableTemperatureLevelsRead[i]);
@@ -2318,12 +2318,12 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
         const uint16_t supportedModes[3] = { 0, 1, 2 };
         uint16_t supportedModesRead[3];
 
-        status = Hae_HvacFanModeInterfaceSetMode(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, mode);
-        status = Hae_HvacFanModeInterfaceGetMode(HAE_OBJECT_PATH_CONTROLLEE, &modeRead);
+        status = Cdm_HvacFanModeInterfaceSetMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, mode);
+        status = Cdm_HvacFanModeInterfaceGetMode(CDM_OBJECT_PATH_CONTROLLEE, &modeRead);
         printf("HvacFanMode Mode Read : %u\n", modeRead);
 
-        status = Hae_HvacFanModeInterfaceSetSupportedModes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, supportedModes, 3);
-        status = Hae_HvacFanModeInterfaceGetSupportedModes(HAE_OBJECT_PATH_CONTROLLEE, supportedModesRead);
+        status = Cdm_HvacFanModeInterfaceSetSupportedModes(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, supportedModes, 3);
+        status = Cdm_HvacFanModeInterfaceGetSupportedModes(CDM_OBJECT_PATH_CONTROLLEE, supportedModesRead);
         printf("HvacFanMode SupportedModes Read\n");
         for (i = 0; i < 3; i++) {
             printf("%u\t", supportedModesRead[i]);
@@ -2332,23 +2332,23 @@ AJ_Status InitHaeProperties(AJ_BusAttachment* busAttachment)
     }
 
     {
-        PlugInInfo units[2] = { { HAE_OBJECT_PATH_CONTROLLEE, 1, false }, { HAE_OBJECT_PATH_CONTROLLEE, 2, true } };
+        PlugInInfo units[2] = { { CDM_OBJECT_PATH_CONTROLLEE, 1, false }, { CDM_OBJECT_PATH_CONTROLLEE, 2, true } };
         PlugInInfo unitsRead[2];
 
-        status = Hae_PlugInUnitsInterfaceSetPlugInUnits(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, units, 2);
-        status = Hae_PlugInUnitsInterfaceGetPlugInUnits(HAE_OBJECT_PATH_CONTROLLEE, unitsRead);
+        status = Cdm_PlugInUnitsInterfaceSetPlugInUnits(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, units, 2);
+        status = Cdm_PlugInUnitsInterfaceGetPlugInUnits(CDM_OBJECT_PATH_CONTROLLEE, unitsRead);
         printf("PlugInUnits Read \n");
         for (i = 0; i < 2; i++) {
             printf("%s, %d, %s\n", unitsRead[i].objectPath, unitsRead[i].deviceId, unitsRead[i].pluggedIn ? "true" : "false");
         }
     }
 
-    status = Hae_RapidModeTimedInterfaceSetMaxSetMinutes(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, maxSetMinutes);
-    status = Hae_RapidModeTimedInterfaceGetMaxSetMinutes(HAE_OBJECT_PATH_CONTROLLEE, &minutesRead);
+    status = Cdm_RapidModeTimedInterfaceSetMaxSetMinutes(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, maxSetMinutes);
+    status = Cdm_RapidModeTimedInterfaceGetMaxSetMinutes(CDM_OBJECT_PATH_CONTROLLEE, &minutesRead);
     printf("MaxSetMinutes Read: %u\n", minutesRead);
 
-    status = Hae_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(busAttachment, HAE_OBJECT_PATH_CONTROLLEE, rapidModeMinutesRemaining);
-    status = Hae_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(HAE_OBJECT_PATH_CONTROLLEE, &minutesRead);
+    status = Cdm_RapidModeTimedInterfaceSetRapidModeMinutesRemaining(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, rapidModeMinutesRemaining);
+    status = Cdm_RapidModeTimedInterfaceGetRapidModeMinutesRemaining(CDM_OBJECT_PATH_CONTROLLEE, &minutesRead);
     printf("RapidModeMinutesRemaining Read: %u\n", minutesRead);
 
     return status;
@@ -2419,7 +2419,7 @@ int AJ_Main(void)
         goto Exit;
     }
 
-    status = Hae_Init();
+    status = Cdm_Init();
 
 
     currentAirQualityListener.OnGetContaminantType = NULL;
@@ -2434,7 +2434,7 @@ int AJ_Main(void)
     //currentAirQualityListener.OnGetPrecision = CurrentAirQuality_OnGetPrecision;
     currentAirQualityListener.OnGetUpdateMinTime = NULL;
     //currentAirQualityListener.OnGetUpdateMinTime = CurrentAirQuality_OnGetUpdateMinTime;
-    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityListener);
+    status = Cdm_CreateInterface(CURRENT_AIR_QUALITY_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &currentAirQualityListener);
 
     currentAirQualityLevelListener.OnGetContaminantType = NULL;
     //currentAirQualityLevelListener.OnGetContaminantType = CurrentAirQualityLevel_OnGetContaminantType;
@@ -2442,7 +2442,7 @@ int AJ_Main(void)
     //currentAirQualityLevelListener.OnGetCurrentLevel = CurrentAirQualityLevel_OnGetCurrentLevel;
     currentAirQualityLevelListener.OnGetMaxLevel = NULL;
     //currentAirQualityLevelListener.OnGetMaxLevel = CurrentAirQualityLevel_OnGetMaxLevel;
-    status = Hae_CreateInterface(CURRENT_AIR_QUALITY_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentAirQualityLevelListener);
+    status = Cdm_CreateInterface(CURRENT_AIR_QUALITY_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &currentAirQualityLevelListener);
 
     currentTemperatureListener.OnGetCurrentValue = NULL;
     //currentTemperatureListener.OnGetCurrentValue = OnGetCurrentValue;
@@ -2450,7 +2450,7 @@ int AJ_Main(void)
     //currentTemperatureListener.OnGetPrecision = OnGetPrecision;
     currentTemperatureListener.OnGetUpdateMinTime = NULL;
     //currentTemperatureListener.OnGetUpdateMinTime = OnGetUpdateMinTime;
-    status = Hae_CreateInterface(CURRENT_TEMPERATURE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentTemperatureListener);
+    status = Cdm_CreateInterface(CURRENT_TEMPERATURE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &currentTemperatureListener);
 
     targetTemperatureListener.OnGetTargetValue = NULL;
     //targetTemperatureListener.OnGetTargetValue = OnGetTargetValue;
@@ -2461,7 +2461,7 @@ int AJ_Main(void)
     //targetTemperatureListener.OnGetMaxValue = OnGetMaxValue;
     targetTemperatureListener.OnGetStepValue = NULL;
     //targetTemperatureListener.OnGetStepValue = OnGetStepValue;
-    status = Hae_CreateInterface(TARGET_TEMPERATURE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetTemperatureListener);
+    status = Cdm_CreateInterface(TARGET_TEMPERATURE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &targetTemperatureListener);
 
     windDirectionListener.OnGetHorizontalDirection = NULL;
     //windDirectionListener.OnGetHorizontalDirection = OnGetHorizontalDirection;
@@ -2479,24 +2479,24 @@ int AJ_Main(void)
     windDirectionListener.OnGetVerticalAutoMode = NULL;
     //windDirectionListener.OnGetVerticalAutoMode = OnGetVerticalAutoMode;
     windDirectionListener.OnSetVerticalAutoMode = OnSetVerticalAutoMode;
-    status = Hae_CreateInterface(WIND_DIRECTION_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &windDirectionListener);
+    status = Cdm_CreateInterface(WIND_DIRECTION_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &windDirectionListener);
 
     hidListener.OnGetSupportedEvents = NULL;
     //hidListener.OnGetSupportedEvents = OnGetSupportedEvents;
     hidListener.OnInjectEvents = OnInjectEvents;
-    status = Hae_CreateInterface(HID_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &hidListener);
+    status = Cdm_CreateInterface(HID_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &hidListener);
 
     airRecirculationModeListener.OnGetIsRecirculating = NULL;
     //airRecirculationModeListener.OnGetIsRecirculating = OnGetIsRecirculating;
     airRecirculationModeListener.OnSetIsRecirculating = OnSetIsRecirculating;
-    status = Hae_CreateInterface(AIR_RECIRCULATION_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &airRecirculationModeListener);
+    status = Cdm_CreateInterface(AIR_RECIRCULATION_MODE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &airRecirculationModeListener);
 
     audioVideoInputListener.OnGetInputSourceId = NULL;
     //audioVideoInputListener.OnGetInputSourceId = OnGetInputSourceId;
     audioVideoInputListener.OnGetSupportedInputSources = NULL;
     //audioVideoInputListener.OnGetSupportedInputSources = OnGetSupportedInputSources;
     audioVideoInputListener.OnSetInputSourceId = OnSetInputSourceId;
-    status = Hae_CreateInterface(AUDIO_VIDEO_INPUT_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &audioVideoInputListener);
+    status = Cdm_CreateInterface(AUDIO_VIDEO_INPUT_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &audioVideoInputListener);
 
     audioVolumeListener.OnGetVolume = NULL;
     //audioVolumeListener.OnGetVolume = OnGetVolume;
@@ -2506,13 +2506,13 @@ int AJ_Main(void)
     audioVolumeListener.OnGetMute = NULL;
     //audioVolumeListener.OnGetMute = OnGetMute;
     audioVolumeListener.OnSetMute = OnSetMute;
-    status = Hae_CreateInterface(AUDIO_VOLUME_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &audioVolumeListener);
+    status = Cdm_CreateInterface(AUDIO_VOLUME_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &audioVolumeListener);
 
     batteryStatusListener.OnGetCurrentValue = NULL;
     //batteryStatusListener.OnGetCurrentValue = OnGetCurrentValue2;
     batteryStatusListener.OnGetIsCharging = NULL;
     //batteryStatusListener.OnGetIsCharging = OnGetIsCharging;
-    status = Hae_CreateInterface(BATTERY_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &batteryStatusListener);
+    status = Cdm_CreateInterface(BATTERY_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &batteryStatusListener);
 
     channelListener.OnGetChannelId = NULL;
     //channelListener.OnGetChannelId = OnGetChannelId;
@@ -2520,7 +2520,7 @@ int AJ_Main(void)
     channelListener.OnGetTotalNumberOfChannels = NULL;
     //channelListener.OnGetTotalNumberOfChannels = OnGetTotalNumberOfChannels;
     channelListener.OnGetChannelList = OnGetChannelList;
-    status = Hae_CreateInterface(CHANNEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &channelListener);
+    status = Cdm_CreateInterface(CHANNEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &channelListener);
 
     climateControlModeListener.OnGetMode = NULL;
     //climateControlModeListener.OnGetMode = OnGetMode;
@@ -2529,10 +2529,10 @@ int AJ_Main(void)
     //climateControlModeListener.OnGetSupportedModes = OnGetSupportedModes;
     climateControlModeListener.OnGetOperationalState = NULL;
     //climateControlModeListener.OnGetOperationalState = OnGetOperationalState;
-    status = Hae_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
+    status = Cdm_CreateInterface(CLIMATE_CONTROL_MODE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &climateControlModeListener);
 
     closedStatusListener.OnGetIsClosed = NULL;
-    status = Hae_CreateInterface(CLOSED_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &closedStatusListener);
+    status = Cdm_CreateInterface(CLOSED_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &closedStatusListener);
 
     currentPowerListener.OnGetCurrentPower = NULL;
     //currentPowerListener.OnGetCurrentPower = OnGetCurrentPower;
@@ -2540,29 +2540,29 @@ int AJ_Main(void)
     //currentPowerListener.OnGetPrecision = OnGetPrecision2;
     currentPowerListener.OnGetUpdateMinTime = NULL;
     //currentPowerListener.OnGetUpdateMinTime = OnGetUpdateMinTime2;
-    status = Hae_CreateInterface(CURRENT_POWER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentPowerListener);
+    status = Cdm_CreateInterface(CURRENT_POWER_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &currentPowerListener);
 
     cycleControlListener.OnGetOperationalState = NULL;
     cycleControlListener.OnGetSupportedOperationalStates = NULL;
     cycleControlListener.OnGetSupportedOperationalCommands = NULL;
     //cycleControlListener.OnExecuteOperationalCommand = NULL;
     cycleControlListener.OnExecuteOperationalCommand = OnExecuteOperationalCommand;
-    status = Hae_CreateInterface(CYCLE_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &cycleControlListener);
+    status = Cdm_CreateInterface(CYCLE_CONTROL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &cycleControlListener);
 
     dishWashingCyclePhaseListener.OnGetCyclePhase = NULL;
     dishWashingCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     dishWashingCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
-    status = Hae_CreateInterface(DISH_WASHING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &dishWashingCyclePhaseListener);
+    status = Cdm_CreateInterface(DISH_WASHING_CYCLE_PHASE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &dishWashingCyclePhaseListener);
 
     laundryCyclePhaseListener.OnGetCyclePhase = NULL;
     laundryCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     laundryCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
-    status = Hae_CreateInterface(LAUNDRY_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &laundryCyclePhaseListener);
+    status = Cdm_CreateInterface(LAUNDRY_CYCLE_PHASE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &laundryCyclePhaseListener);
 
     ovenCyclePhaseListener.OnGetCyclePhase = NULL;
     ovenCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     ovenCyclePhaseListener.OnGetVendorPhasesDescription = NULL;
-    status = Hae_CreateInterface(OVEN_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &ovenCyclePhaseListener);
+    status = Cdm_CreateInterface(OVEN_CYCLE_PHASE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &ovenCyclePhaseListener);
 
     energyUsageListener.OnGetCumulativeEnergy = NULL;
     //energyUsageListener.OnGetCumulativeEnergy = OnGetCumulativeEnergy;
@@ -2571,7 +2571,7 @@ int AJ_Main(void)
     energyUsageListener.OnGetUpdateMinTime = NULL;
     //energyUsageListener.OnGetUpdateMinTime = OnGetUpdateMinTime3;
     energyUsageListener.OnResetCumulativeEnergy = OnResetCumulativeEnergy;
-    status = Hae_CreateInterface(ENERGY_USAGE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &energyUsageListener);
+    status = Cdm_CreateInterface(ENERGY_USAGE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &energyUsageListener);
 
     fanSpeedLevelListener.OnGetFanSpeedLevel = NULL;
     //fanSpeedLevelListener.OnGetFanSpeedLevel = OnGetFanSpeedLevel;
@@ -2581,64 +2581,64 @@ int AJ_Main(void)
     fanSpeedLevelListener.OnGetAutoMode = NULL;
     //fanSpeedLevelListener.OnGetAutoMode = OnGetAutoMode;
     fanSpeedLevelListener.OnSetAutoMode = OnSetAutoMode;
-    status = Hae_CreateInterface(FAN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &fanSpeedLevelListener);
+    status = Cdm_CreateInterface(FAN_SPEED_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &fanSpeedLevelListener);
 
     offControlListener.OnSwitchOff = OnSwitchOff;
-    status = Hae_CreateInterface(OFF_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &offControlListener);
+    status = Cdm_CreateInterface(OFF_CONTROL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &offControlListener);
 
     onControlListener.OnSwitchOn = OnSwitchOn;
-    status = Hae_CreateInterface(ON_CONTROL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onControlListener);
+    status = Cdm_CreateInterface(ON_CONTROL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &onControlListener);
 
     onOffStatusListener.OnGetOnOff = NULL;
     //onOffStatusListener.OnGetOnOff = OnGetOnOff;
-    status = Hae_CreateInterface(ON_OFF_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
+    status = Cdm_CreateInterface(ON_OFF_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 
     rapidModeListener.OnGetRapidMode = NULL;
     //rapidModeListener.OnGetRapidMode = OnGetRapidMode;
     rapidModeListener.OnSetRapidMode = OnSetRapidMode;
-    status = Hae_CreateInterface(RAPID_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeListener);
+    status = Cdm_CreateInterface(RAPID_MODE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &rapidModeListener);
 
     remoteControllabilityListener.OnGetIsControllable = NULL;
-    status = Hae_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
+    status = Cdm_CreateInterface(REMOTE_CONTROLLABILITY_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &remoteControllabilityListener);
 
     repeatModeListener.OnGetRepeatMode = NULL;
     //repeatModeListener.OnGetRepeatMode = OnGetRepeatMode;
     repeatModeListener.OnSetRepeatMode = OnSetRepeatMode;
-    status = Hae_CreateInterface(REPEAT_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &repeatModeListener);
+    status = Cdm_CreateInterface(REPEAT_MODE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &repeatModeListener);
 
     resourceSavingListener.OnGetResourceSavingMode = NULL;
     //resourceSavingListener.OnGetResourceSavingMode = OnGetResourceSavingMode;
     resourceSavingListener.OnSetResourceSavingMode = OnSetResourceSavingMode;
-    status = Hae_CreateInterface(RESOURCE_SAVING_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &resourceSavingListener);
+    status = Cdm_CreateInterface(RESOURCE_SAVING_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &resourceSavingListener);
 
     robotCleaningCyclePhaseListener.OnGetCyclePhase = NULL;
     //robotCleaningCyclePhaseListener.OnGetCyclePhase = OnGetCyclePhase;
     robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = NULL;
     //robotCleaningCyclePhaseListener.OnGetSupportedCyclePhases = OnGetSupportedCyclePhases;
     robotCleaningCyclePhaseListener.OnGetVendorPhasesDescription = OnGetVendorPhasesDescription;
-    status = Hae_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
+    status = Cdm_CreateInterface(ROBOT_CLEANING_CYCLE_PHASE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &robotCleaningCyclePhaseListener);
 
     heatingZoneListener.OnGetNumberOfHeatingZones = NULL;
     heatingZoneListener.OnGetMaxHeatingLevels = NULL;
     heatingZoneListener.OnGetHeatingLevels = NULL;
-    status = Hae_CreateInterface(HEATING_ZONE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &heatingZoneListener);
+    status = Cdm_CreateInterface(HEATING_ZONE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &heatingZoneListener);
 
     soilLevelListener.OnGetMaxLevel = NULL;
     soilLevelListener.OnGetTargetLevel = NULL;
     soilLevelListener.OnSetTargetLevel = OnSetSoilLevelTargetLevel;
     soilLevelListener.OnGetSelectableLevels = NULL;
-    status = Hae_CreateInterface(SOIL_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &soilLevelListener);
+    status = Cdm_CreateInterface(SOIL_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &soilLevelListener);
 
     spinSpeedLevelListener.OnGetMaxLevel = NULL;
     spinSpeedLevelListener.OnGetTargetLevel = NULL;
     spinSpeedLevelListener.OnSetTargetLevel = OnSetSpinSpeedLevelTargetLevel;
     spinSpeedLevelListener.OnGetSelectableLevels = NULL;
-    status = Hae_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
+    status = Cdm_CreateInterface(SPIN_SPEED_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &spinSpeedLevelListener);
 
     waterLevelListener.OnGetCurrentLevel = NULL;
     waterLevelListener.OnGetSupplySource = NULL;
     waterLevelListener.OnGetMaxLevel = NULL;
-    status = Hae_CreateInterface(WATER_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
+    status = Cdm_CreateInterface(WATER_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &waterLevelListener);
 
     timerListener.OnGetReferenceTimer = NULL;
     timerListener.OnGetTargetTimeToStart = NULL;
@@ -2648,7 +2648,7 @@ int AJ_Main(void)
     timerListener.OnGetTargetDuration = NULL;
     timerListener.OnSetTargetTimeToStart = NULL;
     timerListener.OnSetTargetTimeToStop = NULL;
-    status = Hae_CreateInterface(TIMER_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &timerListener);
+    status = Cdm_CreateInterface(TIMER_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &timerListener);
 
     moistureOutputLevelListener.OnGetMoistureOutputLevel = NULL;
     //moistureOutputLevelListener.OnGetMoistureOutputLevel = OnGetMoistureOutputLevel;
@@ -2658,7 +2658,7 @@ int AJ_Main(void)
     moistureOutputLevelListener.OnGetAutoMode = NULL;
     //moistureOutputLevelListener.OnGetAutoMode = OnGetAutoMode;
     moistureOutputLevelListener.OnSetAutoMode = OnSetAutoMode;
-    status = Hae_CreateInterface(MOISTURE_OUTPUT_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &moistureOutputLevelListener);
+    status = Cdm_CreateInterface(MOISTURE_OUTPUT_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &moistureOutputLevelListener);
 
     filterStatusListener.OnGetExpectedLifeInDays = NULL;
     //filterStatusListener.OnGetExpectedLifeInDays = OnGetExpectedLifeInDays;
@@ -2674,11 +2674,11 @@ int AJ_Main(void)
     //filterStatusListener.OnGetUrl = OnGetUrl;
     filterStatusListener.OnGetLifeRemaining = NULL;
     //filterStatusListener.OnGetLifeRemaining = OnGetLifeRemaining;
-    status = Hae_CreateInterface(FILTER_STATUS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &filterStatusListener);
+    status = Cdm_CreateInterface(FILTER_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &filterStatusListener);
 
     currentHumidityListener.OnGetCurrentValue = NULL;
     currentHumidityListener.OnGetMaxValue = NULL;
-    status = Hae_CreateInterface(CURRENT_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &currentHumidityListener);
+    status = Cdm_CreateInterface(CURRENT_HUMIDITY_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &currentHumidityListener);
 
     targetHumidityListener.OnGetTargetValue = NULL;
     targetHumidityListener.OnSetTargetValue = TargetHumidity_OnSetTargetValue;
@@ -2686,38 +2686,38 @@ int AJ_Main(void)
     targetHumidityListener.OnGetMaxValue = NULL;
     targetHumidityListener.OnGetStepValue = NULL;
     targetHumidityListener.OnGetSelectableHumidityLevels = NULL;
-    status = Hae_CreateInterface(TARGET_HUMIDITY_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetHumidityListener);
+    status = Cdm_CreateInterface(TARGET_HUMIDITY_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &targetHumidityListener);
 
     targetTemperatureLevelListener.OnGetTargetLevel = NULL;
     targetTemperatureLevelListener.OnSetTargetLevel = TargetTemperatureLevel_OnSetTargetLevel;
     targetTemperatureLevelListener.OnGetMaxLevel = NULL;
     targetTemperatureLevelListener.OnGetStepValue = NULL;
     targetTemperatureLevelListener.OnGetSelectableTemperatureLevels = NULL;
-    status = Hae_CreateInterface(TARGET_TEMPERATURE_LEVEL_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &targetTemperatureLevelListener);
+    status = Cdm_CreateInterface(TARGET_TEMPERATURE_LEVEL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &targetTemperatureLevelListener);
 
     hvacFanModeListener.OnGetMode = NULL;
     hvacFanModeListener.OnSetMode = OnSetMode;
     hvacFanModeListener.OnGetSupportedModes = NULL;
-    status = Hae_CreateInterface(HVAC_FAN_MODE_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &hvacFanModeListener);
+    status = Cdm_CreateInterface(HVAC_FAN_MODE_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &hvacFanModeListener);
 
     plugInUnitsListener.OnGetPlugInUnits = NULL;
-    status = Hae_CreateInterface(PLUG_IN_UNITS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &plugInUnitsListener);
+    status = Cdm_CreateInterface(PLUG_IN_UNITS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &plugInUnitsListener);
 
     rapidModeTimedListener.OnGetMaxSetMinutes = NULL;
     //rapidModeTimedListener.OnGetMaxSetMinutes = OnGetMaxSetMinutes;
     rapidModeTimedListener.OnGetRapidModeMinutesRemaining = NULL;
     //rapidModeTimedListener.OnGetRapidModeMinutesRemaining = OnGetRapidModeMinutesRemaining;
     rapidModeTimedListener.OnSetRapidModeMinutesRemaining = OnSetRapidModeMinutesRemaining;
-    status = Hae_CreateInterface(RAPID_MODE_TIMED_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &rapidModeTimedListener);
+    status = Cdm_CreateInterface(RAPID_MODE_TIMED_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &rapidModeTimedListener);
 
     alertsListener.OnGetAlerts = NULL;
     alertsListener.OnGetAlertCodesDescription = AlertsOnGetAlertCodesDescription;
     alertsListener.OnAcknowledgeAlert = AlertsListenerOnAcknowledgeAlert;
     alertsListener.OnAcknowledgeAllAlerts = AlertsListenerOnAcknowledgeAllAlerts;
-    status = Hae_CreateInterface(ALERTS_INTERFACE, HAE_OBJECT_PATH_CONTROLLEE, &alertsListener);
+    status = Cdm_CreateInterface(ALERTS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &alertsListener);
 
 
-    status = Hae_Start();
+    status = Cdm_Start();
 
     while (TRUE) {
         status = AJ_OK;
@@ -2729,7 +2729,7 @@ int AJ_Main(void)
                 continue; // Retry establishing connection to Routing Node.
             }
 
-            status = Hae_EnableSecurity(&busAttachment, suites, numsuites, AuthListenerCallback);
+            status = Cdm_EnableSecurity(&busAttachment, suites, numsuites, AuthListenerCallback);
             if (status != AJ_OK) {
                 AJSVC_RoutingNodeDisconnect(&busAttachment, 1, AJAPP_SLEEP_TIME, AJAPP_SLEEP_TIME, &isBusConnected);
                 break;
@@ -2737,10 +2737,10 @@ int AJ_Main(void)
         }
 
         status = AJApp_ConnectedHandler(&busAttachment);
-        if (!haeInitState) {
-            status = InitHaeProperties(&busAttachment);
+        if (!cdmInitState) {
+            status = InitCdmProperties(&busAttachment);
             if (status == AJ_OK) {
-                haeInitState = true;
+                cdmInitState = true;
             }
         }
 
@@ -2756,7 +2756,7 @@ int AJ_Main(void)
 
             if (isUnmarshalingSuccessful) {
                 if (serviceStatus == AJSVC_SERVICE_STATUS_NOT_HANDLED) {
-                    serviceStatus = Hae_MessageProcessor(&busAttachment, &msg, &status);
+                    serviceStatus = Cdm_MessageProcessor(&busAttachment, &msg, &status);
                 }
                 if (serviceStatus == AJSVC_SERVICE_STATUS_NOT_HANDLED) {
                     serviceStatus = AJApp_MessageProcessor(&busAttachment, &msg, &status);
@@ -2785,7 +2785,7 @@ int AJ_Main(void)
         }
     }     // while (TRUE)
 
-    Hae_Deinit();
+    Cdm_Deinit();
 
     return 0;
 

@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/Channel.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/Channel.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "ChannelImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -234,7 +234,7 @@ AJ_Status ChannelInterfaceOnSetProperty(AJ_Message* replyMsg, const char* objPat
     return status;
 }
 
-AJ_Status ChannelInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status ChannelInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -293,7 +293,7 @@ AJ_Status ChannelInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, 
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceGetChannelId(const char* objPath, char* channelId)
+AJ_Status Cdm_ChannelInterfaceGetChannelId(const char* objPath, char* channelId)
 {
     AJ_Status status = AJ_OK;
     ChannelProperties* props = NULL;
@@ -316,7 +316,7 @@ AJ_Status Hae_ChannelInterfaceGetChannelId(const char* objPath, char* channelId)
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, const char* objPath, const char* channelId)
+AJ_Status Cdm_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, const char* objPath, const char* channelId)
 {
     AJ_Status status = AJ_OK;
     ChannelProperties* props = NULL;
@@ -350,7 +350,7 @@ AJ_Status Hae_ChannelInterfaceSetChannelId(AJ_BusAttachment* busAttachment, cons
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels)
+AJ_Status Cdm_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint16_t* totalNumberOfChannels)
 {
     AJ_Status status = AJ_OK;
     ChannelProperties* props = NULL;
@@ -369,7 +369,7 @@ AJ_Status Hae_ChannelInterfaceGetTotalNumberOfChannels(const char* objPath, uint
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t totalNumberOfChannels)
+AJ_Status Cdm_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t totalNumberOfChannels)
 {
     AJ_Status status = AJ_OK;
     ChannelProperties* props = NULL;
@@ -390,7 +390,7 @@ AJ_Status Hae_ChannelInterfaceSetTotalNumberOfChannels(AJ_BusAttachment* busAtta
     return status;
 }
 
-AJ_Status Hae_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId)
+AJ_Status Cdm_ChannelInterfaceEmitChannelListChanged(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId)
 {
     AJ_Status status = AJ_OK;
     AJ_Message msg;

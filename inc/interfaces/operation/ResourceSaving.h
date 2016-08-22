@@ -21,7 +21,7 @@
 #define RESOURCESSAVING_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * ResourceSaving interface listener
@@ -51,7 +51,7 @@ typedef struct {
  * @param[out] resourceSavingMode The current resource saving mode of the device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, bool* resourceSavingMode);
+AJ_Status Cdm_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, bool* resourceSavingMode);
 
 /**
  * Set resourceSavingMode of Channel interface
@@ -60,6 +60,6 @@ AJ_Status Hae_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, 
  * @param[in] resourceSavingMode The current resource saving mode of the device
  * @return AJ_OK on success
  */
-AJ_Status Hae_ResourceSavingInterfaceSetResourceSavingMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool resourceSavingMode);
+AJ_Status Cdm_ResourceSavingInterfaceSetResourceSavingMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool resourceSavingMode);
 
 #endif /* RESOURCESSAVING_H_ */

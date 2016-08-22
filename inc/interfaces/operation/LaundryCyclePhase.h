@@ -21,8 +21,8 @@
 #define LAUNDRYCYCLEPHASE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 /**
  * LaundryCyclePhaseCyclePhaseDescriptor struct
@@ -72,7 +72,7 @@ typedef struct {
  * @param[out] cyclePhase Current cycle phase
  * @return AJ_OK on success
  */
-AJ_Status Hae_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
+AJ_Status Cdm_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase);
 
 /**
  * Set cyclePhase of LaundryCyclePhase interface
@@ -82,14 +82,14 @@ AJ_Status Hae_LaundryCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8
  * @return AJ_OK on success
  */
 
-AJ_Status Hae_LaundryCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
+AJ_Status Cdm_LaundryCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase);
 /**
  * Get supportedCyclePhases of LaundryCyclePhase interface
  * @param[in] objPath the object path including the interface
  * @param[out] supportedCyclePhases List of supported cycle phases
  * @return AJ_OK on success
  */
-AJ_Status Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
+AJ_Status Cdm_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases);
 
 /**
  * Set supportedCyclePhases of LaundryCyclePhase interface
@@ -99,6 +99,6 @@ AJ_Status Hae_LaundryCyclePhaseInterfaceGetSupportedCyclePhases(const char* objP
  * @param[in] supportedCyclePhasesListSize SupportedCyclePhases size
  * @return AJ_OK on success
  */
-AJ_Status Hae_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
+AJ_Status Cdm_LaundryCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize);
 
 #endif /* LAUNDRYCYCLEPHASE_H_ */

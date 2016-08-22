@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/input/Hid.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/input/Hid.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "HidImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -165,7 +165,7 @@ AJ_Status HidInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, v
     return status;
 }
 
-AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -221,7 +221,7 @@ AJ_Status HidInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint
     return status;
 }
 
-AJ_Status Hae_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInputEvent* supportedEvents)
+AJ_Status Cdm_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInputEvent* supportedEvents)
 {
     AJ_Status status = AJ_OK;
     HidProperties* props = NULL;
@@ -244,7 +244,7 @@ AJ_Status Hae_HidInterfaceGetSupportedEvents(const char* objPath, SupportedInput
     return status;
 }
 
-AJ_Status Hae_HidInterfaceSetSupportedEvents(AJ_BusAttachment* busAttachment, const char* objPath, const SupportedInputEvent* supportedEvents, const size_t supportedEventListSize)
+AJ_Status Cdm_HidInterfaceSetSupportedEvents(AJ_BusAttachment* busAttachment, const char* objPath, const SupportedInputEvent* supportedEvents, const size_t supportedEventListSize)
 {
     AJ_Status status = AJ_OK;
     HidProperties* props = NULL;

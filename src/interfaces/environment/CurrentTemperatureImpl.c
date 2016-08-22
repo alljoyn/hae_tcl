@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#include <ajtcl/hae/interfaces/environment/CurrentTemperature.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/CurrentTemperature.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "CurrentTemperatureImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -153,7 +153,7 @@ AJ_Status CurrentTemperatureInterfaceOnGetProperty(AJ_Message* replyMsg, const c
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, double* currentValue)
+AJ_Status Cdm_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, double* currentValue)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;
@@ -172,7 +172,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetCurrentValue(const char* objPath, do
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue)
+AJ_Status Cdm_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAttachment, const char* objPath, const double currentValue)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;
@@ -195,7 +195,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceSetCurrentValue(AJ_BusAttachment* busAt
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceGetPrecision(const char* objPath, double* precision)
+AJ_Status Cdm_CurrentTemperatureInterfaceGetPrecision(const char* objPath, double* precision)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;
@@ -214,7 +214,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetPrecision(const char* objPath, doubl
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
+AJ_Status Cdm_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttachment, const char* objPath, const double precision)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;
@@ -237,7 +237,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceSetPrecision(AJ_BusAttachment* busAttac
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
+AJ_Status Cdm_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, uint16_t* updateMinTime)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;
@@ -256,7 +256,7 @@ AJ_Status Hae_CurrentTemperatureInterfaceGetUpdateMinTime(const char* objPath, u
     return status;
 }
 
-AJ_Status Hae_CurrentTemperatureInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
+AJ_Status Cdm_CurrentTemperatureInterfaceSetUpdateMinTime(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t updateMinTime)
 {
     AJ_Status status = AJ_OK;
     CurrentTemperatureProperties* props = NULL;

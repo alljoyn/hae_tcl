@@ -21,8 +21,8 @@
 #define TIMER_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
-#include <ajtcl/hae/interfaces/HaeInterfaceErrors.h>
+#include <ajtcl/cdm/CdmControllee.h>
+#include <ajtcl/cdm/interfaces/CdmInterfaceErrors.h>
 
 #define TIMER_FEATURE_NOT_APPLIED 0x80000000
 #define TIMER_NOT_SUPPORTED 0x80000001
@@ -107,7 +107,7 @@ typedef struct {
  * @param[out] referenceTimer reference timer
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* referenceTimer);
+AJ_Status Cdm_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* referenceTimer);
 
 /**
  * Set ReferenceTimer of Timer interface
@@ -117,7 +117,7 @@ AJ_Status Hae_TimerInterfaceGetReferenceTimer(const char* objPath, int32_t* refe
  * @return AJ_OK on success
 
  */
-AJ_Status Hae_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t referenceTimer);
+AJ_Status Cdm_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t referenceTimer);
 
 /**
  * Get TargetTimeToStart of Timer interface
@@ -125,7 +125,7 @@ AJ_Status Hae_TimerInterfaceSetReferenceTimer(AJ_BusAttachment* busAttachment, c
  * @param[out] targetTimeToStart target time to start
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* targetTimeToStart);
+AJ_Status Cdm_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* targetTimeToStart);
 
 /**
  * Set TargetTimeToStart of Timer interface
@@ -134,7 +134,7 @@ AJ_Status Hae_TimerInterfaceGetTargetTimeToStart(const char* objPath, int32_t* t
  * @param[in] targetTimeToStart target time to start
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStart);
+AJ_Status Cdm_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStart);
 
 /**
  * Get TargetTimeToStop of Timer interface
@@ -142,7 +142,7 @@ AJ_Status Hae_TimerInterfaceSetTargetTimeToStart(AJ_BusAttachment* busAttachment
  * @param[out] targetTimeToStop target time to stop
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* targetTimeToStop);
+AJ_Status Cdm_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* targetTimeToStop);
 
 /**
  * Set TargetTimeToStop of Timer interface
@@ -151,7 +151,7 @@ AJ_Status Hae_TimerInterfaceGetTargetTimeToStop(const char* objPath, int32_t* ta
  * @param[in] targetTimeToStop target time to stop
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStop);
+AJ_Status Cdm_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetTimeToStop);
 
 /**
  * Get EstimatedTimeToEnd of Timer interface
@@ -159,7 +159,7 @@ AJ_Status Hae_TimerInterfaceSetTargetTimeToStop(AJ_BusAttachment* busAttachment,
  * @param[out] estimatedTimeToEnd estimated time to end
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* estimatedTimeToEnd);
+AJ_Status Cdm_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* estimatedTimeToEnd);
 
 /**
  * Set EstimatedTimeToEnd of Timer interface
@@ -168,7 +168,7 @@ AJ_Status Hae_TimerInterfaceGetEstimatedTimeToEnd(const char* objPath, int32_t* 
  * @param[in] estimatedTimeToEnd estimated time to end
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t estimatedTimeToEnd);
+AJ_Status Cdm_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t estimatedTimeToEnd);
 
 /**
  * Get RunningTime of Timer interface
@@ -176,7 +176,7 @@ AJ_Status Hae_TimerInterfaceSetEstimatedTimeToEnd(AJ_BusAttachment* busAttachmen
  * @param[out] runningTime running time
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetRunningTime(const char* objPath, int32_t* runningTime);
+AJ_Status Cdm_TimerInterfaceGetRunningTime(const char* objPath, int32_t* runningTime);
 
 /**
  * Set RunningTime of Timer interface
@@ -185,7 +185,7 @@ AJ_Status Hae_TimerInterfaceGetRunningTime(const char* objPath, int32_t* running
  * @param[in] runningTime running time
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t runningTime);
+AJ_Status Cdm_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t runningTime);
 
 /**
  * Get TargetDuration of Timer interface
@@ -193,7 +193,7 @@ AJ_Status Hae_TimerInterfaceSetRunningTime(AJ_BusAttachment* busAttachment, cons
  * @param[out] targetDuration target duration
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targetDuration);
+AJ_Status Cdm_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targetDuration);
 
 /**
  * Set TargetDuration of Timer interface
@@ -202,6 +202,6 @@ AJ_Status Hae_TimerInterfaceGetTargetDuration(const char* objPath, int32_t* targ
  * @param[in] targetDuration target duration
  * @return AJ_OK on success
  */
-AJ_Status Hae_TimerInterfaceSetTargetDuration(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetDuration);
+AJ_Status Cdm_TimerInterfaceSetTargetDuration(AJ_BusAttachment* busAttachment, const char* objPath, const int32_t targetDuration);
 
 #endif /* TIMER_H_ */

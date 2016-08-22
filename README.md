@@ -1,16 +1,16 @@
-HAE Service Framework
+CDM Service Framework
 =====================
 
-Welcome to the HAE Service Framework.
+Welcome to the CDM Service Framework.
 
-HAE Service Framework provides easy methods to implement HAE controllee and controller applications.
-HAE Service Framework is based on AJTCL v16.04.
+CDM Service Framework provides easy methods to implement CDM controllee and controller applications.
+CDM Service Framework is based on AJTCL v16.04.
 
 
 Folder Structure
 ----------------
 <pre>
-hae_tcl
+cdm_tcl
 +---inc
 |   \---interfaces
 |       +---environment
@@ -24,26 +24,26 @@ hae_tcl
 |   +---Test
 |   \---VendorDefinedInterfaces
 \---src
-    +---HaeControllee
+    +---CdmControllee
     \---interfaces
         +---environment
         +---input
         \---operation
 </pre>
 
- * hae_tcl/inc: header files
- * hae_tcl/inc/interfaces: interface related header files
- * hae_tcl/sampls/common: source files for device sample (AppHandler, PropertyStore)
- * hae_tcl/sampls/inc: header files for device sample (AppHandler, PropertyStore)
- * hae_tcl/samples/IntegratedControllee : integrated controllee
- * hae_tcl/samples/Laundry : laundry sample
- * hae_tcl/samples/Test: test sample for making other device sample
- * hae_tcl/src/HaeControllee: controllee source files
- * hae_tcl/src/interface: interface related source files
+ * cdm_tcl/inc: header files
+ * cdm_tcl/inc/interfaces: interface related header files
+ * cdm_tcl/sampls/common: source files for device sample (AppHandler, PropertyStore)
+ * cdm_tcl/sampls/inc: header files for device sample (AppHandler, PropertyStore)
+ * cdm_tcl/samples/IntegratedControllee : integrated controllee
+ * cdm_tcl/samples/Laundry : laundry sample
+ * cdm_tcl/samples/Test: test sample for making other device sample
+ * cdm_tcl/src/CdmControllee: controllee source files
+ * cdm_tcl/src/interface: interface related source files
 
 Building
 --------
-You can build HAE Service Framework using 'scons'.
+You can build CDM Service Framework using 'scons'.
 Please refer to
 <a name="AllJoyn build instructions" href="https:///allseenalliance.org/developers/develop/building">AllJoyn Build Instruction </a>
 for more details on setting up your environment.
@@ -55,8 +55,8 @@ root-source-dir
     |   \---ajtcl
     \---services
         +---base_tcl
-        +---hae
-        \---hae_tcl
+        +---cdm
+        \---cdm_tcl
 </pre>
 
   * Build
@@ -68,13 +68,13 @@ scons TARG=linux WS=off VARIANT=debug
 cd root-source-dir/services/base_tcl
 scons TARG=linux WS=off VARIANT=debug
 
-cd root-source-dir/services/hae_tcl
+cd root-source-dir/services/cdm_tcl
 scons TARG=linux WS=off VARIANT=debug
 </pre>
 
   * Output
 <pre>
-hae_tcl
+cdm_tcl
 +---build
 \---dist
     +---bin
@@ -83,13 +83,13 @@ hae_tcl
 </pre>
 
     - bin : TestSample
-    - lib : libajtcl_hae.a, libajtcl_hae.so
+    - lib : libajtcl_cdm.a, libajtcl_cdm.so
     - inc : header files
 
 Doxygen
 -------
   * Make manual
 <pre>
-cd root-source-dir/services/hae_tcl/docs
+cd root-source-dir/services/cdm_tcl/docs
 doxygen Doxygen_html
 </pre>

@@ -21,7 +21,7 @@
 #define HEATINGZONE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * WaterLevel interface listener
@@ -59,7 +59,7 @@ typedef struct {
  * @param[out] numberOfHeatingZones number of heating zones
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(const char* objPath, uint8_t* numberOfHeatingZones);
+AJ_Status Cdm_HeatingZoneInterfaceGetNumberOfHeatingZones(const char* objPath, uint8_t* numberOfHeatingZones);
 
 /**
  * Set NumberOfHeatingZones of HeatingZone interface
@@ -68,7 +68,7 @@ AJ_Status Hae_HeatingZoneInterfaceGetNumberOfHeatingZones(const char* objPath, u
  * @param[in] numberOfHeatingZones number of heating zones
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t numberOfHeatingZones);
+AJ_Status Cdm_HeatingZoneInterfaceSetNumberOfHeatingZones(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t numberOfHeatingZones);
 
 /**
  * Get MaxHeatingLevels of HeatingZone interface
@@ -76,7 +76,7 @@ AJ_Status Hae_HeatingZoneInterfaceSetNumberOfHeatingZones(AJ_BusAttachment* busA
  * @param[out] maxHeatingLevels max heating levels
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceGetMaxHeatingLevels(const char* objPath, uint8_t* maxHeatingLevels);
+AJ_Status Cdm_HeatingZoneInterfaceGetMaxHeatingLevels(const char* objPath, uint8_t* maxHeatingLevels);
 
 /**
  * Set MaxHeatingLevels of HeatingZone interface
@@ -86,7 +86,7 @@ AJ_Status Hae_HeatingZoneInterfaceGetMaxHeatingLevels(const char* objPath, uint8
  * @param[in] maxHeatingLevelsSize max heating levels size
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceSetMaxHeatingLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* maxHeatingLevels, const size_t maxHeatingLevelsSize);
+AJ_Status Cdm_HeatingZoneInterfaceSetMaxHeatingLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* maxHeatingLevels, const size_t maxHeatingLevelsSize);
 
 /**
  * Get HeatingLevels of HeatingZone interface
@@ -94,7 +94,7 @@ AJ_Status Hae_HeatingZoneInterfaceSetMaxHeatingLevels(AJ_BusAttachment* busAttac
  * @param[out] heatingLevels heating levels
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceGetHeatingLevels(const char* objPath, uint8_t* heatingLevels);
+AJ_Status Cdm_HeatingZoneInterfaceGetHeatingLevels(const char* objPath, uint8_t* heatingLevels);
 
 /**
  * Set HeatingLevels of HeatingZone interface
@@ -104,6 +104,6 @@ AJ_Status Hae_HeatingZoneInterfaceGetHeatingLevels(const char* objPath, uint8_t*
  * @param[in] heatingLevelsSize heating levels size
  * @return AJ_OK on success
  */
-AJ_Status Hae_HeatingZoneInterfaceSetHeatingLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* heatingLevels, const size_t heatingLevelsSize);
+AJ_Status Cdm_HeatingZoneInterfaceSetHeatingLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* heatingLevels, const size_t heatingLevelsSize);
 
 #endif /* HEATINGZONE_H_ */

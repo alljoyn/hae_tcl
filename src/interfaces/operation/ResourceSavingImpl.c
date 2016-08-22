@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/ResourceSaving.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/ResourceSaving.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "ResourceSavingImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -192,7 +192,7 @@ AJ_Status ResourceSavingInterfaceOnSetProperty(AJ_Message* replyMsg, const char*
     return status;
 }
 
-AJ_Status Hae_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, bool* resourceSavingMode)
+AJ_Status Cdm_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, bool* resourceSavingMode)
 {
     AJ_Status status = AJ_OK;
     ResourceSavingProperties* props = NULL;
@@ -211,7 +211,7 @@ AJ_Status Hae_ResourceSavingInterfaceGetResourceSavingMode(const char* objPath, 
     return status;
 }
 
-AJ_Status Hae_ResourceSavingInterfaceSetResourceSavingMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool resourceSavingMode)
+AJ_Status Cdm_ResourceSavingInterfaceSetResourceSavingMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool resourceSavingMode)
 {
     AJ_Status status = AJ_OK;
     ResourceSavingProperties* props = NULL;

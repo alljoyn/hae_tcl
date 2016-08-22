@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/operation/DishWashingCyclePhase.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/operation/DishWashingCyclePhase.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "DishWashingCyclePhaseImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -187,7 +187,7 @@ AJ_Status DishWashingCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, cons
     return status;
 }
 
-AJ_Status DishWashingCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod)
+AJ_Status DishWashingCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod)
 {
     AJ_Status status = AJ_OK;
 
@@ -244,7 +244,7 @@ AJ_Status DishWashingCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const c
     return status;
 }
 
-AJ_Status Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, uint8_t* cyclePhase)
 {
     AJ_Status status = AJ_OK;
     DishWashingCyclePhaseProperties* props = NULL;
@@ -263,7 +263,7 @@ AJ_Status Hae_DishWashingCyclePhaseInterfaceGetCyclePhase(const char* objPath, u
     return status;
 }
 
-AJ_Status Hae_DishWashingCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t cyclePhase)
 {
     AJ_Status status = AJ_OK;
     DishWashingCyclePhaseProperties* props = NULL;
@@ -292,7 +292,7 @@ AJ_Status Hae_DishWashingCyclePhaseInterfaceSetCyclePhase(AJ_BusAttachment* busA
     return status;
 }
 
-AJ_Status Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* objPath, uint8_t* supportedCyclePhases)
 {
     AJ_Status status = AJ_OK;
     DishWashingCyclePhaseProperties* props = NULL;
@@ -316,7 +316,7 @@ AJ_Status Hae_DishWashingCyclePhaseInterfaceGetSupportedCyclePhases(const char* 
     return status;
 }
 
-AJ_Status Hae_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
+AJ_Status Cdm_DishWashingCyclePhaseInterfaceSetSupportedCyclePhases(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedCyclePhases, const size_t supportedCyclePhasesListSize)
 {
     AJ_Status status = AJ_OK;
     DishWashingCyclePhaseProperties* props = NULL;

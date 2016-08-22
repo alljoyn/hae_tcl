@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <math.h>
-#include <ajtcl/hae/interfaces/environment/TargetHumidity.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/TargetHumidity.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "TargetHumidityImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -330,7 +330,7 @@ AJ_Status TargetHumidityInterfaceOnSetProperty(AJ_Message* replyMsg, const char*
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceGetTargetValue(const char* objPath, uint8_t* targetValue)
+AJ_Status Cdm_TargetHumidityInterfaceGetTargetValue(const char* objPath, uint8_t* targetValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -349,7 +349,7 @@ AJ_Status Hae_TargetHumidityInterfaceGetTargetValue(const char* objPath, uint8_t
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetValue)
+AJ_Status Cdm_TargetHumidityInterfaceSetTargetValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t targetValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -377,7 +377,7 @@ AJ_Status Hae_TargetHumidityInterfaceSetTargetValue(AJ_BusAttachment* busAttachm
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceGetMinValue(const char* objPath, uint8_t* minValue)
+AJ_Status Cdm_TargetHumidityInterfaceGetMinValue(const char* objPath, uint8_t* minValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -396,7 +396,7 @@ AJ_Status Hae_TargetHumidityInterfaceGetMinValue(const char* objPath, uint8_t* m
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t minValue)
+AJ_Status Cdm_TargetHumidityInterfaceSetMinValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t minValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -419,7 +419,7 @@ AJ_Status Hae_TargetHumidityInterfaceSetMinValue(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue)
+AJ_Status Cdm_TargetHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* maxValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -438,7 +438,7 @@ AJ_Status Hae_TargetHumidityInterfaceGetMaxValue(const char* objPath, uint8_t* m
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue)
+AJ_Status Cdm_TargetHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -461,7 +461,7 @@ AJ_Status Hae_TargetHumidityInterfaceSetMaxValue(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceGetStepValue(const char* objPath, uint8_t* stepValue)
+AJ_Status Cdm_TargetHumidityInterfaceGetStepValue(const char* objPath, uint8_t* stepValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -480,7 +480,7 @@ AJ_Status Hae_TargetHumidityInterfaceGetStepValue(const char* objPath, uint8_t* 
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t stepValue)
+AJ_Status Cdm_TargetHumidityInterfaceSetStepValue(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t stepValue)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -503,7 +503,7 @@ AJ_Status Hae_TargetHumidityInterfaceSetStepValue(AJ_BusAttachment* busAttachmen
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceGetSelectableHumidityLevels(const char* objPath, uint8_t* selectableHumidityLevels)
+AJ_Status Cdm_TargetHumidityInterfaceGetSelectableHumidityLevels(const char* objPath, uint8_t* selectableHumidityLevels)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;
@@ -525,7 +525,7 @@ AJ_Status Hae_TargetHumidityInterfaceGetSelectableHumidityLevels(const char* obj
     return status;
 }
 
-AJ_Status Hae_TargetHumidityInterfaceSetSelectableHumidityLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* humidityLevels, const size_t humidityLevelsSize)
+AJ_Status Cdm_TargetHumidityInterfaceSetSelectableHumidityLevels(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* humidityLevels, const size_t humidityLevelsSize)
 {
     AJ_Status status = AJ_OK;
     TargetHumidityProperties* props = NULL;

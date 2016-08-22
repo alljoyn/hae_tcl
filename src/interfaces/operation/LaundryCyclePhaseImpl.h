@@ -24,6 +24,6 @@ const char* const intfDescOperationLaundryCyclePhase[6];
 AJ_Status CreateLaundryCyclePhaseInterface(void** properties);
 void DestroyLaundryCyclePhaseInterface(void* properties);
 AJ_Status LaundryCyclePhaseInterfaceOnGetProperty(AJ_Message* replyMsg, const char* objPath, void* properties, uint8_t memberIndex, void* listener);
-AJ_Status LaundryCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, HaePropertiesChangedByMethod* propChangedByMethod);
+AJ_Status LaundryCyclePhaseInterfaceOnMethodHandler(AJ_Message* msg, const char* objPath, uint8_t memberIndex, void* listener, CdmPropertiesChangedByMethod* propChangedByMethod);
 
 #endif /* LAUNDRYCYCLEPHASEIMPL_H_ */

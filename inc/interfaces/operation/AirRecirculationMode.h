@@ -21,7 +21,7 @@
 #define AIRRECIRCULATIONMODE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * AirRecirculationMode interface listener
@@ -51,7 +51,7 @@ typedef struct {
  * @param[out] isRecirculating isRecirculating
  * @return AJ_OK on success
  */
-AJ_Status Hae_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPath, bool* isRecirculating);
+AJ_Status Cdm_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPath, bool* isRecirculating);
 
 /**
  * Set isRecirculating of AirRecirculationMode interface
@@ -60,6 +60,6 @@ AJ_Status Hae_AirRecirculationModeInterfaceGetIsRecirculating(const char* objPat
  * @param[in] isRecirculating isRecirculating
  * @return AJ_OK on success
  */
-AJ_Status Hae_AirRecirculationModeInterfaceSetIsRecirculating(AJ_BusAttachment* busAttachment, const char* objPath, const bool isRecirculating);
+AJ_Status Cdm_AirRecirculationModeInterfaceSetIsRecirculating(AJ_BusAttachment* busAttachment, const char* objPath, const bool isRecirculating);
 
 #endif /* AIRRECIRCULATIONMODE_H_ */

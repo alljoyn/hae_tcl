@@ -21,7 +21,7 @@
 #define RAPIDMODE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * RapidMode interface listener
@@ -50,7 +50,7 @@ typedef struct {
  * @param[out] rapidMode True if the device works in rapid mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMode);
+AJ_Status Cdm_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMode);
 
 /**
  * Set rapidMode of RapidMode interface
@@ -59,6 +59,6 @@ AJ_Status Hae_RapidModeInterfaceGetRapidMode(const char* objPath, bool* rapidMod
  * @param[in] rapidMode True if the device works in rapid mode
  * @return AJ_OK on success
  */
-AJ_Status Hae_RapidModeInterfaceSetRapidMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool rapidMode);
+AJ_Status Cdm_RapidModeInterfaceSetRapidMode(AJ_BusAttachment* busAttachment, const char* objPath, const bool rapidMode);
 
 #endif /* RAPIDMODE_H_ */

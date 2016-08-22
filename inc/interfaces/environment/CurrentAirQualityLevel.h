@@ -21,7 +21,7 @@
 #define CURRENTAIRQUALITYLEVEL_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * CurrentAirQualityLevel interface listener
@@ -59,7 +59,7 @@ typedef struct {
  * @param[out] contaminantType the contaminant type
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceGetContaminantType(const char* objPath, uint8_t* contaminantType);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceGetContaminantType(const char* objPath, uint8_t* contaminantType);
 
 /**
  * Set the contaminant type of CurrentAirQualityLevel interface
@@ -68,7 +68,7 @@ AJ_Status Hae_CurrentAirQualityLevelInterfaceGetContaminantType(const char* objP
  * @param[in] contaminantType the contaminant type
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceSetContaminantType(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t contaminantType);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceSetContaminantType(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t contaminantType);
 
 /**
  * Get the current value of CurrentAirQualityLevel interface
@@ -76,7 +76,7 @@ AJ_Status Hae_CurrentAirQualityLevelInterfaceSetContaminantType(AJ_BusAttachment
  * @param[out] currentLevel the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel);
 
 /**
  * Set the current value of CurrentAirQualityLevel interface
@@ -85,7 +85,7 @@ AJ_Status Hae_CurrentAirQualityLevelInterfaceGetCurrentLevel(const char* objPath
  * @param[in] currentLevel the current value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel);
 
 /**
  * Get the maximum value of CurrentAirQualityLevel interface
@@ -93,7 +93,7 @@ AJ_Status Hae_CurrentAirQualityLevelInterfaceSetCurrentLevel(AJ_BusAttachment* b
  * @param[out] maxLevel the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel);
 
 /**
  * Set the maximum value of CurrentAirQualityLevel interface
@@ -102,6 +102,6 @@ AJ_Status Hae_CurrentAirQualityLevelInterfaceGetMaxLevel(const char* objPath, ui
  * @param[in] maxLevel the maximum value
  * @return AJ_OK on success
  */
-AJ_Status Hae_CurrentAirQualityLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
+AJ_Status Cdm_CurrentAirQualityLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel);
 
 #endif /* CURRENTAIRQUALITYLEVEL_H_*/

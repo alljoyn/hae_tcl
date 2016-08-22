@@ -21,7 +21,7 @@
 #define HVACFANMODE_H_
 
 #include <ajtcl/alljoyn.h>
-#include <ajtcl/hae/HaeControllee.h>
+#include <ajtcl/cdm/CdmControllee.h>
 
 /**
  * HvacFanMode interface listener
@@ -59,7 +59,7 @@ typedef struct {
  * @param[out] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode);
+AJ_Status Cdm_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode);
 
 /**
  * Set mode of HvacFanMode interface
@@ -68,7 +68,7 @@ AJ_Status Hae_HvacFanModeInterfaceGetMode(const char* objPath, uint16_t* mode);
  * @param[in] mode mode of device
  * @return AJ_OK on success
  */
-AJ_Status Hae_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode);
+AJ_Status Cdm_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t mode);
 
 /**
  * Get supportedModes of HvacFanMode interface
@@ -76,7 +76,7 @@ AJ_Status Hae_HvacFanModeInterfaceSetMode(AJ_BusAttachment* busAttachment, const
  * @param[out] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes);
+AJ_Status Cdm_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_t* supportedModes);
 
 /**
  * Set supportedModes of HvacFanMode interface
@@ -85,6 +85,6 @@ AJ_Status Hae_HvacFanModeInterfaceGetSupportedModes(const char* objPath, uint16_
  * @param[in] supportedModes supported modes
  * @return AJ_OK on success
  */
-AJ_Status Hae_HvacFanModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize);
+AJ_Status Cdm_HvacFanModeInterfaceSetSupportedModes(AJ_BusAttachment* busAttachment, const char* objPath, const uint16_t* supportedModes, const size_t supportedModeSize);
 
 #endif /* HVACFANMODE_H_ */

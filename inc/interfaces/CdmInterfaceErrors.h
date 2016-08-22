@@ -14,8 +14,8 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-#ifndef HAEINTERFACEERRORS_H_
-#define HAEINTERFACEERRORS_H_
+#ifndef CDMINTERFACEERRORS_H_
+#define CDMINTERFACEERRORS_H_
 
 /**
  * Error Code
@@ -44,4 +44,4 @@ const char* GetInterfaceErrorName(ErrorCode errorCode);
  */
 const char* GetInterfaceErrorMessage(ErrorCode errorCode);
 
-#endif /* HAEINTERFACEERRORS_H_ */
+#endif /* CDMINTERFACEERRORS_H_ */

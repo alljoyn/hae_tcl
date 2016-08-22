@@ -15,8 +15,8 @@
  ******************************************************************************/
 
 #include <string.h>
-#include <ajtcl/hae/interfaces/environment/WaterLevel.h>
-#include "../../HaeControllee/HaeControlleeImpl.h"
+#include <ajtcl/cdm/interfaces/environment/WaterLevel.h>
+#include "../../CdmControllee/CdmControlleeImpl.h"
 #include "WaterLevelImpl.h"
 
 #define INTERFACE_VERSION 1
@@ -170,7 +170,7 @@ AJ_Status WaterLevelInterfaceOnGetProperty(AJ_Message* replyMsg, const char* obj
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* supplySource)
+AJ_Status Cdm_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* supplySource)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
@@ -189,7 +189,7 @@ AJ_Status Hae_WaterLevelInterfaceGetSupplySource(const char* objPath, uint8_t* s
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t supplySource)
+AJ_Status Cdm_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t supplySource)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
@@ -212,7 +212,7 @@ AJ_Status Hae_WaterLevelInterfaceSetSupplySource(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel)
+AJ_Status Cdm_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* currentLevel)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
@@ -231,7 +231,7 @@ AJ_Status Hae_WaterLevelInterfaceGetCurrentLevel(const char* objPath, uint8_t* c
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel)
+AJ_Status Cdm_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t currentLevel)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
@@ -259,7 +259,7 @@ AJ_Status Hae_WaterLevelInterfaceSetCurrentLevel(AJ_BusAttachment* busAttachment
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
+AJ_Status Cdm_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLevel)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
@@ -278,7 +278,7 @@ AJ_Status Hae_WaterLevelInterfaceGetMaxLevel(const char* objPath, uint8_t* maxLe
     return status;
 }
 
-AJ_Status Hae_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
+AJ_Status Cdm_WaterLevelInterfaceSetMaxLevel(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t maxLevel)
 {
     AJ_Status status = AJ_OK;
     WaterLevelProperties* props = NULL;
