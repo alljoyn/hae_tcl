@@ -1,0 +1,59 @@
+import os
+
+Import('env')
+
+# Target specific SCons command line variables
+
+# Platform libraries
+env.Append(LIBS = ['crypto', 'pthread'])
+
+# Cross compile setup
+if os.environ.has_key('CROSS_PREFIX'):
+    cc = env['CC']
+    cxx = env['CXX']
+    ar = env['AR']
+    ranlib = env['RANLIB']
+    env.Replace(CC = os.environ['CROSS_PREFIX'] + cc)
+    env.Replace(CXX = os.environ['CROSS_PREFIX'] + cxx)
+    env.Replace(LINK = os.environ['CROSS_PREFIX'] + cc)
+    env.Replace(AR = os.environ['CROSS_PREFIX'] + ar)
+    env.Replace(RANLIB = os.environ['CROSS_PREFIX'] + ranlib)
+    env['ENV']['STAGING_DIR'] = os.environ.get('STAGING_DIR', '')
+if os.environ.has_key('CROSS_PATH'):
+    env['ENV']['PATH'] = ':'.join([ os.environ['CROSS_PATH'], env['ENV']['PATH'] ] )
+if os.environ.has_key('CROSS_CFLAGS'):
+    env.Append(CFLAGS=os.environ['CROSS_CFLAGS'].split())
+if os.environ.has_key('CROSS_LINKFLAGS'):
+    env.Append(LINKFLAGS=os.environ['CROSS_LINKFLAGS'].split())
+
+# Compiler flags
+env.Append(CFLAGS = [
+    '-pipe',
+    '-funsigned-char',
+    '-fno-strict-aliasing',
+    '-Wall',
+    '-Waggregate-return',
+    '-Wbad-function-cast',
+    '-Wcast-align',
+    '-Wfloat-equal',
+    '-Wformat=2',
+    '-Wlong-long',
+    '-Wmissing-declarations',
+    '-Wmissing-format-attribute',
+    '-Wmissing-prototypes',
+    '-Wno-deprecated-declarations',
+    '-Wpacked',
+    '-Wpointer-arith',
+    '-Wshadow',
+    '-Wundef',
+    '-Wwrite-strings'
+])
+
+# Debug/Release Variants
+if env['VARIANT'] == 'debug':
+    env.Append(CFLAGS = '-g')
+else:
+    env.Append(CFLAGS = '-Os')
+    env.Append(LINKFLAGS = '-s')
+
+env['build_shared'] = False
