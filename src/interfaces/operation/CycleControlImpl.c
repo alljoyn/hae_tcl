@@ -31,7 +31,6 @@ const char* const intfDescOperationCycleControl[] = {
     "@SupportedOperationalStates>ay",
     "@SupportedOperationalCommands>ay",
     "?ExecuteOperationalCommand command<y",
-    "!EndOfCycle",
     NULL
 };
 
@@ -432,20 +431,4 @@ AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachm
     }
 
     return status;
-}
-
-AJ_Status Cdm_CycleControlInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath)
-{
-    AJ_Status status = AJ_OK;
-    AJ_Message msg;
-    uint32_t msgId = 0;
-
-    status = MakeMsgId(objPath, CYCLE_CONTROL_INTERFACE, 4, &msgId);
-    if (status != AJ_OK) {
-        return status;
-    }
-
-    AJ_MarshalSignal(busAttachment, &msg, msgId, NULL, 0, AJ_FLAG_SESSIONLESS, 0);
-
-    return AJ_DeliverMsg(&msg);
 }

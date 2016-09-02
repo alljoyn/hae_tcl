@@ -115,13 +115,4 @@ AJ_Status Cdm_CycleControlInterfaceGetSupportedOperationalCommands(const char* o
  */
 AJ_Status Cdm_CycleControlInterfaceSetSupportedOperationalCommands(AJ_BusAttachment* busAttachment, const char* objPath, const uint8_t* supportedOperationalCommands, const size_t supportedOperationalCommandsSize);
 
-/**
- * Emit ChannelListChanged signal of Channel interface
- * @param[in] busAttachment bus attachment
- * @param[in] objPath the object path including the interface
- * @param[in] sessionId session id
- * @return AJ_OK on success
- */
-AJ_Status Cdm_ChannelInterfaceEmitEndOfCycle(AJ_BusAttachment* busAttachment, const char* objPath, const uint32_t sessionId);
-
 #endif /* CYCLECONTROL_H_ */

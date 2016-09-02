@@ -19,7 +19,7 @@
 
 #include <ajtcl/alljoyn.h>
 
-const char* const intfDescOperationCycleControl[8];
+const char* const intfDescOperationCycleControl[7];
 
 AJ_Status CreateCycleControlInterface(void** properties);
 void DestroyCycleControlInterface(void* properties);

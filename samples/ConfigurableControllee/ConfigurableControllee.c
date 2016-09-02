@@ -880,8 +880,8 @@ AJ_Status CdmInterfaceSetProperty(AJ_BusAttachment* busAttachment, const char* o
             printf("CdmInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
     } else if (strcmp(interfaceName, "OnOffStatus") == 0) {
-        if (strcmp(proprietyDescriptor->name, "OnOff") == 0) {
-            status = Cdm_OnOffStatusInterfaceSetOnOff(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, bVar);
+        if (strcmp(proprietyDescriptor->name, "IsOn") == 0) {
+            status = Cdm_OnOffStatusInterfaceSetIsOn(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, bVar);
         } else {
             printf("CdmInterfaceSetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
@@ -1276,8 +1276,8 @@ AJ_Status CdmInterfaceGetProperty(const char* objPath, const char* interfaceName
             printf("CdmInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
     } else if (strcmp(interfaceName, "OnOffStatus") == 0) {
-        if (strcmp(proprietyDescriptor->name, "OnOff") == 0) {
-            status = Cdm_OnOffStatusInterfaceGetOnOff(CDM_OBJECT_PATH_CONTROLLEE, bVarPtr);
+        if (strcmp(proprietyDescriptor->name, "IsOn") == 0) {
+            status = Cdm_OnOffStatusInterfaceGetIsOn(CDM_OBJECT_PATH_CONTROLLEE, bVarPtr);
         } else {
             printf("CdmInterfaceGetProperty: undefined property name %s\n", proprietyDescriptor->name);
         }
@@ -2713,11 +2713,11 @@ AJ_Status InitCdmOnOffStatusProperties(AJ_BusAttachment* busAttachment)
     AJ_Status getStatus = AJ_OK;
     AJ_Status setStatus = AJ_OK;
     uint8_t i = 0;
-    bool onOff = true;
-    bool onOffRead;
+    bool isOn = true;
+    bool isOnRead;
     const char* const interfaceName = "OnOffStatus";
     const CDM_ProprietyDescriptor proprietyDescriptor[] = {
-        { "OnOff" , 0 , 'b' , &onOff , &onOffRead , 1 },
+        { "IsOn" , 0 , 'b' , &isOn , &isOnRead , 1 },
     };
     printf("\n");
     for (i = 0; i < sizeof(proprietyDescriptor)/sizeof(proprietyDescriptor[0]); i++) {
@@ -4066,7 +4066,7 @@ int AJ_Main(void)
 
 #if defined(ENABLE_OPERATION_ON_OFF_STATUS_IF)
     /* Operation.OnOffStatus */
-    onOffStatusListener.OnGetOnOff = NULL;
+    onOffStatusListener.OnGetIsOn = NULL;
     status = Cdm_CreateInterface(ON_OFF_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 #endif
 
