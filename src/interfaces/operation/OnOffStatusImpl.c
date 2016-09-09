@@ -30,7 +30,7 @@ const char* const intfDescOperationOnOffStatus[] = {
 
 typedef struct {
     uint16_t version;
-    bool onOff;
+    bool isOn;
 } OnOffStatusProperties;
 
 AJ_Status CreateOnOffStatusInterface(void** properties)
@@ -108,14 +108,14 @@ AJ_Status OnOffStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
         break;
     case 1 :
         {
-            bool onOff;
-            if (lt && lt->OnGetOnOff) {
-                status = lt->OnGetOnOff(objPath, &onOff);
+            bool isOn;
+            if (lt && lt->OnGetIsOn) {
+                status = lt->OnGetIsOn(objPath, &isOn);
                 if (status == AJ_OK) {
-                     props->onOff = onOff;
+                     props->isOn = isOn;
                 }
             }
-            status = AJ_MarshalArgs(replyMsg, "b", props->onOff);
+            status = AJ_MarshalArgs(replyMsg, "b", props->isOn);
         }
         break;
     default:
@@ -125,18 +125,18 @@ AJ_Status OnOffStatusInterfaceOnGetProperty(AJ_Message* replyMsg, const char* ob
     return status;
 }
 
-AJ_Status Cdm_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
+AJ_Status Cdm_OnOffStatusInterfaceGetIsOn(const char* objPath, bool* isOn)
 {
     AJ_Status status = AJ_OK;
     OnOffStatusProperties* props = NULL;
 
-    if (!onOff) {
+    if (!isOn) {
         return AJ_ERR_INVALID;
     }
 
     props = (OnOffStatusProperties*)GetProperties(objPath, ON_OFF_STATUS_INTERFACE);
     if (props) {
-        *onOff = props->onOff;
+        *isOn = props->isOn;
     } else {
         status = AJ_ERR_NO_MATCH;
     }
@@ -144,7 +144,7 @@ AJ_Status Cdm_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff)
     return status;
 }
 
-AJ_Status Cdm_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff)
+AJ_Status Cdm_OnOffStatusInterfaceSetIsOn(AJ_BusAttachment* busAttachment, const char* objPath, const bool isOn)
 {
     AJ_Status status = AJ_OK;
     OnOffStatusProperties* props = NULL;
@@ -155,8 +155,8 @@ AJ_Status Cdm_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, cons
 
     props = (OnOffStatusProperties*)GetProperties(objPath, ON_OFF_STATUS_INTERFACE);
     if (props) {
-        props->onOff = onOff;
-        status = EmitPropChanged(busAttachment, objPath, "OnOff", "b", &(props->onOff));
+        props->isOn = isOn;
+        status = EmitPropChanged(busAttachment, objPath, "OnOff", "b", &(props->isOn));
     } else {
         status = AJ_ERR_NO_MATCH;
     }

@@ -30,28 +30,28 @@ typedef struct {
     /**
      * Handler for getting OnOff property
      * @param[in] objPath object path
-     * @param[out] onOff Current on/off state of the appliance
+     * @param[out] isOn Current on/off state of the appliance
      * @return AJ_OK on success
      */
-    AJ_Status (*OnGetOnOff) (const char* objPath, bool* onOff);
+    AJ_Status (*OnGetIsOn) (const char* objPath, bool* isOn);
 
 } OnOffStatusListener;
 
 /**
- * Get OnOff of OnOffStatus interface
+ * Get isOn of OnOffStatus interface
  * @param[in] objPath the object path including the interface
- * @param[out] onOff Current on/off state of the appliance
+ * @param[out] isOn Current on/off state of the appliance
  * @return AJ_OK on success
  */
-AJ_Status Cdm_OnOffStatusInterfaceGetOnOff(const char* objPath, bool* onOff);
+AJ_Status Cdm_OnOffStatusInterfaceGetIsOn(const char* objPath, bool* isOn);
 
 /**
- * Set onOff of OnOff of OnOffStatus interface
+ * Set isOn  of OnOffStatus interface
  * @param[in] busAttachment bus attachment
  * @param[in] objPath the object path including the interface
- * @param[in] onOff Current on/off state of the appliance
+ * @param[in] isOn Current on/off state of the appliance
  * @return AJ_OK on success
  */
-AJ_Status Cdm_OnOffStatusInterfaceSetOnOff(AJ_BusAttachment* busAttachment, const char* objPath, const bool onOff);
+AJ_Status Cdm_OnOffStatusInterfaceSetIsOn(AJ_BusAttachment* busAttachment, const char* objPath, const bool isOn);
 
 #endif /* ONOFFSTATUS_H_ */

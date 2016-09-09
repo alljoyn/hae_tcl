@@ -996,11 +996,11 @@ AJ_Status OnSwitchOn(const char* objPath, ErrorCode* errorCode)
 }
 
 //OnOffStatus
-AJ_Status OnGetOnOff(const char* objPath, bool* onOff)
+AJ_Status OnGetIsOn(const char* objPath, bool* isOn)
 {
-    printf("OnGetOnOff : %s\n", objPath);
+    printf("OnGetIsOn : %s\n", objPath);
 
-    *onOff = true;
+    *isOn = true;
 
     return AJ_OK;
 }
@@ -2120,8 +2120,8 @@ AJ_Status InitCdmProperties(AJ_BusAttachment* busAttachment)
     status = Cdm_FanSpeedLevelInterfaceGetAutoMode(CDM_OBJECT_PATH_CONTROLLEE, &autoModeRead);
     printf("AutoMode Read : %u\n", autoModeRead);
 
-    status = Cdm_OnOffStatusInterfaceSetOnOff(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
-    status = Cdm_OnOffStatusInterfaceGetOnOff(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
+    status = Cdm_OnOffStatusInterfaceSetIsOn(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
+    status = Cdm_OnOffStatusInterfaceGetIsOn(CDM_OBJECT_PATH_CONTROLLEE, &boolRead);
     printf("OnOff Read : %d\n", boolRead);
 
     status = Cdm_RepeatModeInterfaceSetRepeatMode(busAttachment, CDM_OBJECT_PATH_CONTROLLEE, true);
@@ -2589,8 +2589,8 @@ int AJ_Main(void)
     onControlListener.OnSwitchOn = OnSwitchOn;
     status = Cdm_CreateInterface(ON_CONTROL_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &onControlListener);
 
-    onOffStatusListener.OnGetOnOff = NULL;
-    //onOffStatusListener.OnGetOnOff = OnGetOnOff;
+    onOffStatusListener.OnGetIsOn = NULL;
+    //onOffStatusListener.OnGetIsOn = OnGetIsOn;
     status = Cdm_CreateInterface(ON_OFF_STATUS_INTERFACE, CDM_OBJECT_PATH_CONTROLLEE, &onOffStatusListener);
 
     rapidModeListener.OnGetRapidMode = NULL;
